@@ -8,7 +8,7 @@
 
 ```bash
 # Cloner le projet
-git clone https://github.com/VOTRE_USERNAME/suprss.git
+git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
 # Lancer avec Docker
