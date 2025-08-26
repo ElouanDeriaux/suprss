@@ -1,0 +1,13 @@
+# Dockerfile pour le client web (Nginx)
+FROM nginx:alpine
+
+# Copier les fichiers du frontend
+COPY simple-frontend/ /usr/share/nginx/html/
+
+# Créer une configuration Nginx personnalisée
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Exposer le port 80
+EXPOSE 80
+
+# Nginx démarre automatiquement avec l'image de base

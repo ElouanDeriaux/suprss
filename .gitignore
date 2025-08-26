@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Base de données
+*.db
+*.sqlite3
+suprss.db/
+
+# Uploads et fichiers temporaires  
+uploads/
+*.log
+*.tmp
+*.temp
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de développement
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Fichiers personnels (à garder local)
+"Dernière Save tchat Claud.txt"
+message\ de\ log.txt
+
+# Variables d'environnement sensibles (si .env existe)
+.env
+
+# Cache
+.pytest_cache/
+.coverage
+htmlcov/

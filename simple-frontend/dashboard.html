@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS - Tableau de bord</title>
+  
+  <!-- Empêcher la bannière "ouvrir dans l'application" -->
+  <meta name="mobile-web-app-capable" content="no" />
+  <meta name="apple-mobile-web-app-capable" content="no" />
+  <meta name="apple-itunes-app" content="" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link rel="icon" href="favicon.ico" />
+  <script src="theme-minimal.js"></script>
+  <script defer src="dashboard.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen relative transition-colors">
+  <script>
+    (function () {
+      const url = new URL(window.location.href);
+      const tokenFromUrl = url.searchParams.get("token");
+      if (tokenFromUrl) {
+        localStorage.setItem("token", tokenFromUrl);
+        url.searchParams.delete("token");
+        window.history.replaceState({}, "", url.toString());
+      }
+      if (!localStorage.getItem("token")) {
+        window.location.href = "index.html";
+      }
+    })();
+  </script>
+
+  <!-- Barre utilisateur -->
+  <div id="user-menu"
+       class="fixed top-4 right-4 bg-white dark:bg-gray-800 shadow rounded px-4 py-2 flex items-center gap-4 hidden z-50 transition-colors">
+    <span id="username-display" class="font-semibold text-gray-800 dark:text-gray-200">Chargement...</span>
+
+    <!-- Bouton Archive -->
+    <a href="archive.html"
+       class="inline-flex items-center gap-2 text-violet-700 hover:text-violet-900 font-medium"
+       title="Ouvrir les archives">
+      <span aria-hidden="true">🗃️</span>
+      <span>Archives</span>
+    </a>
+
+    <!-- Bouton Favoris -->
+    <a href="favorites.html"
+       class="inline-flex items-center gap-2 text-yellow-700 hover:text-yellow-900 font-medium"
+       title="Voir mes favoris">
+      <span aria-hidden="true">⭐</span>
+      <span>Favoris</span>
+    </a>
+
+
+    <a href="settings.html" class="text-blue-600 hover:underline text-sm">
+      ⚙️ Paramètres
+    </a>
+    <button onclick="logout()" class="text-red-600 hover:underline text-sm">Se déconnecter</button>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-8 text-gray-900 dark:text-gray-100">Bienvenue !</h1>
+
+    <!-- COLLECTIONS -->
+    <section class="mb-12">
+      <!-- Onglets -->
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex border-b">
+          <button id="tab-my-collections" class="px-4 py-2 border-b-2 border-blue-600 text-blue-600 font-medium">
+            Mes collections
+          </button>
+          <button id="tab-shared-collections" class="px-4 py-2 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+            Collections partagées <span id="shared-count" class="ml-1 bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs"></span>
+          </button>
+        </div>
+        <form id="create-collection-form" class="flex items-center gap-2">
+          <input id="new-collection-name" type="text" placeholder="Nom de la collection"
+                 class="border rounded px-3 py-2 w-64" required />
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Créer</button>
+        </form>
+      </div>
+
+      <!-- Mes collections -->
+      <div id="my-collections-content">
+        <div id="collections-list" class="flex flex-wrap gap-2"></div>
+        <p id="collections-empty" class="text-gray-500 mt-3 hidden">
+          Aucune collection pour l'instant. Créez-en une ci-dessus. ✨
+        </p>
+      </div>
+
+      <!-- Collections partagées -->
+      <div id="shared-collections-content" class="hidden">
+        <div id="shared-collections-list" class="flex flex-wrap gap-2"></div>
+        <p id="shared-collections-empty" class="text-gray-500 mt-3 hidden">
+          Aucune collection partagée. Demandez à quelqu'un de vous inviter ! 👥
+        </p>
+      </div>
+    </section>
+
+    <!-- FEEDS de la collection active -->
+    <section>
+      <div class="flex items-center justify-between gap-4 mb-2 flex-wrap">
+        <h2 class="text-xl font-semibold flex items-center gap-2 text-gray-900 dark:text-gray-200">
+          Flux de la collection : <span id="active-collection-name" class="font-bold text-gray-900 dark:text-white">—</span>
+          <span id="user-role-badge" class="text-xs px-2 py-1 rounded-full hidden"></span>
+        </h2>
+
+        <form id="create-feed-form" class="flex items-center gap-2">
+          <input id="feed-title" type="text" placeholder="Titre du flux"
+                 class="border rounded px-3 py-2 w-44" required />
+          <input id="feed-url" type="url" placeholder="URL du flux RSS"
+                 class="border rounded px-3 py-2 w-80" required />
+          <input id="feed-description" type="text" placeholder="Description (facultatif)"
+                 class="border rounded px-3 py-2 w-64" />
+          <button type="submit"
+                  class="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 disabled:opacity-50"
+                  disabled>
+            + Ajouter
+          </button>
+        </form>
+      </div>
+
+      <!-- Bouton “Tout rafraîchir” juste sous le formulaire -->
+      <div class="flex items-center justify-between mt-2">
+        <button id="refresh-collection-btn"
+                class="inline-flex items-center gap-2 bg-indigo-600 text-white px-3 py-2 rounded hover:bg-indigo-700 disabled:opacity-50">
+          <span aria-hidden="true">🔄</span>
+          Tout rafraîchir
+        </button>
+        <span id="unread-counter" class="text-sm text-gray-600"></span>
+      </div>
+
+      <p id="status" class="text-gray-700 dark:text-gray-300 mt-3">Sélectionnez une collection pour voir ses flux.</p>
+
+      <div id="feed-container" class="grid gap-4 grid-cols-1 sm:grid-cols-2 mt-6"></div>
+      <p id="feeds-empty" class="text-gray-500 mt-3 hidden">
+        Aucun flux dans cette collection. Ajoutez-en avec le formulaire ci-dessus.
+      </p>
+    </section>
+  </main>
+
+  <!-- Modale import OPML -->
+  <div id="import-modal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded shadow w-full max-w-md">
+      <h2 class="text-lg font-semibold mb-4">Importer des flux OPML</h2>
+      <p class="text-sm text-gray-600 mb-4">
+        Sélectionnez un fichier OPML contenant vos flux RSS. Les collections et flux seront automatiquement créés.
+      </p>
+      
+      <input id="opml-file" type="file" accept=".opml,.xml" 
+             class="border px-3 py-2 w-full rounded mb-3" />
+      
+      <div id="import-feedback" class="text-sm mb-3"></div>
+      
+      <div class="flex justify-end gap-2">
+        <button onclick="closeImportDialog()" class="text-gray-600 hover:underline">Annuler</button>
+        <button id="btn-import-opml"
+                onclick="submitOPMLImport()"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+                disabled>
+          Importer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2">
+    <!-- Les toasts seront ajoutés ici dynamiquement -->
+  </div>
+
+  <!-- Indicateur de connexion -->
+  <div id="connection-status" class="fixed bottom-4 left-4 z-50 hidden">
+    <div class="bg-red-500 text-white px-3 py-2 rounded-full text-sm flex items-center gap-2">
+      <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+      Connexion interrompue
+    </div>
+  </div>
+</body>
+</html>

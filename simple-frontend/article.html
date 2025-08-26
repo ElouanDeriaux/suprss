@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Article</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="article.js"></script>
+  <link rel="icon" href="favicon.ico">
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <main class="max-w-3xl mx-auto px-4 py-10">
+    <div class="bg-white p-6 rounded shadow">
+      <a href="javascript:history.back()" class="text-sm text-blue-600">&larr; Retour</a>
+      <h1 id="title" class="text-2xl font-bold mt-2 mb-3">Titre</h1>
+      <div id="video" class="mb-3"></div>
+      <p id="content" class="text-gray-800 whitespace-pre-line mb-4"></p>
+      <a id="source" href="#" target="_blank" class="text-blue-600">Ouvrir la source</a>
+      <div class="mt-6">
+        <button id="toggle-read" class="text-sm px-3 py-2 rounded border">Marquer comme lu</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

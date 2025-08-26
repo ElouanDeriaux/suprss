@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS – Connexion en cours…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="favicon.ico" />
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+  <div class="bg-white rounded-2xl shadow-lg p-10 w-full max-w-md text-center">
+    <div id="brand" class="mx-auto mb-6"></div>
+    <h1 class="text-xl font-semibold mb-2">Connexion en cours…</h1>
+    <p class="text-gray-600 mb-6">Vous allez être redirigé vers votre tableau de bord.</p>
+    <div class="animate-pulse text-5xl">⏳</div>
+  </div>
+
+  <script>
+    (function(){
+      const url = new URL(window.location.href);
+      const token = url.searchParams.get("token");
+      const provider = (url.searchParams.get("provider") || "").toLowerCase();
+
+      const brand = document.getElementById("brand");
+      if(provider === "google"){
+        brand.innerHTML = `
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full border">
+            <img alt="Google" src="https://www.google.com/favicon.ico" class="w-8 h-8" />
+          </div>`;
+      } else if (provider === "github"){
+        brand.innerHTML = `
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full border">
+            <svg viewBox="0 0 16 16" width="36" height="36"><path fill="currentColor"
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 
+              7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.49
+              -2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63
+              -.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51
+              -1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2
+              -.36-1.01.08-2.1 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 
+              3.47c.68.003 1.36.092 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 
+              1.09.16 1.9.08 2.1.51.56.82 1.27.82 2.15 0 3.07-1.87 
+              3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 
+              2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </div>`;
+      } else {
+        brand.innerHTML = `<div class="inline-flex items-center justify-center w-16 h-16 rounded-full border">🔒</div>`;
+      }
+
+      if (token) {
+        localStorage.setItem("token", token);
+        setTimeout(()=> window.location.href = "dashboard.html", 700);
+      }
+    })();
+  </script>
+</body>
+</html>

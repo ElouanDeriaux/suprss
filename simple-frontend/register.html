@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS – Créer un compte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link rel="icon" href="favicon.ico" />
+  <script src="theme-minimal.js"></script>
+  <script defer src="register.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4 transition-colors">
+  <main class="w-full max-w-xl">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Créer un compte</h1>
+      <div class="flex items-center gap-3">
+        <div id="theme-button-container"></div>
+        <a href="index.html"
+           class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors">
+          <span>Se connecter</span>
+        </a>
+      </div>
+    </div>
+
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 transition-colors">
+      <form id="register-form" class="space-y-4" novalidate>
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">Pseudo</label>
+          <input id="reg-username" type="text" required class="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                 placeholder="Votre pseudo" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">Email</label>
+          <input id="reg-email" type="email" required class="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                 placeholder="vous@exemple.com" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1 text-gray-900 dark:text-white">Mot de passe</label>
+          <input id="reg-password" type="password" required class="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                 placeholder="••••••••" />
+          <div id="pwd-hints" class="mt-2 text-sm"></div>
+        </div>
+
+        <button id="register-submit" type="submit"
+                class="w-full bg-emerald-600 text-white rounded px-4 py-2 hover:bg-emerald-700 disabled:opacity-50">
+          Créer le compte
+        </button>
+
+        <p id="register-error" class="text-sm text-red-600"></p>
+        <p id="register-success" class="text-sm text-emerald-700"></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS - Article archivé</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="archive_view.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <a href="archive.html" class="text-sm text-blue-600 hover:underline">← Retour à l’archive</a>
+
+    <h1 id="title" class="text-2xl font-bold mt-3 mb-2">Titre</h1>
+    <div class="flex items-center gap-3 mb-4">
+      <div id="meta" class="text-sm text-gray-500"></div>
+      <span id="content-badge" class="hidden px-2 py-1 text-xs rounded-full font-medium"></span>
+    </div>
+
+    <div class="flex gap-2 mb-4">
+      <a id="btnSource" href="#" target="_blank" rel="noreferrer" class="border px-3 py-2 text-sm rounded bg-white">Source</a>
+      <button id="btnPdf" class="border px-3 py-2 text-sm rounded bg-white hover:bg-gray-50">Télécharger</button>
+    </div>
+
+    <article id="content" class="prose max-w-none bg-white rounded shadow p-5">
+      Chargement…
+    </article>
+  </main>
+</body>
+</html>

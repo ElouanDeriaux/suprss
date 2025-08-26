@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS - Mes Favoris</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link rel="icon" href="favicon.ico" />
+  <script src="theme-minimal.js"></script>
+  <script defer src="favorites.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors">
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-4">
+        <a href="dashboard.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+          ← Retour au dashboard
+        </a>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">⭐ Mes Favoris</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <div id="theme-button-container"></div>
+        <div class="text-sm text-gray-600 dark:text-gray-300" id="favorites-count">
+          <!-- Compteur dynamique -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Barre de recherche -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 mb-6 transition-colors">
+      <div class="flex items-center gap-3">
+        <input 
+          id="search-favorites" 
+          type="text" 
+          placeholder="Rechercher dans mes favoris..." 
+          class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <button 
+          id="clear-search" 
+          class="px-4 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 transition-colors"
+          title="Effacer la recherche"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- État vide -->
+    <div id="empty-state" class="hidden text-center py-12">
+      <div class="text-6xl mb-4">📭</div>
+      <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">Aucun favori pour le moment</h2>
+      <p class="text-gray-500 dark:text-gray-400 mb-4">
+        Commencez par marquer des articles comme favoris en cliquant sur ⭐ dans vos flux !
+      </p>
+      <a href="dashboard.html" class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
+        Aller au dashboard
+      </a>
+    </div>
+
+    <!-- État de recherche vide -->
+    <div id="search-empty-state" class="hidden text-center py-12">
+      <div class="text-6xl mb-4">🔍</div>
+      <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2">Aucun résultat</h2>
+      <p class="text-gray-500 dark:text-gray-400">Aucun favori ne correspond à votre recherche.</p>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="text-center py-12">
+      <div class="text-4xl mb-4">⏳</div>
+      <p class="text-gray-600 dark:text-gray-300">Chargement de vos favoris...</p>
+    </div>
+
+    <!-- Liste des favoris -->
+    <div id="favorites-list" class="space-y-4">
+      <!-- Articles favoris seront ajoutés ici dynamiquement -->
+    </div>
+
+    <!-- Bouton "Charger plus" -->
+    <div class="flex justify-center mt-8">
+      <button 
+        id="load-more" 
+        class="hidden px-6 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 transition-colors"
+      >
+        Charger plus de favoris
+      </button>
+    </div>
+  </main>
+
+  <!-- Toast notifications -->
+  <div id="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black/80 text-white text-sm px-4 py-2 rounded hidden z-50">
+  </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+services:
+  # Base de données PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: suprss_db
+    restart: always
+    environment:
+      POSTGRES_USER: suprss_user
+      POSTGRES_PASSWORD: suprss_pass
+      POSTGRES_DB: suprss_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U suprss_user -d suprss_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - suprss_network
+
+  # Serveur API FastAPI
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: suprss_backend
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://suprss_user:suprss_pass@db:5432/suprss_db
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:80
+      - SECRET_KEY=e7aab5f2a0e34f5cbca29a546fb6c318dcf47cfe97de2f739c6d6fd184d6b244
+      - GOOGLE_CLIENT_ID=390580099992-r9fvu9pophkqg534rsjtbj6bo398g3or.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - SMTP_SERVER=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USERNAME=authsuprss@gmail.com
+      - SMTP_PASSWORD=ivrt grmj xaix ykmv
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+      - ./suprss.db:/app/suprss.db  # Fallback SQLite si PostgreSQL échoue
+    networks:
+      - suprss_network
+
+  # Client Web (Nginx servant les fichiers statiques)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: suprss_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - suprss_network
+    environment:
+      - API_URL=http://localhost:8000
+
+# Volumes persistants
+volumes:
+  postgres_data:
+    driver: local
+
+# Réseau pour la communication inter-services
+networks:
+  suprss_network:
+    driver: bridge

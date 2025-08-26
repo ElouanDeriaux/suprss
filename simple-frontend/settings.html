@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SUPRSS - Paramètres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Empêcher la bannière "ouvrir dans l'application" -->
+  <meta name="mobile-web-app-capable" content="no" />
+  <meta name="apple-mobile-web-app-capable" content="no" />
+  <meta name="apple-itunes-app" content="" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link rel="icon" href="favicon.ico" />
+  <script src="theme.js"></script>
+  <script defer src="settings.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors">
+  <script>
+    if (!localStorage.getItem("token")) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- Header -->
+  <div class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="dashboard.html" class="text-blue-600 hover:text-blue-800 font-medium">
+            ← Retour au tableau de bord
+          </a>
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">⚙️ Paramètres</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="username-display" class="font-medium text-gray-700 dark:text-gray-300">Chargement...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- Section Profil -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 transition-colors">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">👤 Informations du profil</h2>
+      
+      <!-- Changement nom d'utilisateur -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Nom d'utilisateur</h3>
+        <div class="flex items-center gap-3 mb-2">
+          <input id="profile-username" type="text" 
+                 class="flex-1 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white" />
+          <button id="save-username-btn" 
+                  class="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                  disabled>
+            Sauvegarder
+          </button>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          Minimum 2 caractères, maximum 50 caractères
+        </p>
+      </div>
+
+      <!-- Email (readonly) -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Adresse email</h3>
+        <input id="profile-email" type="email" readonly
+               class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white" />
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          L'email ne peut pas être modifié pour des raisons de sécurité
+        </p>
+      </div>
+    </section>
+
+    <!-- Section Sécurité -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 transition-colors">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">🔐 Sécurité</h2>
+      
+      <!-- Double authentification -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-white">Double authentification (2FA)</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Sécurisez votre compte avec un code par email à chaque connexion
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="2fa-status" class="px-3 py-1 rounded-full text-sm font-medium">Chargement...</span>
+            <button id="toggle-2fa-btn" 
+                    class="px-4 py-2 rounded-lg font-medium transition-colors"
+                    disabled>
+              Chargement...
+            </button>
+          </div>
+        </div>
+        <div id="2fa-email-verification" class="hidden">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            <span id="2fa-verification-message">Un email de vérification va être envoyé</span>
+          </p>
+          <div class="flex items-center gap-3">
+            <input id="2fa-verification-code" type="text" maxlength="6" placeholder="Code à 6 chiffres"
+                   class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white text-center font-mono" />
+            <button id="confirm-2fa-btn" 
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Confirmer
+            </button>
+            <button id="cancel-2fa-btn" 
+                    class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+              Annuler
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Changement de mot de passe -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Changer le mot de passe</h3>
+        <div id="password-change-form" class="hidden">
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nouveau mot de passe</label>
+            <input id="new-password" type="password" 
+                   class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
+                   placeholder="Entrez votre nouveau mot de passe" />
+          </div>
+          
+          <!-- Checklist force du mot de passe -->
+          <div class="mb-4">
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Exigences du mot de passe :</p>
+            <ul id="pwd-checklist" class="text-sm space-y-1">
+              <li data-k="len" class="text-gray-600 dark:text-gray-400">• 8 caractères minimum</li>
+              <li data-k="maj" class="text-gray-600 dark:text-gray-400">• Au moins 1 majuscule</li>
+              <li data-k="min" class="text-gray-600 dark:text-gray-400">• Au moins 1 minuscule</li>
+              <li data-k="num" class="text-gray-600 dark:text-gray-400">• Au moins 1 chiffre</li>
+              <li data-k="spe" class="text-gray-600 dark:text-gray-400">• Au moins 1 caractère spécial</li>
+            </ul>
+          </div>
+          
+          <div id="password-feedback" class="text-sm mb-4"></div>
+          
+          <div class="flex gap-3">
+            <button id="btn-save-password"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+              Enregistrer
+            </button>
+            <button id="btn-cancel-password"
+                    class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+              Annuler
+            </button>
+          </div>
+        </div>
+        
+        <div id="password-change-trigger">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+            Modifiez votre mot de passe (minimum 8 caractères avec majuscule, minuscule, chiffre et symbole)
+          </p>
+          <button id="change-password-btn" 
+                  class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            Changer le mot de passe
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Apparence -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 transition-colors">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">🌓 Apparence</h2>
+      
+      <!-- Choix du thème -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-3">Thème d'affichage</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Choisissez le thème qui vous convient le mieux. Votre préférence sera sauvegardée pour vos prochaines connexions.
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Thème automatique -->
+          <label class="theme-option cursor-pointer relative">
+            <input type="radio" name="theme" value="auto" class="sr-only theme-radio">
+            <div class="theme-card p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
+              <div class="flex items-center justify-center mb-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-gray-800 flex items-center justify-center">
+                  <span class="text-white text-sm">🌓</span>
+                </div>
+              </div>
+              <h4 class="font-medium text-center text-gray-900 dark:text-white">Automatique</h4>
+              <p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-1">Suit les préférences système</p>
+            </div>
+            <div class="theme-check absolute top-2 right-2 w-5 h-5 bg-blue-600 text-white rounded-full flex items-center justify-center hidden">
+              <span class="text-xs">✓</span>
+            </div>
+          </label>
+          
+          <!-- Thème clair -->
+          <label class="theme-option cursor-pointer relative">
+            <input type="radio" name="theme" value="light" class="sr-only theme-radio">
+            <div class="theme-card p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
+              <div class="flex items-center justify-center mb-3">
+                <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center">
+                  <span class="text-white text-sm">☀️</span>
+                </div>
+              </div>
+              <h4 class="font-medium text-center text-gray-900 dark:text-white">Clair</h4>
+              <p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-1">Fond blanc et texte sombre</p>
+            </div>
+            <div class="theme-check absolute top-2 right-2 w-5 h-5 bg-blue-600 text-white rounded-full flex items-center justify-center hidden">
+              <span class="text-xs">✓</span>
+            </div>
+          </label>
+          
+          <!-- Thème sombre -->
+          <label class="theme-option cursor-pointer relative">
+            <input type="radio" name="theme" value="dark" class="sr-only theme-radio">
+            <div class="theme-card p-4 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-colors">
+              <div class="flex items-center justify-center mb-3">
+                <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
+                  <span class="text-white text-sm">🌙</span>
+                </div>
+              </div>
+              <h4 class="font-medium text-center text-gray-900 dark:text-white">Sombre</h4>
+              <p class="text-xs text-center text-gray-500 dark:text-gray-400 mt-1">Fond sombre et texte clair</p>
+            </div>
+            <div class="theme-check absolute top-2 right-2 w-5 h-5 bg-blue-600 text-white rounded-full flex items-center justify-center hidden">
+              <span class="text-xs">✓</span>
+            </div>
+          </label>
+        </div>
+        
+        <div id="theme-feedback" class="text-sm mt-3"></div>
+      </div>
+    </section>
+
+    <!-- Section Données -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 transition-colors">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">📂 Gestion des données</h2>
+      
+      <!-- Export OPML -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Exporter vos flux</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Téléchargez un fichier OPML contenant tous vos flux RSS pour les sauvegarder ou les importer dans d'autres lecteurs.
+        </p>
+        <button id="export-opml-btn" 
+                class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+          <span aria-hidden="true">💾</span>
+          Exporter en OPML
+        </button>
+      </div>
+
+      <!-- Import OPML -->
+      <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Importer des flux</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          Importez un fichier OPML contenant des flux RSS. Les collections et flux seront automatiquement créés.
+        </p>
+        <button id="import-opml-btn" 
+                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          <span aria-hidden="true">📁</span>
+          Importer OPML
+        </button>
+      </div>
+    </section>
+
+    <!-- Section Compte -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 mb-8 transition-colors">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">⚠️ Zone dangereuse</h2>
+      
+      <div class="border border-red-200 dark:border-red-800 rounded-lg p-4 bg-red-50 dark:bg-red-900/20">
+        <h3 class="font-semibold text-red-900 dark:text-red-200 mb-2">Supprimer le compte</h3>
+        <p class="text-sm text-red-700 dark:text-red-300 mb-3">
+          Cette action est irréversible et supprimera définitivement toutes vos données.
+        </p>
+        <button id="delete-account-btn" 
+                class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+          Supprimer mon compte
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Messages toast -->
+  <div id="toast" class="fixed bottom-4 right-4 hidden">
+    <div id="toast-content" class="px-6 py-3 rounded-lg shadow-lg text-white font-medium"></div>
+  </div>
+
+  <!-- Modal de confirmation -->
+  <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-6 max-w-md w-full mx-4">
+      <h3 id="modal-title" class="text-lg font-bold mb-2 text-gray-900 dark:text-white">Confirmation</h3>
+      <p id="modal-message" class="text-gray-600 dark:text-gray-400 mb-6">Êtes-vous sûr ?</p>
+      <div class="flex gap-3 justify-end">
+        <button id="modal-cancel" class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+          Annuler
+        </button>
+        <button id="modal-confirm" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+          Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale import OPML -->
+  <div id="import-modal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-xl w-full max-w-md mx-4">
+      <h2 class="text-lg font-bold mb-4 text-gray-900 dark:text-white">Importer des flux OPML</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        Sélectionnez un fichier OPML contenant vos flux RSS. Les collections et flux seront automatiquement créés.
+      </p>
+      
+      <input id="opml-file" type="file" accept=".opml,.xml" 
+             class="border border-gray-300 dark:border-gray-600 px-3 py-2 w-full rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-3" />
+      
+      <div id="import-feedback" class="text-sm mb-3"></div>
+      
+      <div class="flex justify-end gap-2">
+        <button id="cancel-import-btn" 
+                class="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+          Annuler
+        </button>
+        <button id="confirm-import-btn"
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                disabled>
+          Importer
+        </button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
