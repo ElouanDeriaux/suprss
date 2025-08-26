@@ -18,17 +18,43 @@
 - **Espace disque** : 1 Go minimum
 
 ### Variables d'environnement nécessaires
-| Variable | Description | Valeur par défaut | Obligatoire |
+| Variable | Description | Comment l'obtenir | Obligatoire |
 |----------|-------------|-------------------|-------------|
-| `SECRET_KEY` | Clé secrète JWT (32+ caractères) | development-key-... | ✅ |
-| `GOOGLE_CLIENT_ID` | ID client OAuth Google | - | ❌ |
-| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | - | ❌ |
-| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | - | ❌ |
-| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | - | ❌ |
-| `SMTP_SERVER` | Serveur SMTP | smtp.gmail.com | ❌ |
-| `SMTP_PORT` | Port SMTP | 587 | ❌ |
-| `SMTP_USERNAME` | Utilisateur SMTP | - | ❌ |
-| `SMTP_PASSWORD` | Mot de passe SMTP | - | ❌ |
+| `SECRET_KEY` | Clé secrète JWT (32+ caractères) | Générer avec `openssl rand -hex 32` ou tout générateur de clés | ✅ |
+| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Console Google Cloud → APIs & Services → Credentials | ❌ |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Console Google Cloud → APIs & Services → Credentials | ❌ |
+| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ❌ |
+| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ❌ |
+| `SMTP_SERVER` | Serveur SMTP | smtp.gmail.com ou serveur de votre fournisseur email | ❌ |
+| `SMTP_PORT` | Port SMTP | 587 (TLS) ou 465 (SSL) selon le serveur | ❌ |
+| `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ❌ |
+| `SMTP_PASSWORD` | Mot de passe SMTP | Mot de passe d'application (Gmail) ou mot de passe email | ❌ |
+
+#### Guide détaillé pour obtenir les clés OAuth :
+
+**Google OAuth :**
+1. Aller sur https://console.cloud.google.com
+2. Créer un nouveau projet ou sélectionner un existant
+3. Activer l'API Google+ 
+4. Aller dans "APIs & Services" → "Credentials"
+5. Cliquer "Create Credentials" → "OAuth client ID"
+6. Choisir "Web application"
+7. Ajouter `http://localhost:3000` dans "Authorized origins"
+8. Ajouter `http://localhost:8000/auth/google/callback` dans "Authorized redirect URIs"
+
+**GitHub OAuth :**
+1. Aller sur https://github.com/settings/developers
+2. Cliquer "New OAuth App"
+3. Remplir :
+   - Application name: "SUPRSS"
+   - Homepage URL: http://localhost:3000
+   - Authorization callback URL: http://localhost:8000/auth/github/callback
+
+**Configuration SMTP Gmail :**
+1. Activer la 2FA sur votre compte Google
+2. Aller dans "Sécurité" → "Mots de passe d'application"
+3. Générer un mot de passe d'application pour "Mail"
+4. Utiliser ce mot de passe (16 caractères) dans `SMTP_PASSWORD`
 
 ---
 
@@ -296,7 +322,3 @@ CREATE INDEX idx_collection_messages_collection ON collection_messages(collectio
 - **JWT** : Expiration configurée, algorithme HS256
 - **Mots de passe** : Hachage bcrypt avec salt
 - **Variables d'environnement** : Secrets externalisés
-
----
-
-*Documentation générée automatiquement - Version 1.0*

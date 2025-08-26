@@ -146,14 +146,16 @@ python -m http.server 3000
 ### Variables d'Environnement
 Copiez `.env.example` vers `.env` et configurez :
 
-| Variable | Description | Obligatoire |
-|----------|-------------|-------------|
-| `SECRET_KEY` | Clé secrète pour JWT | ✅ |
-| `GOOGLE_CLIENT_ID` | ID client OAuth Google | ⚪ |
-| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | ⚪ |
-| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | ⚪ |
-| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | ⚪ |
-| `SMTP_*` | Configuration email pour 2FA | ⚪ |
+| Variable | Description | Comment l'obtenir | Obligatoire |
+|----------|-------------|-------------------|-------------|
+| `SECRET_KEY` | Clé secrète pour JWT | `openssl rand -hex 32` | ✅ |
+| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Google Cloud Console | ⚪ |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Google Cloud Console | ⚪ |
+| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Developer Settings | ⚪ |
+| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ |
+| `SMTP_*` | Configuration email pour 2FA | Fournisseur email (Gmail, etc.) | ⚪ |
+
+**Note :** Consultez `DOCUMENTATION_TECHNIQUE.md` pour un guide détaillé d'obtention des clés OAuth et SMTP.
 
 ### Base de Données
 - **SQLite** (défaut) : Base intégrée `suprss.db`
