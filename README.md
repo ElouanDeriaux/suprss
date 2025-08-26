@@ -1,122 +1,225 @@
-# SUPRSS - Lecteur de flux RSS
+# SUPRSS
 
-**Projet individuel** - Lecteur et gestionnaire de flux RSS complet avec collections partagées et messagerie.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Docker](https://img.shields.io/badge/docker-ready-brightgreen.svg)
+![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
 
-## 🚀 Démarrage rapide
+**SUPRSS** est une application web moderne de gestion de flux RSS, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes.
 
-### Avec Docker (Recommandé)
+## ✨ Fonctionnalités
+
+### 🔐 Authentification Sécurisée
+- **Inscription/Connexion** avec validation de mot de passe renforcée
+- **OAuth2** : Intégration Google et GitHub
+- **Authentification 2FA** avec vérification par email
+- **JWT** pour la gestion sécurisée des sessions
+
+### 📚 Gestion Avancée des Collections
+- **Collections personnelles** pour organiser vos flux
+- **Collections partagées** avec système de permissions (propriétaire, éditeur, lecteur)
+- **Invitations** et gestion collaborative des membres
+- **Indicateurs visuels** des messages non lus par collection
+
+### 🌐 Flux RSS Intelligents
+- **Ajout de flux** avec validation automatique
+- **Actualisation programmée** toutes les 10 minutes avec cache ETag/If-Modified-Since
+- **Flux suggérés** : Collection curatée de sources populaires (Le Monde, Hacker News, TechCrunch, etc.)
+- **Détection automatique** des doublons d'articles
+
+### 📖 Expérience de Lecture Optimisée
+- **Lecteur intégré** avec contenu nettoyé et lisible
+- **Mode sombre/clair** avec persistance des préférences
+- **Gestion lu/non-lu** avec suivi par utilisateur
+- **Système de favoris** pour marquer les articles importants
+
+### 💬 Communication Collaborative
+- **Messagerie instantanée** dans les collections partagées
+- **Commentaires spécifiques** par article
+- **Notifications visuelles** des messages non lus
+- **Système de lecture** avec flags personnalisés
+
+### 🗄️ Archivage et Sauvegarde
+- **Archivage permanent** des articles avec contenu complet
+- **Téléchargement** des archives (formats TXT/HTML)
+- **Conservation** du contenu original même après suppression de la source
+- **Gestion centralisée** des archives par utilisateur
+
+### 🔍 Recherche et Filtrage
+- **Recherche plein texte** dans tous les articles
+- **Filtres multiples** : collection, statut (lu/non-lu), favoris, source
+- **Interface responsive** adaptée mobile et desktop
+- **Tri chronologique** avec pagination intelligente
+
+### 📦 Import/Export de Données
+- **Export OPML** de toutes vos collections et flux
+- **Import OPML** avec création automatique des collections
+- **Gestion des doublons** lors de l'import
+- **Compatibilité** avec les readers RSS standard
+
+## 🏗️ Architecture Technique
+
+### Backend (Python/FastAPI)
+```
+├── main.py              # Application FastAPI principale avec tous les endpoints
+├── models.py            # Modèles SQLModel (User, Collection, Feed, Article, etc.)
+├── auth.py              # Authentification JWT et middleware
+├── oauth.py             # Configuration OAuth2 (Google, GitHub)
+├── database.py          # Configuration base de données et migrations
+├── email_service.py     # Service d'envoi d'emails pour 2FA
+└── utils.py             # Utilitaires (hachage bcrypt, etc.)
+```
+
+### Frontend (Vanilla JavaScript)
+```
+simple-frontend/
+├── index.html           # Page de connexion
+├── dashboard.html       # Interface principale de gestion
+├── flux.html            # Visualisation des flux et articles
+├── archive.html         # Gestion des archives
+├── settings.html        # Paramètres utilisateur
+├── theme.js             # Système de thème global
+└── *.js                 # Logique métier par page
+```
+
+### Base de Données (SQLite/PostgreSQL)
+- **Utilisateurs** avec authentification OAuth et 2FA
+- **Collections** avec permissions et partage
+- **Flux RSS** avec cache et métadonnées
+- **Articles** avec contenu complet et flags de lecture
+- **Messagerie** avec système de lecture par utilisateur
+- **Archives** avec contenu permanent
+
+## 🚀 Installation et Déploiement
+
+### Prérequis
+- [Docker](https://www.docker.com/) et Docker Compose
+- [Git](https://git-scm.com/) pour le clonage
+- Ports 3000 (frontend) et 8000 (backend) disponibles
+
+### Démarrage Rapide
 
 ```bash
-# Cloner le projet
+# 1. Cloner le projet
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
-# Lancer avec Docker
-./start.sh        # Linux/Mac
-start.bat         # Windows
+# 2. Configuration (optionnel pour les fonctionnalités OAuth)
+cp .env.example .env
+# Éditez .env avec vos clés OAuth si nécessaire
 
-# L'application sera accessible sur :
-# Frontend: http://localhost:3000
-# Backend API: http://localhost:8000
+# 3. Lancement avec Docker
+# Linux/Mac
+./start.sh
+
+# Windows
+start.bat
+
+# Ou manuellement
+docker-compose up --build -d
 ```
 
-### Installation manuelle
+L'application sera accessible sur :
+- **Frontend** : http://localhost:3000
+- **API** : http://localhost:8000
+- **API Documentation** : http://localhost:8000/docs
+
+### Installation Manuelle (Développement)
 
 ```bash
-# Backend Python
-pip install -r requirements.txt
+# Backend
+pip install fastapi sqlmodel uvicorn bcrypt python-jose[cryptography] feedparser requests apscheduler bleach python-dotenv authlib httpx
+
+# Base de données
+# SQLite (par défaut) : Aucune configuration requise
+# PostgreSQL : Décommentez la section dans docker-compose.yml
+
+# Lancement backend
 uvicorn main:app --reload --port 8000
 
-# Frontend (autre terminal)
+# Frontend (terminal séparé)
 cd simple-frontend
 python -m http.server 3000
 ```
 
-## 📋 Fonctionnalités implémentées
+## ⚙️ Configuration
 
-### ✅ Authentification (30 points)
-- [x] Connexion standard (email/mot de passe)
-- [x] OAuth2 (Google + GitHub)
-- [x] Système de vérification 2FA
+### Variables d'Environnement
+Copiez `.env.example` vers `.env` et configurez :
 
-### ✅ Collections et flux (70 points)  
-- [x] Création de collections
-- [x] Ajout/suppression de flux RSS
-- [x] Collections partagées avec permissions (créateur, éditeur, lecteur)
-- [x] Gestion des membres et invitations
-- [x] Actualisation automatique des flux
+| Variable | Description | Obligatoire |
+|----------|-------------|-------------|
+| `SECRET_KEY` | Clé secrète pour JWT | ✅ |
+| `GOOGLE_CLIENT_ID` | ID client OAuth Google | ⚪ |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | ⚪ |
+| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | ⚪ |
+| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | ⚪ |
+| `SMTP_*` | Configuration email pour 2FA | ⚪ |
 
-### ✅ Gestion des articles (40 points)
-- [x] Affichage des articles (titre, date, auteur, extrait)
-- [x] Marquer comme lu/non-lu
-- [x] Système de favoris ⭐
-- [x] Archive permanente des articles
-- [x] Lecteur intégré avec contenu nettoyé
+### Base de Données
+- **SQLite** (défaut) : Base intégrée `suprss.db`
+- **PostgreSQL** : Configuré via Docker Compose
 
-### ✅ Messagerie et commentaires (40 points)
-- [x] Chat en temps réel dans les collections partagées
-- [x] Commentaires spécifiques par article  
-- [x] Système de lecture/non-lu des messages
-- [x] Notifications visuelles
+## 📊 Performances et Sécurité
 
-### ✅ Filtrage et recherche (40 points)
-- [x] Recherche plein texte
-- [x] Filtrage par collection
-- [x] Filtrage par statut (lu/non-lu)
-- [x] Filtrage par favoris
-- [x] Tri par date
+### Optimisations
+- **Cache RSS** avec ETag/If-Modified-Since
+- **Sanitisation HTML** avec bleach pour la sécurité
+- **Pagination** automatique pour les gros volumes
+- **Index de base de données** optimisés
 
-### ✅ Import/Export (30 points)
-- [x] Export OPML complet
-- [x] Import OPML avec gestion des collections
+### Sécurité
+- **Mots de passe** hachés avec bcrypt
+- **Validation** stricte des entrées utilisateur
+- **CORS** configuré pour la production
+- **Tokens JWT** avec expiration
+- **Authentification 2FA** optionnelle
 
-### ✅ Interface utilisateur (20 points)
-- [x] Design responsive avec Tailwind CSS
-- [x] Mode sombre complet
-- [x] Notifications toast
-- [x] Interface intuitive et moderne
+## 🤝 Utilisation
 
-### ✅ Déploiement (50 points)
-- [x] Architecture 3-tiers (DB/API/Frontend)
-- [x] Containérisation Docker complète
-- [x] PostgreSQL + SQLite fallback
-- [x] Scripts de démarrage automatisés
+### Démarrage Rapide
+1. **Inscrivez-vous** avec email/mot de passe ou OAuth
+2. **Créez une collection** pour organiser vos flux
+3. **Ajoutez des flux** depuis les suggestions ou manuellement
+4. **Explorez** vos articles dans l'interface de lecture
+5. **Partagez** vos collections avec d'autres utilisateurs
 
-## 🛠 Architecture technique
+### Fonctionnalités Avancées
+- **Collections partagées** : Invitez des collaborateurs
+- **Archives** : Sauvegardez définitivement vos articles importants  
+- **Import/Export** : Migrez depuis/vers d'autres lecteurs RSS
+- **Messagerie** : Discutez des articles en équipe
 
-- **Backend**: FastAPI + SQLModel + SQLite/PostgreSQL
-- **Frontend**: Vanilla HTML/CSS/JS + Tailwind CSS
-- **Base de données**: PostgreSQL (production) / SQLite (développement)
-- **Authentification**: JWT + OAuth2 (Google/GitHub)
-- **Containerisation**: Docker + Docker Compose
+## 🛠️ Développement
 
-## 📁 Structure du projet
+### Stack Technologique
+- **Backend** : FastAPI, SQLModel, Pydantic
+- **Frontend** : Vanilla JavaScript, Tailwind CSS
+- **Base de données** : SQLite/PostgreSQL
+- **Conteneurisation** : Docker, Docker Compose
+- **Authentication** : JWT, OAuth2, bcrypt
 
-```
-suprss/
-├── main.py              # API FastAPI principale
-├── models.py            # Modèles de données SQLModel  
-├── auth.py              # Authentification JWT
-├── oauth.py             # Configuration OAuth2
-├── database.py          # Configuration base de données
-├── simple-frontend/     # Interface utilisateur
-├── docker-compose.yml   # Configuration Docker
-└── requirements.txt     # Dépendances Python
-```
+### Architecture
+L'application suit une architecture 3-tiers stricte :
+- **Présentation** : Interface JavaScript pure (pas de frameworks)
+- **Logique métier** : API REST FastAPI avec validation Pydantic
+- **Données** : SQLModel avec support multi-base
 
-## 🧪 Comptes de test
+### Tests et Qualité
+- Validation automatique des flux RSS
+- Gestion d'erreurs robuste avec logs détaillés
+- Code modulaire et documenté
+- Respect des standards REST
 
-- **Admin**: `admin@test.com` / `password123`
-- **User**: `user@test.com` / `password123`
+## 📄 Licence
 
-## 📊 Score estimé
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-- **Fonctionnalités**: 175/190 points
-- **Qualité du code**: 175/190 points  
-- **Déploiement**: 50/50 points
-- **Interface**: 20/20 points
-- **Total**: ~420/500 points + bonus
+## 👨‍💻 Auteur
+
+**Elouan Deriaux**
+- GitHub: [@ElouanDeriaux](https://github.com/ElouanDeriaux)
+- Email: elouanderiaux@gmail.com
 
 ---
 
-*Développé avec ❤️ pour le projet SUPRSS*
+*Développé avec ❤️ pour une meilleure expérience de lecture RSS*

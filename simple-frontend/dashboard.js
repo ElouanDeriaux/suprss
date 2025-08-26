@@ -1054,32 +1054,19 @@ function renderSuggestedFeeds() {
   // Ajouter l'event listener une seule fois
   if (!suggestionsEventListenerAdded) {
     container.addEventListener("click", (e) => {
-      console.log("🖱️ Clic détecté:", e.target);
-      
       if (e.target.classList.contains("add-suggested-btn")) {
-        console.log("✅ Bouton add-suggested-btn détecté");
         const feedIndex = parseInt(e.target.dataset.feedIndex);
-        console.log("📊 Feed index:", feedIndex);
         const feed = suggestedFeeds[feedIndex];
-        console.log("📰 Feed data:", feed);
-        
         if (feed) {
           addSuggestedFeed(feed.title, feed.url, feed.description);
-        } else {
-          console.error("❌ Pas de feed trouvé pour l'index:", feedIndex);
         }
-      } else {
-        console.log("❌ Pas un bouton add-suggested-btn, classes:", e.target.classList.toString());
       }
     });
     suggestionsEventListenerAdded = true;
-    console.log("🎯 Event listener ajouté pour les suggestions");
   }
 }
 
 async function addSuggestedFeed(title, url, description) {
-  console.log("🚀 Ajout flux suggéré:", { title, url, description, activeCollectionId });
-  
   if (!activeCollectionId) {
     showToast("⚠️ Sélectionnez d'abord une collection", "warning");
     return;
@@ -1090,8 +1077,6 @@ async function addSuggestedFeed(title, url, description) {
   buttons.forEach(btn => btn.disabled = true);
   
   try {
-    console.log(`📡 Envoi vers: ${API}/feeds/`);
-    
     const res = await fetch(`${API}/feeds/`, {
       method: "POST",
       headers: authHeaders({ "Content-Type": "application/json" }),
@@ -1103,19 +1088,15 @@ async function addSuggestedFeed(title, url, description) {
       })
     });
     
-    console.log(`📊 Réponse serveur:`, res.status);
-    
     if (res.ok) {
       showToast(`✅ Flux "${title}" ajouté avec succès !`, "success");
       await loadFeeds(); // Recharger les flux
     } else {
       const error = await res.text();
-      console.error("❌ Erreur serveur:", error);
-      showToast(`❌ Erreur (${res.status}): ${error}`, "error");
+      showToast(`❌ Erreur lors de l'ajout du flux`, "error");
     }
   } catch (error) {
-    console.error("💥 Erreur réseau:", error);
-    showToast(`❌ Erreur réseau: ${error.message}`, "error");
+    showToast(`❌ Erreur réseau lors de l'ajout du flux`, "error");
   } finally {
     // Réactiver les boutons
     buttons.forEach(btn => btn.disabled = false);
@@ -1132,9 +1113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadCollections();
   
   // Afficher les flux suggérés
-  console.log("🌟 Initialisation des flux suggérés...");
   renderSuggestedFeeds();
-  console.log("✅ Flux suggérés initialisés");
   
   // Charger l'indicateur de messages non lus
   await updateUnreadMessagesIndicator();
