@@ -1865,7 +1865,9 @@ async def google_callback(request: Request):
         user = session.exec(select(User).where(User.email == email)).first()
         if not user:
             # Créer un nouvel utilisateur OAuth avec 2FA (via la plateforme OAuth)
-            user = User(username=username, email=email, password=hash_password("oauth"), is_2fa_enabled=True)
+            # Générer un mot de passe aléatoirement sécurisé pour les utilisateurs OAuth
+            oauth_password = secrets.token_urlsafe(32)
+            user = User(username=username, email=email, password=hash_password(oauth_password), is_2fa_enabled=True)
             session.add(user)
             session.commit()
             session.refresh(user)
@@ -1899,7 +1901,9 @@ async def github_callback(request: Request):
         user = session.exec(select(User).where(User.email == email)).first()
         if not user:
             # Créer un nouvel utilisateur OAuth avec 2FA (via la plateforme OAuth)
-            user = User(username=username, email=email, password=hash_password("oauth"), is_2fa_enabled=True)
+            # Générer un mot de passe aléatoirement sécurisé pour les utilisateurs OAuth
+            oauth_password = secrets.token_urlsafe(32)
+            user = User(username=username, email=email, password=hash_password(oauth_password), is_2fa_enabled=True)
             session.add(user)
             session.commit()
             session.refresh(user)
