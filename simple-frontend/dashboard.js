@@ -1054,15 +1054,26 @@ function renderSuggestedFeeds() {
   // Ajouter l'event listener une seule fois
   if (!suggestionsEventListenerAdded) {
     container.addEventListener("click", (e) => {
+      console.log("🖱️ Clic détecté:", e.target);
+      
       if (e.target.classList.contains("add-suggested-btn")) {
+        console.log("✅ Bouton add-suggested-btn détecté");
         const feedIndex = parseInt(e.target.dataset.feedIndex);
+        console.log("📊 Feed index:", feedIndex);
         const feed = suggestedFeeds[feedIndex];
+        console.log("📰 Feed data:", feed);
+        
         if (feed) {
           addSuggestedFeed(feed.title, feed.url, feed.description);
+        } else {
+          console.error("❌ Pas de feed trouvé pour l'index:", feedIndex);
         }
+      } else {
+        console.log("❌ Pas un bouton add-suggested-btn, classes:", e.target.classList.toString());
       }
     });
     suggestionsEventListenerAdded = true;
+    console.log("🎯 Event listener ajouté pour les suggestions");
   }
 }
 
@@ -1079,15 +1090,16 @@ async function addSuggestedFeed(title, url, description) {
   buttons.forEach(btn => btn.disabled = true);
   
   try {
-    console.log(`📡 Envoi vers: ${API}/collections/${activeCollectionId}/feeds`);
+    console.log(`📡 Envoi vers: ${API}/feeds/`);
     
-    const res = await fetch(`${API}/collections/${activeCollectionId}/feeds`, {
+    const res = await fetch(`${API}/feeds/`, {
       method: "POST",
       headers: authHeaders({ "Content-Type": "application/json" }),
       body: JSON.stringify({
         title: title,
         url: url,
-        description: description
+        description: description,
+        collection_id: activeCollectionId
       })
     });
     
@@ -1120,7 +1132,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadCollections();
   
   // Afficher les flux suggérés
+  console.log("🌟 Initialisation des flux suggérés...");
   renderSuggestedFeeds();
+  console.log("✅ Flux suggérés initialisés");
   
   // Charger l'indicateur de messages non lus
   await updateUnreadMessagesIndicator();

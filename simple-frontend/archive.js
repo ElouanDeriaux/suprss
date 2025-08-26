@@ -228,12 +228,18 @@ resetBtn.addEventListener("click", async () => {
 
 async function downloadArchive(archiveId, title) {
   try {
+    console.log("🚀 Téléchargement archive:", { archiveId, title });
+    
     const res = await fetch(`${API}/archive/${archiveId}/pdf`, {
       headers: auth()
     });
     
+    console.log("📊 Réponse serveur:", res.status, res.statusText);
+    
     if (!res.ok) {
-      alert("Erreur lors du téléchargement");
+      const errorText = await res.text();
+      console.error("❌ Erreur serveur:", errorText);
+      alert(`Erreur lors du téléchargement: ${res.status} - ${errorText}`);
       return;
     }
     
@@ -242,7 +248,16 @@ async function downloadArchive(archiveId, title) {
     
     // Déterminer l'extension en fonction du type de contenu
     const contentType = res.headers.get("content-type") || "";
-    const extension = contentType.includes("pdf") ? "pdf" : "html";
+    console.log("📄 Type de contenu:", contentType);
+    
+    let extension = "txt";
+    if (contentType.includes("pdf")) {
+      extension = "pdf";
+    } else if (contentType.includes("html")) {
+      extension = "html";
+    } else if (contentType.includes("text")) {
+      extension = "txt";
+    }
     
     // Créer un lien de téléchargement
     const url = window.URL.createObjectURL(blob);
@@ -251,6 +266,8 @@ async function downloadArchive(archiveId, title) {
     a.download = `${title}_archive.${extension}`;
     document.body.appendChild(a);
     a.click();
+    
+    console.log("✅ Téléchargement réussi:", `${title}_archive.${extension}`);
     
     // Nettoyer
     window.URL.revokeObjectURL(url);
