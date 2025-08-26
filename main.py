@@ -1,5 +1,6 @@
 import os
 import re
+import secrets
 from typing import List, Optional, Dict, Any
 
 from dotenv import load_dotenv
@@ -1740,7 +1741,6 @@ Type de contenu: {'RSS original' if original_content else 'Contenu archivé'}
 # ========= 2FA HELPERS =========
 def create_temp_token(email: str) -> str:
     """Crée un token temporaire pour la 2FA"""
-    import secrets
     return secrets.token_urlsafe(32)
 
 def store_verification_code(session: Session, email: str, code: str, purpose: str = "login") -> bool:
