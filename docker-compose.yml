@@ -32,15 +32,15 @@ services:
     environment:
       - DATABASE_URL=postgresql://suprss_user:suprss_pass@db:5432/suprss_db
       - CORS_ORIGINS=http://localhost:3000,http://frontend:80
-      - SECRET_KEY=e7aab5f2a0e34f5cbca29a546fb6c318dcf47cfe97de2f739c6d6fd184d6b244
-      - GOOGLE_CLIENT_ID=390580099992-r9fvu9pophkqg534rsjtbj6bo398g3or.apps.googleusercontent.com
+      - SECRET_KEY=${SECRET_KEY:-development-key-change-in-production}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
       - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-      - SMTP_SERVER=smtp.gmail.com
-      - SMTP_PORT=587
-      - SMTP_USERNAME=authsuprss@gmail.com
-      - SMTP_PASSWORD=ivrt grmj xaix ykmv
+      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
     ports:
       - "8000:8000"
     depends_on:
