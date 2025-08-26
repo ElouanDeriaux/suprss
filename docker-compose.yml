@@ -5,15 +5,15 @@ services:
     container_name: suprss_db
     restart: always
     environment:
-      POSTGRES_USER: suprss_user
-      POSTGRES_PASSWORD: suprss_pass
-      POSTGRES_DB: suprss_db
+      POSTGRES_USER: ${POSTGRES_USER:-suprss_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-suprss_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-suprss_db}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U suprss_user -d suprss_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-suprss_user} -d ${POSTGRES_DB:-suprss_db}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -30,7 +30,7 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://suprss_user:suprss_pass@db:5432/suprss_db
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-suprss_user}:${POSTGRES_PASSWORD:-suprss_pass}@db:5432/${POSTGRES_DB:-suprss_db}
       - CORS_ORIGINS=http://localhost:3000,http://frontend:80
       - SECRET_KEY=${SECRET_KEY:-development-key-change-in-production}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}

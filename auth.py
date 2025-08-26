@@ -6,11 +6,12 @@ from models import User
 from sqlmodel import Session, select
 from database import engine
 from utils import verify_password
+import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
-
-SECRET_KEY = "ma_super_cle_secrete_123456"
+SECRET_KEY = os.getenv("SECRET_KEY", "development-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -57,16 +58,3 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
             raise credentials_exception
         return user
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-SECRET_KEY = os.getenv("SECRET_KEY")  # ✅ tiré du .env
-GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
