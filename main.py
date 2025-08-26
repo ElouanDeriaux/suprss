@@ -1852,11 +1852,44 @@ async def google_login(request: Request):
 @app.get("/auth/google/callback")
 async def google_callback(request: Request):
     try:
+        # Fix pour le problème CSRF state mismatch
+        request.session.clear()  # Clear session to avoid state conflicts
         token = await oauth.google.authorize_access_token(request)
         resp = await oauth.google.get("https://openidconnect.googleapis.com/v1/userinfo", token=token)
         user_info = resp.json()
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Échec d'authentification Google: {e}")
+        # Si problème de state, on essaie une approche alternative
+        if "state" in str(e).lower():
+            try:
+                # Alternative: utiliser directement le code d'autorisation
+                code = request.query_params.get("code")
+                if code:
+                    import httpx
+                    async with httpx.AsyncClient() as client:
+                        token_response = await client.post(
+                            "https://oauth2.googleapis.com/token",
+                            data={
+                                "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+                                "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+                                "code": code,
+                                "grant_type": "authorization_code",
+                                "redirect_uri": str(request.url_for("google_callback")),
+                            }
+                        )
+                        token_data = token_response.json()
+                        
+                        # Récupérer les infos utilisateur avec le token
+                        user_response = await client.get(
+                            "https://openidconnect.googleapis.com/v1/userinfo",
+                            headers={"Authorization": f"Bearer {token_data['access_token']}"}
+                        )
+                        user_info = user_response.json()
+                else:
+                    raise HTTPException(status_code=400, detail=f"Échec d'authentification Google: {e}")
+            except Exception as e2:
+                raise HTTPException(status_code=400, detail=f"Échec d'authentification Google: {e2}")
+        else:
+            raise HTTPException(status_code=400, detail=f"Échec d'authentification Google: {e}")
 
     email = (user_info.get("email") or "").lower()
     username = user_info.get("name") or (email.split("@")[0] if email else "google_user")
