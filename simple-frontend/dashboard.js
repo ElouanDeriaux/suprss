@@ -13,6 +13,73 @@ function el(tag, className = "", text = "") {
   return n;
 }
 
+// ---------- Flux suggérés ----------
+const suggestedFeeds = [
+  {
+    title: "Le Monde - Actualités",
+    url: "https://www.lemonde.fr/rss/une.xml",
+    description: "Toute l'actualité française et internationale",
+    category: "Actualités",
+    icon: "🇫🇷"
+  },
+  {
+    title: "Hacker News",
+    url: "https://news.ycombinator.com/rss",
+    description: "Tech, startups et programmation",
+    category: "Technologie", 
+    icon: "💻"
+  },
+  {
+    title: "France Inter - À la Une",
+    url: "https://www.radiofrance.fr/franceinter/rss",
+    description: "L'actualité vue par France Inter",
+    category: "Actualités",
+    icon: "📻"
+  },
+  {
+    title: "Korben.info",
+    url: "https://korben.info/feed",
+    description: "Geek, high tech et logiciels libres",
+    category: "Technologie",
+    icon: "🤖"
+  },
+  {
+    title: "Journal du Net - Développement",
+    url: "https://www.journaldunet.com/rss/",
+    description: "Actualités développement web",
+    category: "Développement",
+    icon: "⚡"
+  },
+  {
+    title: "Numerama",
+    url: "https://www.numerama.com/feed/",
+    description: "Culture numérique et tech",
+    category: "Technologie", 
+    icon: "🚀"
+  },
+  {
+    title: "MIT Technology Review",
+    url: "https://www.technologyreview.com/feed/",
+    description: "Innovation et recherche technologique",
+    category: "Science",
+    icon: "🔬"
+  },
+  {
+    title: "TechCrunch",
+    url: "https://techcrunch.com/feed/",
+    description: "Startups et technologies émergentes",
+    category: "Startups",
+    icon: "🏢"
+  },
+  {
+    title: "The Verge",
+    url: "https://www.theverge.com/rss/index.xml",
+    description: "Technologie, science et culture",
+    category: "Technologie",
+    icon: "📱"
+  }
+];
+
 // ---------- Sécurité & session ----------
 async function me() {
   const res = await fetch(`${API}/me`, { headers: authHeaders() });
@@ -910,12 +977,150 @@ function showConfirmDialog(title, message, confirmText = "Confirmer", type = "pr
   });
 }
 
+// ---------- Flux suggérés UI ----------
+// Variable pour éviter les event listeners dupliqués
+let suggestionsEventListenerAdded = false;
+
+function renderSuggestedFeeds() {
+  const container = document.getElementById("suggested-feeds");
+  const toggleBtn = document.getElementById("toggle-suggestions");
+  
+  if (!container) return;
+  
+  // Vérifier l'état de la visibilité depuis localStorage
+  const isHidden = localStorage.getItem("suggestions-hidden") === "true";
+  
+  if (isHidden) {
+    container.style.display = "none";
+    toggleBtn.textContent = "afficher";
+  } else {
+    container.style.display = "grid";
+    toggleBtn.textContent = "masquer";
+  }
+  
+  // Event listener pour le bouton toggle (une seule fois)
+  if (!toggleBtn.dataset.listenerAdded) {
+    toggleBtn.addEventListener("click", () => {
+      const isCurrentlyHidden = container.style.display === "none";
+      
+      if (isCurrentlyHidden) {
+        container.style.display = "grid";
+        toggleBtn.textContent = "masquer";
+        localStorage.setItem("suggestions-hidden", "false");
+      } else {
+        container.style.display = "none";
+        toggleBtn.textContent = "afficher";
+        localStorage.setItem("suggestions-hidden", "true");
+      }
+    });
+    toggleBtn.dataset.listenerAdded = "true";
+  }
+  
+  // Générer les cartes de flux suggérés
+  container.innerHTML = "";
+  
+  suggestedFeeds.forEach((feed, index) => {
+    const card = document.createElement("div");
+    card.className = "bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow";
+    
+    const safeTitle = feed.title.replace(/"/g, '&quot;');
+    const safeDescription = feed.description.replace(/"/g, '&quot;');
+    
+    card.innerHTML = `
+      <div class="flex items-start justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">${feed.icon}</span>
+          <div>
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 text-sm">${feed.title}</h3>
+            <span class="text-xs text-gray-500 dark:text-gray-400 px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">${feed.category}</span>
+          </div>
+        </div>
+      </div>
+      
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">${feed.description}</p>
+      
+      <div class="flex items-center justify-between">
+        <code class="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">${feed.url.split('/')[2]}</code>
+        <button class="add-suggested-btn bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded transition-colors"
+                data-feed-index="${index}">
+          + Ajouter
+        </button>
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
+  
+  // Ajouter l'event listener une seule fois
+  if (!suggestionsEventListenerAdded) {
+    container.addEventListener("click", (e) => {
+      if (e.target.classList.contains("add-suggested-btn")) {
+        const feedIndex = parseInt(e.target.dataset.feedIndex);
+        const feed = suggestedFeeds[feedIndex];
+        if (feed) {
+          addSuggestedFeed(feed.title, feed.url, feed.description);
+        }
+      }
+    });
+    suggestionsEventListenerAdded = true;
+  }
+}
+
+async function addSuggestedFeed(title, url, description) {
+  console.log("🚀 Ajout flux suggéré:", { title, url, description, activeCollectionId });
+  
+  if (!activeCollectionId) {
+    showToast("⚠️ Sélectionnez d'abord une collection", "warning");
+    return;
+  }
+  
+  // Désactiver le bouton temporairement pour éviter les double-clics
+  const buttons = document.querySelectorAll('.add-suggested-btn');
+  buttons.forEach(btn => btn.disabled = true);
+  
+  try {
+    console.log(`📡 Envoi vers: ${API}/collections/${activeCollectionId}/feeds`);
+    
+    const res = await fetch(`${API}/collections/${activeCollectionId}/feeds`, {
+      method: "POST",
+      headers: authHeaders({ "Content-Type": "application/json" }),
+      body: JSON.stringify({
+        title: title,
+        url: url,
+        description: description
+      })
+    });
+    
+    console.log(`📊 Réponse serveur:`, res.status);
+    
+    if (res.ok) {
+      showToast(`✅ Flux "${title}" ajouté avec succès !`, "success");
+      await loadFeeds(); // Recharger les flux
+    } else {
+      const error = await res.text();
+      console.error("❌ Erreur serveur:", error);
+      showToast(`❌ Erreur (${res.status}): ${error}`, "error");
+    }
+  } catch (error) {
+    console.error("💥 Erreur réseau:", error);
+    showToast(`❌ Erreur réseau: ${error.message}`, "error");
+  } finally {
+    // Réactiver les boutons
+    buttons.forEach(btn => btn.disabled = false);
+  }
+}
+
+// Fonction d'ajout des flux suggérés
+
 // ---------- Boot ----------
 document.addEventListener("DOMContentLoaded", async () => {
   if (!token) return (window.location.href = "index.html");
   // initTheme() géré par theme.js
   await initUser();
   await loadCollections();
+  
+  // Afficher les flux suggérés
+  renderSuggestedFeeds();
   
   // Charger l'indicateur de messages non lus
   await updateUnreadMessagesIndicator();

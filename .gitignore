@@ -40,7 +40,9 @@ Thumbs.db
 
 # Fichiers personnels (à garder local)
 "Dernière Save tchat Claud.txt"
+Dernière*
 message\ de\ log.txt
+*log*.txt
 
 # Variables d'environnement sensibles (si .env existe)
 .env

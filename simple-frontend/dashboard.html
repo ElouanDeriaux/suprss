@@ -15,6 +15,14 @@
       darkMode: 'class'
     }
   </script>
+  <style>
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
   <link rel="icon" href="favicon.ico" />
   <script src="theme-minimal.js"></script>
   <script defer src="dashboard.js"></script>
@@ -99,6 +107,22 @@
         <p id="shared-collections-empty" class="text-gray-500 mt-3 hidden">
           Aucune collection partagée. Demandez à quelqu'un de vous inviter ! 👥
         </p>
+      </div>
+    </section>
+
+    <!-- FLUX SUGGÉRÉS -->
+    <section class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-200 flex items-center gap-2">
+          🌟 Flux RSS populaires
+          <button id="toggle-suggestions" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+            masquer
+          </button>
+        </h2>
+      </div>
+      
+      <div id="suggested-feeds" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Les suggestions seront générées par JavaScript -->
       </div>
     </section>
 
