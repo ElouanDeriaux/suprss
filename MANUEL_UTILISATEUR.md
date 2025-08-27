@@ -4,6 +4,7 @@
 ---
 
 ## Table des matières
+0. [Installation rapide](#installation-rapide)
 1. [Première connexion](#première-connexion)
 2. [Interface principale](#interface-principale)
 3. [Gestion des collections](#gestion-des-collections)
@@ -14,6 +15,43 @@
 8. [Paramètres](#paramètres)
 9. [Import/Export](#importexport)
 10. [Résolution de problèmes](#résolution-de-problèmes)
+
+---
+
+## Installation rapide
+
+### Si vous n'avez PAS Git installé (Méthode recommandée)
+
+1. **Télécharger SUPRSS**
+   - Aller sur : https://github.com/ElouanDeriaux/suprss
+   - Cliquer sur le bouton vert **"Code"** 
+   - Cliquer sur **"Download ZIP"**
+   - Extraire le fichier ZIP téléchargé
+   - Renommer le dossier `suprss-main` en `suprss`
+
+2. **Prérequis : Installer Docker Desktop**
+   - Windows : https://docs.docker.com/desktop/windows/install/
+   - Mac : https://docs.docker.com/desktop/mac/install/
+   - Démarrer Docker Desktop
+
+3. **Lancer SUPRSS**
+   - Ouvrir un terminal/invite de commande
+   - Naviguer dans le dossier : `cd suprss`
+   - Windows : double-cliquer sur `start.bat`
+   - Mac/Linux : `./start.sh`
+
+4. **Accéder à l'application**
+   - Ouvrir un navigateur
+   - Aller sur : http://localhost:3000
+
+### Si vous avez Git installé
+
+```bash
+git clone https://github.com/ElouanDeriaux/suprss.git
+cd suprss
+./start.sh    # Linux/Mac
+start.bat     # Windows
+```
 
 ---
 

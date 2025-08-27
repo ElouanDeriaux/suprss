@@ -12,11 +12,15 @@
 ## Informations générales
 
 ### Prérequis système
-- **Docker** >= 20.10.0 et Docker Compose >= 2.0.0
+- **Docker Desktop** installé et démarré
+  - Windows : https://docs.docker.com/desktop/windows/install/
+  - Mac : https://docs.docker.com/desktop/mac/install/
+  - Linux : https://docs.docker.com/desktop/linux/install/
+- **Docker** >= 20.10.0 et Docker Compose >= 2.0.0 (inclus dans Docker Desktop)
 - **Ports libres** : 3000 (frontend), 8000 (backend), 5432 (base de données)
 - **RAM minimum** : 512 Mo
 - **Espace disque** : 1 Go minimum
-- **Docker Desktop** doit être démarré et fonctionnel
+- **Git** (optionnel - alternative ZIP disponible)
 
 ### Variables d'environnement nécessaires
 | Variable | Description | Comment l'obtenir | Obligatoire |
@@ -63,16 +67,26 @@
 
 ## Guide de déploiement
 
-### Déploiement avec Docker (Recommandé)
+### Téléchargement du projet
 
-1. **Cloner le projet**
+#### Option 1 : ZIP (Sans Git - Pour utilisateurs finaux)
+1. Aller sur https://github.com/ElouanDeriaux/suprss
+2. Cliquer **"Code"** → **"Download ZIP"**
+3. Extraire et renommer le dossier `suprss-main` en `suprss`
+
+#### Option 2 : Git Clone (Pour développeurs)
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
 
-2. **Configuration**
+### Déploiement avec Docker (Recommandé)
+
+1. **Configuration**
 ```bash
+# Windows
+copy .env.example .env
+# Linux/Mac  
 cp .env.example .env
 # Éditer .env avec vos valeurs
 ```

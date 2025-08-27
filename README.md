@@ -100,6 +100,28 @@ simple-frontend/
 
 ### Démarrage Rapide
 
+### Méthode 1 : Téléchargement ZIP (Sans Git - Recommandé)
+
+1. **Télécharger le projet**
+   - Aller sur : https://github.com/ElouanDeriaux/suprss
+   - Cliquer sur le bouton vert **"Code"** puis **"Download ZIP"**
+   - Extraire le fichier `suprss-main.zip` dans un dossier
+   - Renommer le dossier `suprss-main` en `suprss`
+
+2. **Configuration et lancement**
+```bash
+cd suprss
+# Copier le fichier de configuration
+copy .env.example .env        # Windows
+cp .env.example .env          # Linux/Mac
+
+# Lancer l'application
+start.bat                     # Windows
+./start.sh                    # Linux/Mac
+```
+
+### Méthode 2 : Avec Git (Pour développeurs)
+
 ```bash
 # 1. Cloner le projet
 git clone https://github.com/ElouanDeriaux/suprss.git
