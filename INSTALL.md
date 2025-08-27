@@ -64,14 +64,26 @@ cd suprss
    
    **Windows (PowerShell) :**
    ```powershell
+   # Option 1 - Avec Python (si installé)
    python -c "import secrets; print(secrets.token_hex(32))"
+   
+   # Option 2 - Si Python n'est pas trouvé, utiliser PowerShell :
+   -join ((1..64) | ForEach {'{0:X}' -f (Get-Random -Max 16)})
+   
+   # Option 3 - Génération simple PowerShell :
+   [System.Web.Security.Membership]::GeneratePassword(64, 20); Add-Type -AssemblyName System.Web
    ```
    
    **Linux/Mac :**
    ```bash
+   # Option 1 - Avec Python
    python -c "import secrets; print(secrets.token_hex(32))"
-   # Ou si OpenSSL est installé :
+   
+   # Option 2 - Si OpenSSL est installé
    openssl rand -hex 32
+   
+   # Option 3 - Alternative simple
+   head /dev/urandom | tr -dc A-Za-z0-9 | head -c 64
    ```
 
 6. **Ajouter dans .env** :
