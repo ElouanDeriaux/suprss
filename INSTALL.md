@@ -64,8 +64,8 @@ git clone https://github.com/ElouanDeriaux/suprss.git
    SECRET_KEY="votre-cle-generee"
    SMTP_SERVER="smtp.gmail.com"
    SMTP_PORT="587"
-   SMTP_USERNAME="suprss.monnom@gmail.com"
-   SMTP_PASSWORD="abcd efgh ijkl mnop"  # Le mot de passe d'application 16 caractères
+   SMTP_USERNAME="votre-email-suprss@gmail.com"
+   SMTP_PASSWORD="xxxx yyyy zzzz wwww"  # Le mot de passe d'application 16 caractères
    ```
 
 ## ▶️ Lancer SUPRSS

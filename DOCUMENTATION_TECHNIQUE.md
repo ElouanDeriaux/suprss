@@ -210,8 +210,8 @@ SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
 # SMTP pour 2FA (OBLIGATOIRE si vous voulez utiliser la 2FA)
 SMTP_SERVER="smtp.gmail.com"
 SMTP_PORT="587"
-SMTP_USERNAME="suprss.monnom@gmail.com"  # Email dédié pour SUPRSS
-SMTP_PASSWORD="abcd efgh ijkl mnop"       # Mot de passe d'application Gmail
+SMTP_USERNAME="votre-email-suprss@gmail.com"  # Email dédié pour SUPRSS
+SMTP_PASSWORD="xxxx yyyy zzzz wwww"       # Mot de passe d'application Gmail (16 caractères)
 
 # OAuth optionnel
 # GOOGLE_CLIENT_ID=""

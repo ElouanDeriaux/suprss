@@ -54,8 +54,8 @@
      SECRET_KEY="votre-cle-generee"
      SMTP_SERVER="smtp.gmail.com"
      SMTP_PORT="587"
-     SMTP_USERNAME="suprss.monnom@gmail.com"
-     SMTP_PASSWORD="abcd efgh ijkl mnop"  # Mot de passe d'application 16 caractères
+     SMTP_USERNAME="votre-email-suprss@gmail.com"
+     SMTP_PASSWORD="xxxx yyyy zzzz wwww"  # Mot de passe d'application 16 caractères
      ```
 
 4. **Lancer SUPRSS**
@@ -96,7 +96,7 @@ cd suprss
 cp .env.example .env
 # Éditer .env avec un email dédié pour SUPRSS :
 # SECRET_KEY="votre-cle-generee"
-# SMTP_USERNAME="suprss.monnom@gmail.com"
+# SMTP_USERNAME="votre-email-suprss@gmail.com"
 # SMTP_PASSWORD="mot-de-passe-application-gmail"
 ```
 
