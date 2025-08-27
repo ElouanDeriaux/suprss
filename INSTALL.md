@@ -45,10 +45,10 @@ git clone https://github.com/ElouanDeriaux/suprss.git
 
 1. **Créer un email spécifique** pour votre application SUPRSS (ex: `suprss.monnom@gmail.com`)
 2. **Activer la 2FA** sur ce compte Gmail
-3. **Générer un mot de passe d'application** :
+3. **Générer un mot de passe d'APPLICATION** (IMPORTANT - ce n'est PAS votre mot de passe email) :
    - Aller dans Google Account → Sécurité → Vérification en 2 étapes
    - Cliquer "Mots de passe des applications"
-   - Générer un mot de passe pour "Courrier"
+   - Générer un mot de passe pour "Courrier" (format affiché: xxxx yyyy zzzz wwww, à coller SANS espaces: xxxxyyyyzzzzwwww)
 4. **Configurer le fichier .env** :
    ```bash
    # Windows
@@ -65,7 +65,7 @@ git clone https://github.com/ElouanDeriaux/suprss.git
    SMTP_SERVER="smtp.gmail.com"
    SMTP_PORT="587"
    SMTP_USERNAME="votre-email-suprss@gmail.com"
-   SMTP_PASSWORD="xxxx yyyy zzzz wwww"  # Le mot de passe d'application 16 caractères
+   SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
    ```
 
 ## ▶️ Lancer SUPRSS

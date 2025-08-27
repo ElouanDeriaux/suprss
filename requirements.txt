@@ -29,3 +29,6 @@ python-dotenv==1.1.1  # Variables d'environnement
 # Envoi d'emails pour 2FA
 yagmail==0.15.293  # Envoi d'emails simplifié
 secure-smtplib==0.1.1  # SMTP sécurisé
+
+# Sécurité avancée
+cryptography==43.0.3  # Chiffrement des variables d'environnement

@@ -113,7 +113,7 @@ simple-frontend/
 ⚠️ **OBLIGATOIRE pour la 2FA** : Pour que l'authentification 2 facteurs fonctionne :
 
 - **Créer un email dédié** pour SUPRSS (ex: `suprss.monnom@gmail.com`)
-- **Activer la 2FA** sur ce compte Gmail et générer un mot de passe d'application
+- **Activer la 2FA** sur ce compte Gmail et générer un **mot de passe d'application** (16 caractères)
 - **Configurer le fichier .env** :
 
 ```bash
@@ -127,7 +127,7 @@ SECRET_KEY="votre-cle-generee"
 SMTP_SERVER="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_USERNAME="votre-email-suprss@gmail.com"
-SMTP_PASSWORD="xxxx yyyy zzzz wwww"  # Mot de passe d'application Gmail
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
 ```
 
 3. **Lancement**
@@ -169,7 +169,7 @@ cp .env.example .env
 # SMTP_SERVER="smtp.gmail.com"
 # SMTP_PORT="587" 
 # SMTP_USERNAME="suprss.monnom@gmail.com"
-# SMTP_PASSWORD="mot-de-passe-application-gmail"
+# SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION (16 caractères COLLÉS), PAS le mot de passe email
 
 # 3. Lancement avec Docker
 # Linux/Mac
@@ -219,9 +219,11 @@ Copiez `.env.example` vers `.env` et configurez :
 | `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ |
 | `SMTP_*` | Configuration email pour 2FA | Fournisseur email (Gmail, etc.) | ⚪ |
 
-**Note :** 
-- Consultez `DOCUMENTATION_TECHNIQUE.md` pour un guide détaillé d'obtention des clés OAuth et SMTP
-- Consultez `SECURITY.md` pour les bonnes pratiques de sécurité et la gestion des secrets
+**Guides détaillés :** 
+- 📖 `OAUTH_SETUP_GUIDE.md` - Guide complet pas-à-pas pour configurer Google et GitHub OAuth
+- 🛡️ `SECURITY_IMPLEMENTATION.md` - Guide d'implémentation de la sécurité avancée
+- 📋 `DOCUMENTATION_TECHNIQUE.md` - Documentation technique complète
+- 🔐 `SECURITY.md` - Bonnes pratiques de sécurité et gestion des secrets
 
 ### Base de Données
 - **SQLite** (défaut) : Base intégrée `suprss.db`

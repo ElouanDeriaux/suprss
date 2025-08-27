@@ -33,11 +33,11 @@
 | `SMTP_SERVER` | Serveur SMTP | smtp.gmail.com ou serveur de votre fournisseur email | ❌ |
 | `SMTP_PORT` | Port SMTP | 587 (TLS) ou 465 (SSL) selon le serveur | ❌ |
 | `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ❌ |
-| `SMTP_PASSWORD` | Mot de passe SMTP | Mot de passe d'application (Gmail) ou mot de passe email | ❌ |
+| `SMTP_PASSWORD` | Mot de passe SMTP | **Mot de passe d'APPLICATION** Gmail (PAS le mot de passe email) | ❌ |
 
 ⚠️ **IMPORTANT SÉCURITÉ** : 
 - **Ne jamais** committer le fichier `.env` sur Git (déjà dans .gitignore)
-- **Toujours** utiliser des mots de passe d'application pour SMTP (pas le mot de passe principal)
+- **OBLIGATOIRE** : Utiliser un mot de passe d'APPLICATION Gmail pour SMTP (JAMAIS le mot de passe email principal)
 - **Générer** des clés secrètes aléatoires longues (32+ caractères)
 - **Consulter** `SECURITY.md` pour les bonnes pratiques complètes de gestion des secrets
 
@@ -69,7 +69,7 @@
 2. **Activer la 2FA** sur ce nouveau compte Google
 3. **Aller dans "Sécurité" → "Vérification en 2 étapes" → "Mots de passe d'application"**
 4. **Générer un mot de passe d'application** pour "Courrier"
-5. **Utiliser ce mot de passe** (16 caractères avec espaces) dans `SMTP_PASSWORD`
+5. **Utiliser ce mot de passe d'APPLICATION** dans `SMTP_PASSWORD` - Le mot de passe est affiché avec espaces (xxxx yyyy zzzz wwww) mais doit être collé SANS espaces (xxxxyyyyzzzzwwww) - JAMAIS votre mot de passe email
 6. **Avantages du compte dédié** :
    - Sécurité renforcée (isolation des accès)
    - Meilleur suivi des emails SUPRSS
@@ -211,7 +211,7 @@ SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
 SMTP_SERVER="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_USERNAME="votre-email-suprss@gmail.com"  # Email dédié pour SUPRSS
-SMTP_PASSWORD="xxxx yyyy zzzz wwww"       # Mot de passe d'application Gmail (16 caractères)
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"       # Mot de passe d'application Gmail (16 caractères COLLÉS)
 
 # OAuth optionnel
 # GOOGLE_CLIENT_ID=""
