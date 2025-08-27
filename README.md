@@ -122,6 +122,24 @@ start.bat                     # Windows
 
 ### Méthode 2 : Avec Git (Pour développeurs)
 
+**Installation de Git (si nécessaire) :**
+
+Sur **PowerShell Windows** :
+```powershell
+# Installer Git avec winget
+winget install --id Git.Git -e --source winget
+# Redémarrer PowerShell après installation
+```
+
+Sur **WSL/Linux** :
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install git
+# CentOS/RHEL/Fedora  
+sudo yum install git    # ou sudo dnf install git
+```
+
+**Clonage du projet :**
 ```bash
 # 1. Cloner le projet
 git clone https://github.com/ElouanDeriaux/suprss.git

@@ -16,6 +16,25 @@
 5. Renommer le dossier `suprss-main` en `suprss`
 
 ### Option 2: Avec Git
+
+**Installation de Git (si nécessaire) :**
+
+Sur **PowerShell Windows** :
+```powershell
+# Installer Git avec winget
+winget install --id Git.Git -e --source winget
+# Redémarrer PowerShell après installation
+```
+
+Sur **WSL/Linux** :
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install git
+# CentOS/RHEL/Fedora
+sudo yum install git    # ou sudo dnf install git
+```
+
+**Cloner le projet :**
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
 ```

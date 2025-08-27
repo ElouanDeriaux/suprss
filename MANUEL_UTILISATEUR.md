@@ -46,6 +46,24 @@
 
 ### Si vous avez Git installé
 
+**Installation de Git (si nécessaire) :**
+
+Sur **PowerShell Windows** :
+```powershell
+# Installer Git avec winget
+winget install --id Git.Git -e --source winget
+# Redémarrer PowerShell après installation
+```
+
+Sur **WSL/Linux** :
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install git
+# CentOS/RHEL/Fedora
+sudo yum install git    # ou sudo dnf install git
+```
+
+**Clonage et lancement :**
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
