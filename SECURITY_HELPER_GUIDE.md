@@ -11,8 +11,29 @@
 
 ## 🚀 Installation
 
+**Windows (PowerShell) :**
+```powershell
+# Option 1 - pip3 si disponible
+pip3 install cryptography
+
+# Option 2 - python -m pip (recommandé)
+python -m pip install cryptography
+
+# Option 3 - Si Python/pip non trouvé, installer Python d'abord :
+# winget install Python.Python.3.11
+# Puis redémarrer PowerShell et utiliser python -m pip install cryptography
+```
+
+**Linux/Mac :**
 ```bash
+# Option 1 - pip standard
 pip install cryptography
+
+# Option 2 - pip3 explicite
+pip3 install cryptography
+
+# Option 3 - python -m pip
+python -m pip install cryptography
 ```
 
 ## 💡 Utilisation Simple

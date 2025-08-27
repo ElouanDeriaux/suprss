@@ -95,6 +95,8 @@ cd suprss
    SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
    ```
 
+💡 **Sécurité Avancée (Optionnel)** : Pour chiffrer votre fichier .env et renforcer la sécurité, consultez le guide `SECURITY_HELPER_GUIDE.md` - Outil simple pour protéger vos crédentiels avec un mot de passe maître.
+
 ## 🔐 Configuration OAuth (OPTIONNEL - Connexion Google/GitHub)
 
 ⚠️ **Cette section est OPTIONNELLE** - SUPRSS fonctionne parfaitement sans OAuth. Configurez OAuth seulement si vous voulez que vos utilisateurs puissent se connecter avec Google ou GitHub.
