@@ -221,7 +221,7 @@ Copiez `.env.example` vers `.env` et configurez :
 
 **Guides détaillés :** 
 - 📖 `OAUTH_SETUP_GUIDE.md` - Guide complet pas-à-pas pour configurer Google et GitHub OAuth
-- 🛡️ `SECURITY_IMPLEMENTATION.md` - Guide d'implémentation de la sécurité avancée
+- 🛡️ `SECURITY_HELPER_GUIDE.md` - Outil simple pour sécuriser vos crédentiels
 - 📋 `DOCUMENTATION_TECHNIQUE.md` - Documentation technique complète
 - 🔐 `SECURITY.md` - Bonnes pratiques de sécurité et gestion des secrets
 
