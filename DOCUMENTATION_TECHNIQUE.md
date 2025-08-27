@@ -31,6 +31,8 @@
 | `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ❌ |
 | `SMTP_PASSWORD` | Mot de passe SMTP | Mot de passe d'application (Gmail) ou mot de passe email | ❌ |
 
+⚠️ **IMPORTANT SÉCURITÉ** : Consultez `SECURITY.md` pour les bonnes pratiques de gestion des secrets.
+
 #### Guide détaillé pour obtenir les clés OAuth :
 
 **Google OAuth :**

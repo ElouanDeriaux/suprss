@@ -157,7 +157,9 @@ Copiez `.env.example` vers `.env` et configurez :
 | `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ |
 | `SMTP_*` | Configuration email pour 2FA | Fournisseur email (Gmail, etc.) | ⚪ |
 
-**Note :** Consultez `DOCUMENTATION_TECHNIQUE.md` pour un guide détaillé d'obtention des clés OAuth et SMTP.
+**Note :** 
+- Consultez `DOCUMENTATION_TECHNIQUE.md` pour un guide détaillé d'obtention des clés OAuth et SMTP
+- Consultez `SECURITY.md` pour les bonnes pratiques de sécurité et la gestion des secrets
 
 ### Base de Données
 - **SQLite** (défaut) : Base intégrée `suprss.db`
@@ -177,6 +179,8 @@ Copiez `.env.example` vers `.env` et configurez :
 - **CORS** configuré pour la production
 - **Tokens JWT** avec expiration
 - **Authentification 2FA** optionnelle
+- **Secrets externalisés** : Aucun secret hardcodé
+- **Audit de sécurité** : Documentation complète (voir SECURITY.md)
 
 ## 🤝 Utilisation
 
