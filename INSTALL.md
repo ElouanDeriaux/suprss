@@ -60,9 +60,23 @@ cd suprss
    cp .env.example .env
    nano .env
    ```
-5. **Ajouter dans .env** :
+5. **Générer une clé secrète sécurisée :**
+   
+   **Windows (PowerShell) :**
+   ```powershell
+   python -c "import secrets; print(secrets.token_hex(32))"
+   ```
+   
+   **Linux/Mac :**
    ```bash
-   SECRET_KEY="votre-cle-generee"
+   python -c "import secrets; print(secrets.token_hex(32))"
+   # Ou si OpenSSL est installé :
+   openssl rand -hex 32
+   ```
+
+6. **Ajouter dans .env** :
+   ```bash
+   SECRET_KEY="votre-cle-generee-64-caracteres"  # Utilisez la clé générée ci-dessus
    SMTP_SERVER="smtp.gmail.com"
    SMTP_PORT="587"
    SMTP_USERNAME="votre-email-suprss@gmail.com"
