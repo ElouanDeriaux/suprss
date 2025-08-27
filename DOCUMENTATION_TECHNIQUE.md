@@ -164,21 +164,28 @@ SMTP_PASSWORD="votre-mot-de-passe-application"
 
 **🔑 Génération de la clé secrète :**
 
-**Windows (PowerShell) :**
-```powershell
-# Générer une clé aléatoire sécurisée
-[System.Web.Security.Membership]::GeneratePassword(32, 8)
-
-# Ou avec OpenSSL si installé
-openssl rand -hex 32
+**Méthode universelle (recommandée) :**
+```bash
+# Fonctionne sur Windows, Linux, Mac, WSL
+python -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-**Linux/Mac/WSL :**
+**Windows (PowerShell) :**
+```powershell
+# Option 1 - Avec .NET System.Web
+Add-Type -AssemblyName System.Web
+[System.Web.Security.Membership]::GeneratePassword(32, 10)
+
+# Option 2 - Génération hexadécimale directe
+-join ((1..32) | ForEach {'{0:X2}' -f (Get-Random -Max 256)})
+```
+
+**Linux/Mac/WSL (si OpenSSL installé) :**
 ```bash
-# Méthode recommandée
+# Méthode OpenSSL
 openssl rand -hex 32
 
-# Alternative
+# Méthode Python alternative
 python3 -c "import secrets; print(secrets.token_hex(32))"
 ```
 
