@@ -507,7 +507,7 @@ feedForm.addEventListener("submit", async (e) => {
     collection_id: activeCollectionId,
   };
   
-  console.log("🚀 Création flux:", body); // Debug
+  // Debug: Creating feed
   
   try {
     const res = await fetch(`${API}/feeds/`, {
@@ -516,7 +516,7 @@ feedForm.addEventListener("submit", async (e) => {
       body: JSON.stringify(body),
     });
     
-    console.log("📡 Réponse serveur:", res.status); // Debug
+    // Debug: Server response received
     
     if (res.ok) {
       feedTitle.value = "";
