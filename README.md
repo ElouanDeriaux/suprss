@@ -108,13 +108,30 @@ simple-frontend/
    - Extraire le fichier `suprss-main.zip` dans un dossier
    - Renommer le dossier `suprss-main` en `suprss`
 
-2. **Configuration et lancement**
+2. **Configuration des emails 2FA (IMPORTANT)**
+
+⚠️ **OBLIGATOIRE pour la 2FA** : Pour que l'authentification 2 facteurs fonctionne :
+
+- **Créer un email dédié** pour SUPRSS (ex: `suprss.monnom@gmail.com`)
+- **Activer la 2FA** sur ce compte Gmail et générer un mot de passe d'application
+- **Configurer le fichier .env** :
+
 ```bash
 cd suprss
 # Copier le fichier de configuration
 copy .env.example .env        # Windows
 cp .env.example .env          # Linux/Mac
 
+# Éditer .env et ajouter :
+SECRET_KEY="votre-cle-generee"
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="suprss.monnom@gmail.com"
+SMTP_PASSWORD="abcd efgh ijkl mnop"  # Mot de passe d'application Gmail
+```
+
+3. **Lancement**
+```bash
 # Lancer l'application
 start.bat                     # Windows
 ./start.sh                    # Linux/Mac
@@ -145,9 +162,14 @@ sudo yum install git    # ou sudo dnf install git
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
-# 2. Configuration (optionnel pour les fonctionnalités OAuth)
+# 2. Configuration 2FA SMTP (IMPORTANT)
 cp .env.example .env
-# Éditez .env avec vos clés OAuth si nécessaire
+# OBLIGATOIRE : Créer un email dédié pour SUPRSS et configurer :
+# SECRET_KEY="votre-cle-generee"
+# SMTP_SERVER="smtp.gmail.com"
+# SMTP_PORT="587" 
+# SMTP_USERNAME="suprss.monnom@gmail.com"
+# SMTP_PASSWORD="mot-de-passe-application-gmail"
 
 # 3. Lancement avec Docker
 # Linux/Mac

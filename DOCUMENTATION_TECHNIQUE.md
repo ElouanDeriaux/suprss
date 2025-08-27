@@ -61,11 +61,20 @@
    - Homepage URL: http://localhost:3000
    - Authorization callback URL: http://localhost:8000/auth/github/callback
 
-**Configuration SMTP Gmail :**
-1. Activer la 2FA sur votre compte Google
-2. Aller dans "Sécurité" → "Mots de passe d'application"
-3. Générer un mot de passe d'application pour "Mail"
-4. Utiliser ce mot de passe (16 caractères) dans `SMTP_PASSWORD`
+**Configuration SMTP Gmail (OBLIGATOIRE pour 2FA) :**
+
+⚠️ **RECOMMANDATION SÉCURISÉE** : Créez un **email dédié spécifiquement pour SUPRSS** (ex: `suprss.monnom@gmail.com`) au lieu d'utiliser votre email principal.
+
+1. **Créer un compte Gmail dédié** pour votre application SUPRSS
+2. **Activer la 2FA** sur ce nouveau compte Google
+3. **Aller dans "Sécurité" → "Vérification en 2 étapes" → "Mots de passe d'application"**
+4. **Générer un mot de passe d'application** pour "Courrier"
+5. **Utiliser ce mot de passe** (16 caractères avec espaces) dans `SMTP_PASSWORD`
+6. **Avantages du compte dédié** :
+   - Sécurité renforcée (isolation des accès)
+   - Meilleur suivi des emails SUPRSS
+   - Pas de pollution de votre boîte principale
+   - Révocation facile si nécessaire
 
 ---
 
@@ -77,6 +86,8 @@
 1. Aller sur https://github.com/ElouanDeriaux/suprss
 2. Cliquer **"Code"** → **"Download ZIP"**
 3. Extraire et renommer le dossier `suprss-main` en `suprss`
+
+⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un email dédié pour la 2FA SMTP (voir section Configuration ci-dessous).
 
 #### Option 2 : Git Clone (Pour développeurs)
 
@@ -102,6 +113,8 @@ sudo yum install git    # ou sudo dnf install git
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
+
+⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un email dédié pour la 2FA SMTP (voir section Configuration ci-dessous).
 
 ### Déploiement avec Docker (Recommandé)
 
@@ -189,10 +202,29 @@ openssl rand -hex 32
 python3 -c "import secrets; print(secrets.token_hex(32))"
 ```
 
-**💡 Exemple de fichier .env minimal :**
+**💡 Exemple de fichier .env avec 2FA SMTP (RECOMMANDÉ) :**
 ```bash
-# Configuration minimale pour démarrer SUPRSS
+# Configuration recommandée pour SUPRSS avec 2FA
 SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+
+# SMTP pour 2FA (OBLIGATOIRE si vous voulez utiliser la 2FA)
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="suprss.monnom@gmail.com"  # Email dédié pour SUPRSS
+SMTP_PASSWORD="abcd efgh ijkl mnop"       # Mot de passe d'application Gmail
+
+# OAuth optionnel
+# GOOGLE_CLIENT_ID=""
+# GOOGLE_CLIENT_SECRET=""
+# GITHUB_CLIENT_ID=""
+# GITHUB_CLIENT_SECRET=""
+```
+
+**💡 Exemple de fichier .env minimal (sans 2FA) :**
+```bash
+# Configuration minimale pour démarrer SUPRSS (2FA désactivée)
+SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+DISABLE_2FA="true"  # Désactive complètement la 2FA
 
 # Les autres variables restent commentées si non utilisées
 # GOOGLE_CLIENT_ID=""

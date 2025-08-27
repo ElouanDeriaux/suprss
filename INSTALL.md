@@ -39,6 +39,35 @@ sudo yum install git    # ou sudo dnf install git
 git clone https://github.com/ElouanDeriaux/suprss.git
 ```
 
+## ⚙️ Configuration des emails 2FA (IMPORTANT)
+
+⚠️ **OBLIGATOIRE pour la 2FA** : Pour que l'authentification 2 facteurs fonctionne, configurez un email dédié :
+
+1. **Créer un email spécifique** pour votre application SUPRSS (ex: `suprss.monnom@gmail.com`)
+2. **Activer la 2FA** sur ce compte Gmail
+3. **Générer un mot de passe d'application** :
+   - Aller dans Google Account → Sécurité → Vérification en 2 étapes
+   - Cliquer "Mots de passe des applications"
+   - Générer un mot de passe pour "Courrier"
+4. **Configurer le fichier .env** :
+   ```bash
+   # Windows
+   copy .env.example .env
+   notepad .env
+   
+   # Linux/Mac
+   cp .env.example .env
+   nano .env
+   ```
+5. **Ajouter dans .env** :
+   ```bash
+   SECRET_KEY="votre-cle-generee"
+   SMTP_SERVER="smtp.gmail.com"
+   SMTP_PORT="587"
+   SMTP_USERNAME="suprss.monnom@gmail.com"
+   SMTP_PASSWORD="abcd efgh ijkl mnop"  # Le mot de passe d'application 16 caractères
+   ```
+
 ## ▶️ Lancer SUPRSS
 
 1. **Ouvrir un terminal/invite de commande**

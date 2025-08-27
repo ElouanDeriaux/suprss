@@ -34,7 +34,31 @@
    - Mac : https://docs.docker.com/desktop/mac/install/
    - Démarrer Docker Desktop
 
-3. **Lancer SUPRSS**
+3. **⚠️ Configuration 2FA SMTP (OBLIGATOIRE)**
+   
+   **IMPORTANT** : Pour que l'authentification 2 facteurs fonctionne, vous devez configurer un email dédié :
+   
+   - **Créer un email spécifique** pour SUPRSS (exemple : `suprss.monnom@gmail.com`)
+   - **Activer la 2FA** sur ce compte Gmail
+   - **Générer un mot de passe d'application** :
+     1. Aller dans Google Account → Sécurité → Vérification en 2 étapes
+     2. Cliquer "Mots de passe des applications"
+     3. Générer un mot de passe pour "Courrier" (16 caractères)
+   - **Configurer le fichier .env** :
+     ```bash
+     cd suprss
+     copy .env.example .env    # Windows
+     cp .env.example .env      # Mac/Linux
+     
+     # Éditer .env et ajouter :
+     SECRET_KEY="votre-cle-generee"
+     SMTP_SERVER="smtp.gmail.com"
+     SMTP_PORT="587"
+     SMTP_USERNAME="suprss.monnom@gmail.com"
+     SMTP_PASSWORD="abcd efgh ijkl mnop"  # Mot de passe d'application 16 caractères
+     ```
+
+4. **Lancer SUPRSS**
    - Ouvrir un terminal/invite de commande
    - Naviguer dans le dossier : `cd suprss`
    - Windows : double-cliquer sur `start.bat`
@@ -63,10 +87,21 @@ sudo apt update && sudo apt install git
 sudo yum install git    # ou sudo dnf install git
 ```
 
-**Clonage et lancement :**
+**Clonage et configuration :**
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
+
+# IMPORTANT : Configurer 2FA SMTP avant le lancement
+cp .env.example .env
+# Éditer .env avec un email dédié pour SUPRSS :
+# SECRET_KEY="votre-cle-generee"
+# SMTP_USERNAME="suprss.monnom@gmail.com"
+# SMTP_PASSWORD="mot-de-passe-application-gmail"
+```
+
+**Lancement :**
+```bash
 ./start.sh    # Linux/Mac
 start.bat     # Windows
 ```
