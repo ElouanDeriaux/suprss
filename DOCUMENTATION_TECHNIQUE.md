@@ -16,6 +16,7 @@
 - **Ports libres** : 3000 (frontend), 8000 (backend), 5432 (base de données)
 - **RAM minimum** : 512 Mo
 - **Espace disque** : 1 Go minimum
+- **Docker Desktop** doit être démarré et fonctionnel
 
 ### Variables d'environnement nécessaires
 | Variable | Description | Comment l'obtenir | Obligatoire |

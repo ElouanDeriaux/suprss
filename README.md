@@ -31,6 +31,7 @@
 - **Mode sombre/clair** avec persistance des préférences
 - **Gestion lu/non-lu** avec suivi par utilisateur
 - **Système de favoris** pour marquer les articles importants
+- **Réparation automatique** des archives corrompues
 
 ### 💬 Communication Collaborative
 - **Messagerie instantanée** dans les collections partagées
@@ -55,6 +56,7 @@
 - **Import OPML** avec création automatique des collections
 - **Gestion des doublons** lors de l'import
 - **Compatibilité** avec les readers RSS standard
+- **Téléchargement d'archives** en formats TXT et HTML
 
 ## 🏗️ Architecture Technique
 
