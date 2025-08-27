@@ -35,7 +35,11 @@
 | `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ❌ |
 | `SMTP_PASSWORD` | Mot de passe SMTP | Mot de passe d'application (Gmail) ou mot de passe email | ❌ |
 
-⚠️ **IMPORTANT SÉCURITÉ** : Consultez `SECURITY.md` pour les bonnes pratiques de gestion des secrets.
+⚠️ **IMPORTANT SÉCURITÉ** : 
+- **Ne jamais** committer le fichier `.env` sur Git (déjà dans .gitignore)
+- **Toujours** utiliser des mots de passe d'application pour SMTP (pas le mot de passe principal)
+- **Générer** des clés secrètes aléatoires longues (32+ caractères)
+- **Consulter** `SECURITY.md` pour les bonnes pratiques complètes de gestion des secrets
 
 #### Guide détaillé pour obtenir les clés OAuth :
 
@@ -75,6 +79,25 @@
 3. Extraire et renommer le dossier `suprss-main` en `suprss`
 
 #### Option 2 : Git Clone (Pour développeurs)
+
+**Installation de Git (si nécessaire) :**
+
+Sur **PowerShell Windows** :
+```powershell
+# Installer Git avec winget
+winget install --id Git.Git -e --source winget
+# Redémarrer PowerShell après installation
+```
+
+Sur **WSL/Linux** :
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install git
+# CentOS/RHEL/Fedora
+sudo yum install git    # ou sudo dnf install git
+```
+
+**Clonage du projet :**
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
@@ -82,13 +105,93 @@ cd suprss
 
 ### Déploiement avec Docker (Recommandé)
 
-1. **Configuration**
+1. **Configuration des variables d'environnement**
+
+**Étape 1 : Copier le fichier de configuration**
 ```bash
-# Windows
+# Windows (PowerShell ou CMD)
 copy .env.example .env
-# Linux/Mac  
+
+# Linux/Mac/WSL
 cp .env.example .env
-# Éditer .env avec vos valeurs
+```
+
+**Étape 2 : Éditer le fichier .env**
+
+**Sur Windows (PowerShell) :**
+```powershell
+# Ouvrir avec le Bloc-notes
+notepad .env
+
+# Ou avec VSCode si installé
+code .env
+```
+
+**Sur Linux/Mac/WSL :**
+```bash
+# Avec nano (simple)
+nano .env
+
+# Avec vim (avancé)
+vim .env
+
+# Avec VSCode si installé
+code .env
+```
+
+**Étape 3 : Configurer les variables obligatoires**
+
+Modifiez les lignes suivantes dans le fichier `.env` :
+
+```bash
+# OBLIGATOIRE : Clé secrète pour JWT (générez une clé sécurisée)
+SECRET_KEY="votre-cle-secrete-32-caracteres-minimum"
+
+# OPTIONNEL : OAuth Google (pour connexion Google)
+GOOGLE_CLIENT_ID="votre-google-client-id"
+GOOGLE_CLIENT_SECRET="votre-google-client-secret"
+
+# OPTIONNEL : OAuth GitHub (pour connexion GitHub)
+GITHUB_CLIENT_ID="votre-github-client-id"
+GITHUB_CLIENT_SECRET="votre-github-client-secret"
+
+# OPTIONNEL : SMTP pour emails 2FA
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="votre-email@gmail.com"
+SMTP_PASSWORD="votre-mot-de-passe-application"
+```
+
+**🔑 Génération de la clé secrète :**
+
+**Windows (PowerShell) :**
+```powershell
+# Générer une clé aléatoire sécurisée
+[System.Web.Security.Membership]::GeneratePassword(32, 8)
+
+# Ou avec OpenSSL si installé
+openssl rand -hex 32
+```
+
+**Linux/Mac/WSL :**
+```bash
+# Méthode recommandée
+openssl rand -hex 32
+
+# Alternative
+python3 -c "import secrets; print(secrets.token_hex(32))"
+```
+
+**💡 Exemple de fichier .env minimal :**
+```bash
+# Configuration minimale pour démarrer SUPRSS
+SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
+
+# Les autres variables restent commentées si non utilisées
+# GOOGLE_CLIENT_ID=""
+# GOOGLE_CLIENT_SECRET=""
+# GITHUB_CLIENT_ID=""
+# GITHUB_CLIENT_SECRET=""
 ```
 
 3. **Lancement**
