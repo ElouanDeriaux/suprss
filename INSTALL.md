@@ -34,9 +34,10 @@ sudo apt update && sudo apt install git
 sudo yum install git    # ou sudo dnf install git
 ```
 
-**Cloner le projet :**
+**Cloner le projet et déplacement dans le bon dossier :**
 ```bash
 git clone https://github.com/ElouanDeriaux/suprss.git
+cd suprss
 ```
 
 ## ⚙️ Configuration des emails 2FA (IMPORTANT)
