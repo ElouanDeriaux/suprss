@@ -45,10 +45,9 @@
      2. Cliquer "Mots de passe des applications"
      3. Générer un mot de passe pour "Courrier" (16 caractères)
    - **Configurer le fichier .env** :
-     ```bash
+     ```powershell
      cd suprss
-     copy .env.example .env    # Windows
-     cp .env.example .env      # Mac/Linux
+     copy .env.example .env
      
      # Éditer .env et ajouter :
      SECRET_KEY="votre-cle-generee"
@@ -61,8 +60,7 @@
 4. **Lancer SUPRSS**
    - Ouvrir un terminal/invite de commande
    - Naviguer dans le dossier : `cd suprss`
-   - Windows : double-cliquer sur `start.bat`
-   - Mac/Linux : `./start.sh`
+   - Double-cliquer sur `start.bat` ou exécuter `.\start.bat` dans PowerShell
 
 4. **Accéder à l'application**
    - Ouvrir un navigateur
@@ -79,21 +77,14 @@ winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
 ```
 
-Sur **WSL/Linux** :
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install git
-# CentOS/RHEL/Fedora
-sudo yum install git    # ou sudo dnf install git
-```
 
 **Clonage et configuration :**
-```bash
+```powershell
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
 # IMPORTANT : Configurer 2FA SMTP avant le lancement
-cp .env.example .env
+copy .env.example .env
 # Éditer .env avec un email dédié pour SUPRSS :
 # SECRET_KEY="votre-cle-generee"
 # SMTP_USERNAME="votre-email-suprss@gmail.com"
@@ -101,9 +92,8 @@ cp .env.example .env
 ```
 
 **Lancement :**
-```bash
-./start.sh    # Linux/Mac
-start.bat     # Windows
+```powershell
+.\start.bat
 ```
 
 ---

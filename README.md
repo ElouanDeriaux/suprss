@@ -116,11 +116,10 @@ simple-frontend/
 - **Activer la 2FA** sur ce compte Gmail et générer un **mot de passe d'application** (16 caractères)
 - **Configurer le fichier .env** :
 
-```bash
+```powershell
 cd suprss
 # Copier le fichier de configuration
-copy .env.example .env        # Windows
-cp .env.example .env          # Linux/Mac
+copy .env.example .env
 
 # Éditer .env et ajouter :
 SECRET_KEY="votre-cle-generee"
@@ -131,39 +130,29 @@ SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caract�
 ```
 
 3. **Lancement**
-```bash
+```powershell
 # Lancer l'application
-start.bat                     # Windows
-./start.sh                    # Linux/Mac
+start.bat
 ```
 
 ### Méthode 2 : Avec Git (Pour développeurs)
 
 **Installation de Git (si nécessaire) :**
 
-Sur **PowerShell Windows** :
 ```powershell
 # Installer Git avec winget
 winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
 ```
 
-Sur **WSL/Linux** :
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install git
-# CentOS/RHEL/Fedora  
-sudo yum install git    # ou sudo dnf install git
-```
-
 **Clonage du projet :**
-```bash
+```powershell
 # 1. Cloner le projet
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
 # 2. Configuration sécurisée avec Security Helper (RECOMMANDÉ)
-cp .env.example .env
+copy .env.example .env
 # Éditez .env avec vos vraies credentials, puis :
 python security_helper.py setup-security
 # ✅ Génère des clés sécurisées automatiquement
@@ -179,10 +168,6 @@ python security_helper.py setup-security
 # SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION (16 caractères COLLÉS)
 
 # 3. Lancement avec Docker
-# Linux/Mac
-./start.sh
-
-# Windows
 start.bat
 
 # Ou manuellement
@@ -196,7 +181,7 @@ L'application sera accessible sur :
 
 ### Installation Manuelle (Développement)
 
-```bash
+```powershell
 # Backend
 pip install fastapi sqlmodel uvicorn bcrypt python-jose[cryptography] feedparser requests apscheduler bleach python-dotenv authlib httpx
 
@@ -237,7 +222,7 @@ Copiez `.env.example` vers `.env` et configurez :
 
 **NOUVEAU !** SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
-```bash
+```powershell
 # Configuration sécurisée complète en une commande
 python security_helper.py setup-security
 

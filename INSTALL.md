@@ -2,9 +2,7 @@
 
 ## 📋 Ce dont vous avez besoin
 1. **Docker Desktop** installé et démarré
-   - [Windows](https://docs.docker.com/desktop/windows/install/)
-   - [Mac](https://docs.docker.com/desktop/mac/install/)
-   - [Linux](https://docs.docker.com/desktop/linux/install/)
+   - [Télécharger Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)
 
 ## 📥 Télécharger SUPRSS
 
@@ -19,7 +17,6 @@
 
 **Installation de Git (si nécessaire) :**
 
-Sur **PowerShell Windows** :
 ```powershell
 # Installer Git avec winget
 winget install --id Git.Git -e --source winget
@@ -34,16 +31,8 @@ winget install --id Git.Git -e --source winget
    - Exécuter l'installateur et suivre les étapes par défaut
    - Redémarrer PowerShell
 
-Sur **WSL/Linux** :
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install git
-# CentOS/RHEL/Fedora
-sudo yum install git    # ou sudo dnf install git
-```
-
 **Cloner le projet et déplacement dans le bon dossier :**
-```bash
+```powershell
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
@@ -59,18 +48,12 @@ cd suprss
    - Cliquer "Mots de passe des applications"
    - Générer un mot de passe pour "Courrier" (format affiché: xxxx yyyy zzzz wwww, à coller SANS espaces: xxxxyyyyzzzzwwww)
 4. **Configurer le fichier .env** :
-   ```bash
-   # Windows
+   ```powershell
    copy .env.example .env
    notepad .env
-   
-   # Linux/Mac
-   cp .env.example .env
-   nano .env
    ```
 5. **Générer une clé secrète sécurisée :**
    
-   **Windows (PowerShell) :**
    ```powershell
    # Option 1 - Avec Python (si installé)
    python -c "import secrets; print(secrets.token_hex(32))"
@@ -80,18 +63,6 @@ cd suprss
    
    # Option 3 - Génération simple PowerShell :
    [System.Web.Security.Membership]::GeneratePassword(64, 20); Add-Type -AssemblyName System.Web
-   ```
-   
-   **Linux/Mac :**
-   ```bash
-   # Option 1 - Avec Python
-   python -c "import secrets; print(secrets.token_hex(32))"
-   
-   # Option 2 - Si OpenSSL est installé
-   openssl rand -hex 32
-   
-   # Option 3 - Alternative simple
-   head /dev/urandom | tr -dc A-Za-z0-9 | head -c 64
    ```
 
 6. **Ajouter dans .env** :
@@ -108,7 +79,7 @@ cd suprss
 **NOUVEAU !** SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vos credentials :
 
 ### Configuration Automatique Sécurisée
-```bash
+```powershell
 # Installation et configuration complète en une commande
 python security_helper.py setup-security
 ```
@@ -121,7 +92,7 @@ python security_helper.py setup-security
 - ✅ **Effectue un audit sécurisé** de votre configuration
 
 ### Chiffrement Automatique
-```bash
+```powershell
 # Chiffrer votre .env avec un mot de passe
 python security_helper.py encrypt-env
 
@@ -131,9 +102,9 @@ python security_helper.py encrypt-env
 ```
 
 ### Support Docker avec Environnements Chiffrés
-```bash
+```powershell
 # Pour Docker avec environnement chiffré
-set SUPRSS_MASTER_PASSWORD=votre-mot-de-passe-maitre
+$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
 docker-compose up -d
 ```
 
@@ -218,13 +189,12 @@ Après redémarrage, vous devriez voir les boutons "Se connecter avec Google/Git
 
 1. **Ouvrir un terminal/invite de commande**
 2. **Aller dans le dossier :**
-   ```bash
+   ```powershell
    cd suprss
    ```
 
 3. **Lancer l'application :**
-   - **Windows** : Double-cliquer sur `start.bat`
-   - **Mac/Linux** : `./start.sh`
+   - Double-cliquer sur `start.bat`
    - **Ou directement avec Docker Compose** : `docker-compose up -d`
 
 4. **Attendre que ça démarre** (30 secondes environ)
@@ -243,10 +213,9 @@ Vous devriez voir la page de connexion SUPRSS.
 
 ## 🛑 Arrêter SUPRSS
 
-```bash
-# Arrêt avec les scripts fournis
-./stop.sh       # Linux/Mac
-stop.bat        # Windows
+```powershell
+# Arrêt avec le script fourni
+stop.bat
 
 # Ou directement avec Docker Compose
 docker-compose down

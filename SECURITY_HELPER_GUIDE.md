@@ -28,22 +28,11 @@ python -m pip install cryptography
 # Puis redémarrer PowerShell et utiliser python -m pip install cryptography
 ```
 
-**Linux/Mac :**
-```bash
-# Option 1 - pip standard
-pip install cryptography
-
-# Option 2 - pip3 explicite
-pip3 install cryptography
-
-# Option 3 - python -m pip
-python -m pip install cryptography
-```
 
 ## 💡 Utilisation Simple
 
 ### 1. Configuration Complète (Recommandée)
-```bash
+```powershell
 python security_helper.py setup-security
 ```
 Cette commande fait tout automatiquement :
@@ -55,27 +44,27 @@ Cette commande fait tout automatiquement :
 ### 2. Commandes Individuelles
 
 **Générer de nouvelles clés :**
-```bash
+```powershell
 python security_helper.py generate-keys
 ```
 
 **Chiffrer le .env :**
-```bash
+```powershell
 python security_helper.py encrypt-env
 ```
 
 **Déchiffrer le .env :**
-```bash
+```powershell
 python security_helper.py decrypt-env
 ```
 
 **Audit de sécurité :**
-```bash
+```powershell
 python security_helper.py check-security
 ```
 
 **Mode production :**
-```bash
+```powershell
 python security_helper.py production-mode
 ```
 
@@ -93,7 +82,7 @@ python security_helper.py production-mode
 4. **L'application déchiffre automatiquement au démarrage !**
 
 ### Nouveau Workflow (Automatique) :
-```bash
+```powershell
 # 1. Chiffrez votre .env une fois
 python security_helper.py encrypt-env
 
@@ -102,12 +91,12 @@ python security_helper.py encrypt-env
 python main.py
 
 # Soit en mode production (avec variable d'environnement)
-export SUPRSS_MASTER_PASSWORD="votre-mot-de-passe"
+$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe"
 python main.py
 ```
 
 ### Mode Production :
-```bash
+```powershell
 # Configuration pour la production
 python security_helper.py production-mode
 
@@ -116,7 +105,7 @@ docker run -e SUPRSS_MASTER_PASSWORD="votre-mot-de-passe" ...
 ```
 
 ### Ancien Workflow (Manuel) :
-```bash
+```powershell
 # Pour développer
 python security_helper.py decrypt-env
 # ... travail sur le projet ...
@@ -124,7 +113,7 @@ python security_helper.py encrypt-env
 
 # Pour déployer
 python security_helper.py decrypt-env
-./start.sh
+start.bat
 python security_helper.py encrypt-env
 ```
 
@@ -154,13 +143,13 @@ Vérifie automatiquement :
 ## 🆘 En cas de problème
 
 **Mot de passe oublié ?**
-```bash
-cp .env.example .env
+```powershell
+copy .env.example .env
 # Reconfigurez manuellement
 ```
 
 **Clés perdues ?**
-```bash
+```powershell
 python security_helper.py generate-keys
 ```
 

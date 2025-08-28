@@ -26,22 +26,22 @@
 
 **CRITIQUE** : Ces variables ne doivent JAMAIS être committées dans le code !
 
-```bash
+```powershell
 # Génération d'une clé secrète sécurisée
-SECRET_KEY=$(openssl rand -hex 32)
+$SECRET_KEY = [System.Web.Security.Membership]::GeneratePassword(64, 10)
 
 # OAuth (optionnel mais recommandé)
-GOOGLE_CLIENT_ID=votre-id-google
-GOOGLE_CLIENT_SECRET=votre-secret-google
-GITHUB_CLIENT_ID=votre-id-github  
-GITHUB_CLIENT_SECRET=votre-secret-github
+$GOOGLE_CLIENT_ID="votre-id-google"
+$GOOGLE_CLIENT_SECRET="votre-secret-google"
+$GITHUB_CLIENT_ID="votre-id-github"
+$GITHUB_CLIENT_SECRET="votre-secret-github"
 
 # SMTP pour 2FA (optionnel)
-SMTP_USERNAME=votre-email@domain.com
-SMTP_PASSWORD=mot-de-passe-application
+$SMTP_USERNAME="votre-email@domain.com"
+$SMTP_PASSWORD="mot-de-passe-application"
 
 # PostgreSQL (optionnel)
-POSTGRES_PASSWORD=$(openssl rand -base64 32)
+$POSTGRES_PASSWORD = [System.Web.Security.Membership]::GeneratePassword(32, 8)
 ```
 
 ## ⚠️ Consignes de sécurité
@@ -60,10 +60,10 @@ POSTGRES_PASSWORD=$(openssl rand -base64 32)
 5. **Sauvegarder** régulièrement la base de données
 
 ### Gestion des secrets
-```bash
+```powershell
 # Génération de clés sécurisées
-openssl rand -hex 32  # SECRET_KEY
-openssl rand -base64 32  # Mots de passe DB
+[System.Web.Security.Membership]::GeneratePassword(64, 10)  # SECRET_KEY
+[System.Web.Security.Membership]::GeneratePassword(32, 8)   # Mots de passe DB
 ```
 
 ## 🛡️ Audit de sécurité

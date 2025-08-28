@@ -44,7 +44,7 @@
 ### 🛠️ Outils de Développement
 
 **Security Helper CLI**
-```bash
+```powershell
 python security_helper.py setup-security     # Configuration complète
 python security_helper.py encrypt-env        # Chiffrement .env
 python security_helper.py decrypt-env        # Déchiffrement .env
@@ -72,7 +72,7 @@ python security_helper.py production-mode    # Configuration production
 ### 🚀 Migration
 
 **Pour les installations existantes :**
-```bash
+```powershell
 # 1. Mise à jour du code
 git pull origin main
 

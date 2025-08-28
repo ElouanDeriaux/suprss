@@ -7,35 +7,35 @@ L'application SUPRSS fonctionne maintenant parfaitement avec Docker et Docker Co
 ## 📋 Options de Déploiement
 
 ### Option 1: Développement avec .env Standard
-```bash
+```powershell
 # Utilisez le fichier .env temporaire fourni
 docker-compose up -d
 ```
 
 ### Option 2: Production avec Environnement Chiffré
-```bash
+```powershell
 # 1. Supprimez le .env temporaire
-rm .env
+Remove-Item .env
 
 # 2. Définissez le mot de passe maître
-export SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
+$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
 
 # 3. Démarrez avec la variable d'environnement
 docker-compose up -d
 ```
 
 ### Option 3: Production Sécurisée
-```bash
+```powershell
 # 1. Supprimez tous les fichiers .env non chiffrés
-rm .env
+Remove-Item .env
 
 # 2. Créez un fichier .env.docker avec seulement les variables Docker
-cat > .env.docker << EOF
+@"
 SUPRSS_MASTER_PASSWORD=votre-mot-de-passe-maitre
 POSTGRES_USER=suprss_user
 POSTGRES_PASSWORD=suprss_pass
 POSTGRES_DB=suprss_db
-EOF
+"@ | Out-File -FilePath .env.docker -Encoding UTF8
 
 # 3. Modifiez docker-compose.yml pour utiliser env_file: .env.docker
 docker-compose up -d
@@ -57,15 +57,15 @@ docker-compose up -d
 ## 🛡️ Recommandations de Sécurité
 
 ### Pour le Développement
-```bash
+```powershell
 # Gardez le .env pour faciliter le développement
 # Il sera ignoré par git automatiquement
 ```
 
 ### Pour la Production
-```bash
+```powershell
 # 1. Supprimez le .env
-rm .env
+Remove-Item .env
 
 # 2. Utilisez uniquement .env.encrypted
 # 3. Définissez SUPRSS_MASTER_PASSWORD dans l'environnement système
@@ -74,7 +74,7 @@ rm .env
 ## 📱 Commandes Utiles
 
 ### Vérifier l'État
-```bash
+```powershell
 # Status des conteneurs
 docker-compose ps
 
@@ -82,11 +82,11 @@ docker-compose ps
 docker-compose logs backend
 
 # Test de santé
-curl http://localhost:8000/health
+Invoke-WebRequest http://localhost:8000/health
 ```
 
 ### Gestion des Environnements
-```bash
+```powershell
 # Chiffrer votre .env actuel
 python security_helper.py encrypt-env
 
@@ -108,7 +108,7 @@ L'application est maintenant opérationnelle :
 ## 🔄 Workflow Recommandé
 
 ### Développement
-```bash
+```powershell
 # 1. Travaillez avec .env standard
 docker-compose up -d
 
@@ -118,12 +118,12 @@ python security_helper.py encrypt-env
 ```
 
 ### Déploiement Production
-```bash
+```powershell
 # 1. Clonez le repository
 git clone [repo-url]
 
 # 2. Configurez l'environnement chiffré
-export SUPRSS_MASTER_PASSWORD="mot-de-passe-production"
+$env:SUPRSS_MASTER_PASSWORD="mot-de-passe-production"
 
 # 3. Démarrez (utilisera automatiquement .env.encrypted)
 docker-compose up -d

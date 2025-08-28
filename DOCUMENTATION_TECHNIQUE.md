@@ -117,7 +117,6 @@ python security_helper.py check-security     # Audit de sécurité
 
 **Installation de Git (si nécessaire) :**
 
-Sur **PowerShell Windows** :
 ```powershell
 # Installer Git avec winget
 winget install --id Git.Git -e --source winget
@@ -132,16 +131,8 @@ winget install --id Git.Git -e --source winget
    - Exécuter l'installateur et suivre les étapes par défaut
    - Redémarrer PowerShell
 
-Sur **WSL/Linux** :
-```bash
-# Ubuntu/Debian
-sudo apt update && sudo apt install git
-# CentOS/RHEL/Fedora
-sudo yum install git    # ou sudo dnf install git
-```
-
 **Clonage du projet :**
-```bash
+```powershell
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
@@ -155,34 +146,17 @@ cd suprss
 1. **Configuration des variables d'environnement**
 
 **Étape 1 : Copier le fichier de configuration**
-```bash
-# Windows (PowerShell ou CMD)
+```powershell
 copy .env.example .env
-
-# Linux/Mac/WSL
-cp .env.example .env
 ```
 
 **Étape 2 : Éditer le fichier .env**
 
-**Sur Windows (PowerShell) :**
 ```powershell
 # Ouvrir avec le Bloc-notes
 notepad .env
 
 # Ou avec VSCode si installé
-code .env
-```
-
-**Sur Linux/Mac/WSL :**
-```bash
-# Avec nano (simple)
-nano .env
-
-# Avec vim (avancé)
-vim .env
-
-# Avec VSCode si installé
 code .env
 ```
 
@@ -211,29 +185,17 @@ SMTP_PASSWORD="votre-mot-de-passe-application"
 
 **🔑 Génération de la clé secrète :**
 
-**Méthode universelle (recommandée) :**
-```bash
-# Fonctionne sur Windows, Linux, Mac, WSL
-python -c "import secrets; print(secrets.token_hex(32))"
-```
-
-**Windows (PowerShell) :**
+**Génération de clé sécurisée :**
 ```powershell
-# Option 1 - Avec .NET System.Web
+# Méthode recommandée avec Python
+python -c "import secrets; print(secrets.token_hex(32))"
+
+# Ou avec PowerShell natif
 Add-Type -AssemblyName System.Web
 [System.Web.Security.Membership]::GeneratePassword(32, 10)
 
-# Option 2 - Génération hexadécimale directe
+# Ou génération hexadécimale
 -join ((1..32) | ForEach {'{0:X2}' -f (Get-Random -Max 256)})
-```
-
-**Linux/Mac/WSL (si OpenSSL installé) :**
-```bash
-# Méthode OpenSSL
-openssl rand -hex 32
-
-# Méthode Python alternative
-python3 -c "import secrets; print(secrets.token_hex(32))"
 ```
 
 **💡 Exemple de fichier .env avec 2FA SMTP (RECOMMANDÉ) :**
@@ -268,10 +230,9 @@ DISABLE_2FA="true"  # Désactive complètement la 2FA
 ```
 
 3. **Lancement**
-```bash
+```powershell
 # Démarrage automatique
-./start.sh      # Linux/Mac
-start.bat       # Windows
+start.bat
 
 # Ou directement avec Docker Compose
 docker-compose up -d            # Démarrage normal
@@ -279,22 +240,21 @@ docker-compose up --build -d    # Avec reconstruction des images
 ```
 
 4. **Vérification**
-```bash
+```powershell
 docker-compose ps
-curl http://localhost:8000/health
+Invoke-WebRequest http://localhost:8000/health
 ```
 
 ### Déploiement manuel (Développement)
 
 1. **Backend Python**
-```bash
+```powershell
 # Installation dépendances
-pip install fastapi sqlmodel uvicorn bcrypt python-jose[cryptography] \
-    feedparser requests apscheduler bleach python-dotenv authlib httpx
+pip install fastapi sqlmodel uvicorn bcrypt python-jose[cryptography] feedparser requests apscheduler bleach python-dotenv authlib httpx
 
 # Variables d'environnement
-export SECRET_KEY="votre-cle-secrete"
-export GOOGLE_CLIENT_ID="votre-google-client-id"
+$env:SECRET_KEY="votre-cle-secrete"
+$env:GOOGLE_CLIENT_ID="votre-google-client-id"
 # ... autres variables
 
 # Lancement
@@ -302,7 +262,7 @@ uvicorn main:app --reload --port 8000
 ```
 
 2. **Frontend**
-```bash
+```powershell
 cd simple-frontend
 python -m http.server 3000
 ```
@@ -312,10 +272,9 @@ python -m http.server 3000
 - PostgreSQL : Configurer DATABASE_URL
 
 ### Arrêt des services
-```bash
-# Scripts automatiques
-./stop.sh               # Linux/Mac
-stop.bat                # Windows
+```powershell
+# Script automatique
+stop.bat
 
 # Commandes Docker Compose directes
 docker-compose down     # Arrêt normal
@@ -327,7 +286,7 @@ docker-compose down -v  # Arrêt avec suppression des volumes
 #### Suppression complète de la base de données
 Pour supprimer toutes les données de la base tout en conservant la structure des tables :
 
-```bash
+```powershell
 # Supprimer toutes les données
 docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
 ```

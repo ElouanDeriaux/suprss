@@ -75,9 +75,9 @@ Ce guide vous explique **étape par étape** comment configurer l'authentificati
 
 ### Étape 7 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
-```bash
-GOOGLE_CLIENT_ID="votre-client-id-google"
-GOOGLE_CLIENT_SECRET="votre-client-secret-google"
+```powershell
+$env:GOOGLE_CLIENT_ID="votre-client-id-google"
+$env:GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 ```
 
 ---
@@ -116,9 +116,9 @@ GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 
 ### Étape 6 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
-```bash
-GITHUB_CLIENT_ID="votre-client-id-github"
-GITHUB_CLIENT_SECRET="votre-client-secret-github"
+```powershell
+$env:GITHUB_CLIENT_ID="votre-client-id-github"
+$env:GITHUB_CLIENT_SECRET="votre-client-secret-github"
 ```
 
 ---
@@ -127,23 +127,23 @@ GITHUB_CLIENT_SECRET="votre-client-secret-github"
 
 Votre fichier `.env` devrait ressembler à :
 
-```bash
+```powershell
 # Clé secrète (OBLIGATOIRE)
-SECRET_KEY="votre-cle-secrete-32-caracteres"
+$env:SECRET_KEY="votre-cle-secrete-32-caracteres"
 
 # OAuth Google (OPTIONNEL)
-GOOGLE_CLIENT_ID="123456789-abcdef.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET="GOCSPX-votre-secret-google"
+$env:GOOGLE_CLIENT_ID="123456789-abcdef.apps.googleusercontent.com"
+$env:GOOGLE_CLIENT_SECRET="GOCSPX-votre-secret-google"
 
 # OAuth GitHub (OPTIONNEL)
-GITHUB_CLIENT_ID="votre-client-id-github"
-GITHUB_CLIENT_SECRET="votre-secret-github"
+$env:GITHUB_CLIENT_ID="votre-client-id-github"
+$env:GITHUB_CLIENT_SECRET="votre-secret-github"
 
 # SMTP pour 2FA (OPTIONNEL)
-SMTP_SERVER="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USERNAME="votre-email@gmail.com"
-SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
+$env:SMTP_SERVER="smtp.gmail.com"
+$env:SMTP_PORT="587"
+$env:SMTP_USERNAME="votre-email@gmail.com"
+$env:SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
 ```
 
 ---
@@ -151,7 +151,7 @@ SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caract�
 ## 🔧 Test des Configurations
 
 ### 1. Redémarrer SUPRSS
-```bash
+```powershell
 # Arrêter
 docker-compose down
 
@@ -163,7 +163,7 @@ docker-compose up --build -d
 1. Allez sur `http://localhost:3000`
 2. Vous devriez voir les boutons "Se connecter avec Google" et "Se connecter avec GitHub"
 3. Si les boutons n'apparaissent pas, vérifiez les logs :
-```bash
+```powershell
 docker-compose logs backend
 ```
 
