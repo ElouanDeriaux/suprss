@@ -329,7 +329,7 @@ Pour vider toutes les données de la base tout en conservant la structure des ta
 
 ```bash
 # Vider toutes les tables
-docker exec suprss_db psql -U suprss_user -d suprss_db -c 'TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;'
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
 ```
 
 ⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible. Utilisez-la uniquement pour :
