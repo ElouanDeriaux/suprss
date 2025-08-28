@@ -329,7 +329,7 @@ Pour vider toutes les données de la base tout en conservant la structure des ta
 
 ```bash
 # Vider toutes les tables
-docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
+docker exec suprss_db psql -U suprss_user -d suprss_db -c 'TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;'
 ```
 
 ⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible. Utilisez-la uniquement pour :
@@ -344,13 +344,33 @@ docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE articl
 docker exec suprss_db psql -U suprss_user -d suprss_db -c "\dt"
 
 # Voir le nombre d'enregistrements par table
-docker exec suprss_db psql -U suprss_user -d suprss_db -c 'SELECT '\''users'\'' as table_name, COUNT(*) as count FROM "user" UNION ALL SELECT '\''articles'\'', COUNT(*) FROM article UNION ALL SELECT '\''feeds'\'', COUNT(*) FROM feed UNION ALL SELECT '\''collections'\'', COUNT(*) FROM collection;'
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT 'users' as table_name, COUNT(*) as count FROM \"user\" UNION ALL SELECT 'articles', COUNT(*) FROM article UNION ALL SELECT 'feeds', COUNT(*) FROM feed UNION ALL SELECT 'collections', COUNT(*) FROM collection ORDER BY table_name;"
 
 # Sauvegarder la base de données
+# Linux/Mac/WSL:
 docker exec suprss_db pg_dump -U suprss_user suprss_db > backup_$(date +%Y%m%d_%H%M%S).sql
 
+# Windows PowerShell:
+docker exec suprss_db pg_dump -U suprss_user suprss_db > "backup_$(Get-Date -Format 'yyyyMMdd_HHmmss').sql"
+
 # Restaurer une sauvegarde
+# Linux/Mac/WSL:
 docker exec -i suprss_db psql -U suprss_user -d suprss_db < backup_20241128_143000.sql
+
+# Windows PowerShell:
+Get-Content backup_20241128_143000.sql | docker exec -i suprss_db psql -U suprss_user -d suprss_db
+
+# Windows CMD:
+type backup_20241128_143000.sql | docker exec -i suprss_db psql -U suprss_user -d suprss_db
+
+# Vérifier la connexion à la base de données
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT version();"
+
+# Voir l'espace occupé par la base de données
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT pg_size_pretty(pg_database_size('suprss_db')) as database_size;"
+
+# Voir l'espace occupé par chaque table
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT schemaname, tablename, pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) AS size FROM pg_tables WHERE schemaname = 'public' ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;"
 ```
 
 ---
