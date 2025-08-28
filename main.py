@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import secrets
 from typing import List, Optional, Dict, Any
 
@@ -40,8 +41,15 @@ import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 import bleach
 from sqlalchemy import or_, and_, func
+from env_loader import load_env_smart
 
-load_dotenv()
+# Chargement intelligent des variables d'environnement (chiffrées ou non)
+try:
+    load_env_smart()
+except Exception as e:
+    print(f"Erreur critique: Impossible de charger les variables d'environnement: {e}")
+    print("Verifiez que .env existe ou dechiffrez avec: python security_helper.py decrypt-env")
+    sys.exit(1)
 
 app = FastAPI(title="SUPRSS API")
 

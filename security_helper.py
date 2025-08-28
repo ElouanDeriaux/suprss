@@ -9,6 +9,7 @@ Usage:
     python security_helper.py generate-keys      # Génère de nouvelles clés sécurisées
     python security_helper.py check-security     # Audit de sécurité basique
     python security_helper.py setup-security     # Configuration sécurité complète
+    python security_helper.py production-mode    # Configure pour la production
 """
 
 import os
@@ -80,10 +81,18 @@ class SUPRSSSecurityHelper:
         print("⚠️  IMPORTANT : Gardez votre mot de passe maître en sécurité !")
         
         # Propose de supprimer le .env original
+        print("\n📋 Options post-chiffrement :")
+        print("1. Garder .env original (recommandé pour le développement)")
+        print("2. Supprimer .env original (plus sécurisé pour la production)")
+        print("3. L'application peut maintenant utiliser automatiquement .env.encrypted")
+        
         response = input("Supprimer le fichier .env original ? (y/N): ")
         if response.lower() == 'y':
             self.env_file.unlink()
             print("🗑️  Fichier .env original supprimé.")
+            print("💡 L'application déchiffrera automatiquement .env.encrypted au démarrage")
+        else:
+            print("📁 Fichier .env original conservé")
             
         return True
     
@@ -292,6 +301,33 @@ class SUPRSSSecurityHelper:
         
         print("\n✅ Configuration sécurisée terminée !")
         print("📝 Fichier de configuration créé : .suprss_security.json")
+    
+    def setup_production_mode(self):
+        """Configure l'application pour un environnement de production sécurisé"""
+        print("🏭 Configuration mode PRODUCTION")
+        print("=" * 40)
+        
+        if not self.env_encrypted_file.exists():
+            print("❌ Aucun fichier .env.encrypted trouvé.")
+            print("💡 Chiffrez d'abord avec: python security_helper.py encrypt-env")
+            return False
+        
+        # Supprime le .env original si il existe
+        if self.env_file.exists():
+            response = input("Supprimer .env original pour la production ? (y/N): ")
+            if response.lower() == 'y':
+                self.env_file.unlink()
+                print("🗑️  Fichier .env supprimé pour la sécurité")
+        
+        # Instructions pour la production
+        print("\n📋 Instructions pour le mode production :")
+        print("1. Définissez la variable d'environnement SUPRSS_MASTER_PASSWORD")
+        print("2. Ou l'application demandera le mot de passe au démarrage")
+        print("3. Le fichier .env sera déchiffré automatiquement en mémoire")
+        print("\n💡 Exemple Docker:")
+        print("   docker run -e SUPRSS_MASTER_PASSWORD='votre-mot-de-passe' ...")
+        
+        return True
 
 
 def main():
@@ -309,7 +345,8 @@ def main():
         'decrypt-env': helper.decrypt_env_file,
         'generate-keys': helper.generate_secure_keys,
         'check-security': helper.security_audit,
-        'setup-security': helper.setup_security
+        'setup-security': helper.setup_security,
+        'production-mode': helper.setup_production_mode
     }
     
     if command in commands:

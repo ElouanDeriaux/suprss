@@ -1,5 +1,9 @@
 # 🛡️ Guide Security Helper - SUPRSS
 
+## ✨ Nouveauté : Chiffrement Automatique
+
+L'application SUPRSS peut maintenant **automatiquement** déchiffrer votre fichier `.env.encrypted` au démarrage ! Plus besoin de déchiffrer manuellement.
+
 ## 📋 Qu'est-ce que Security Helper ?
 
 `security_helper.py` est un **outil simple** pour renforcer la sécurité de votre installation SUPRSS :
@@ -70,6 +74,11 @@ python security_helper.py decrypt-env
 python security_helper.py check-security
 ```
 
+**Mode production :**
+```bash
+python security_helper.py production-mode
+```
+
 ## 🔐 Chiffrement du .env
 
 ### Pourquoi chiffrer ?
@@ -81,9 +90,32 @@ python security_helper.py check-security
 1. Vous donnez un mot de passe maître
 2. L'outil chiffre votre `.env` 
 3. Sauvegarde dans `.env.encrypted`
-4. Supprime optionnellement l'original
+4. **L'application déchiffre automatiquement au démarrage !**
 
-### Usage pratique :
+### Nouveau Workflow (Automatique) :
+```bash
+# 1. Chiffrez votre .env une fois
+python security_helper.py encrypt-env
+
+# 2. L'application déchiffre automatiquement
+# Soit en mode interactif (demande le mot de passe)
+python main.py
+
+# Soit en mode production (avec variable d'environnement)
+export SUPRSS_MASTER_PASSWORD="votre-mot-de-passe"
+python main.py
+```
+
+### Mode Production :
+```bash
+# Configuration pour la production
+python security_helper.py production-mode
+
+# Docker avec mot de passe automatique
+docker run -e SUPRSS_MASTER_PASSWORD="votre-mot-de-passe" ...
+```
+
+### Ancien Workflow (Manuel) :
 ```bash
 # Pour développer
 python security_helper.py decrypt-env
