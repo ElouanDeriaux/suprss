@@ -298,6 +298,37 @@ docker-compose down     # Arrêt normal
 docker-compose down -v  # Arrêt avec suppression des volumes
 ```
 
+### Administration de la base de données
+
+#### Vidage complet de la base de données
+Pour vider toutes les données de la base tout en conservant la structure des tables :
+
+```bash
+# Vider toutes les tables
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
+```
+
+⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible. Utilisez-la uniquement pour :
+- Remettre à zéro l'application en développement
+- Nettoyer une base de test
+- Réinitialiser après des tests
+
+#### Autres commandes utiles pour la base de données
+
+```bash
+# Lister toutes les tables
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "\dt"
+
+# Voir le nombre d'enregistrements par table
+docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT 'users' as table_name, COUNT(*) as count FROM \"user\" UNION ALL SELECT 'articles', COUNT(*) FROM article UNION ALL SELECT 'feeds', COUNT(*) FROM feed UNION ALL SELECT 'collections', COUNT(*) FROM collection;"
+
+# Sauvegarder la base de données
+docker exec suprss_db pg_dump -U suprss_user suprss_db > backup_$(date +%Y%m%d_%H%M%S).sql
+
+# Restaurer une sauvegarde
+docker exec -i suprss_db psql -U suprss_user -d suprss_db < backup_20241128_143000.sql
+```
+
 ---
 
 ## Justification des choix techniques
