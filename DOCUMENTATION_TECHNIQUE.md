@@ -100,6 +100,14 @@ winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
 ```
 
+**Si winget ne fonctionne pas :**
+1. **Essayer PowerShell en tant qu'Administrateur** (clic droit → "Exécuter en tant qu'administrateur")
+2. **Ou télécharger manuellement Git** :
+   - Aller sur https://git-scm.com/download/win
+   - Télécharger la version 64-bit pour Windows
+   - Exécuter l'installateur et suivre les étapes par défaut
+   - Redémarrer PowerShell
+
 Sur **WSL/Linux** :
 ```bash
 # Ubuntu/Debian
