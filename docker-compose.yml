@@ -27,20 +27,12 @@ services:
       dockerfile: Dockerfile.backend
     container_name: suprss_backend
     restart: always
-    env_file:
-      - .env
+    # env_file: - .env  # Désactivé - l'application gère le chargement automatiquement
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-suprss_user}:${POSTGRES_PASSWORD:-suprss_pass}@db:5432/${POSTGRES_DB:-suprss_db}
+      - DATABASE_URL=postgresql://suprss_user:suprss_pass@db:5432/suprss_db
       - CORS_ORIGINS=http://localhost:3000,http://frontend:80
-      - SECRET_KEY=${SECRET_KEY:-development-key-change-in-production}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
-      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
-      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
-      - SMTP_PORT=${SMTP_PORT:-587}
-      - SMTP_USERNAME=${SMTP_USERNAME}
-      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SUPRSS_MASTER_PASSWORD=${SUPRSS_MASTER_PASSWORD:-}
+      # Les autres variables sont chargées automatiquement par env_loader depuis .env/.env.encrypted
     ports:
       - "8000:8000"
     depends_on:

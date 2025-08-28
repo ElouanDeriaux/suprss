@@ -162,14 +162,21 @@ sudo yum install git    # ou sudo dnf install git
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
-# 2. Configuration 2FA SMTP (IMPORTANT)
+# 2. Configuration sécurisée avec Security Helper (RECOMMANDÉ)
 cp .env.example .env
-# OBLIGATOIRE : Créer un email dédié pour SUPRSS et configurer :
+# Éditez .env avec vos vraies credentials, puis :
+python security_helper.py setup-security
+# ✅ Génère des clés sécurisées automatiquement
+# ✅ Configure les permissions fichiers
+# ✅ Propose le chiffrement du .env
+# ✅ Audit de sécurité automatique
+
+# ALTERNATIVE : Configuration manuelle
 # SECRET_KEY="votre-cle-generee"
 # SMTP_SERVER="smtp.gmail.com"
 # SMTP_PORT="587" 
 # SMTP_USERNAME="suprss.monnom@gmail.com"
-# SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION (16 caractères COLLÉS), PAS le mot de passe email
+# SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION (16 caractères COLLÉS)
 
 # 3. Lancement avec Docker
 # Linux/Mac
@@ -221,9 +228,36 @@ Copiez `.env.example` vers `.env` et configurez :
 
 **Guides détaillés :** 
 - 📖 `OAUTH_SETUP_GUIDE.md` - Guide complet pas-à-pas pour configurer Google et GitHub OAuth
-- 🛡️ `SECURITY_HELPER_GUIDE.md` - Outil simple pour sécuriser vos crédentiels
+- 🛡️ `SECURITY_HELPER_GUIDE.md` - **NOUVEAU !** Outil de chiffrement automatique pour sécuriser vos crédentiels
+- 🐳 `DOCKER_ENCRYPTED_ENV_GUIDE.md` - **NOUVEAU !** Guide Docker avec environnements chiffrés
 - 📋 `DOCUMENTATION_TECHNIQUE.md` - Documentation technique complète
 - 🔐 `SECURITY.md` - Bonnes pratiques de sécurité et gestion des secrets
+
+### 🛡️ Security Helper - Sécurisation Avancée
+
+**NOUVEAU !** SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
+
+```bash
+# Configuration sécurisée complète en une commande
+python security_helper.py setup-security
+
+# Chiffrer votre fichier .env
+python security_helper.py encrypt-env
+
+# L'application déchiffre automatiquement au démarrage !
+# Mode développement : Demande le mot de passe interactivement  
+# Mode production : Utilise SUPRSS_MASTER_PASSWORD
+```
+
+**Fonctionnalités :**
+- ✅ **Chiffrement automatique** de vos fichiers .env
+- ✅ **Génération de clés sécurisées** (SECRET_KEY, JWT, CSRF)  
+- ✅ **Déchiffrement transparent** au démarrage de l'application
+- ✅ **Support Docker** avec variables d'environnement
+- ✅ **Audit de sécurité** automatique
+- ✅ **Mode production** sécurisé
+
+Voir le guide complet : `SECURITY_HELPER_GUIDE.md`
 
 ### Base de Données
 - **SQLite** (défaut) : Base intégrée `suprss.db`
@@ -243,6 +277,9 @@ Copiez `.env.example` vers `.env` et configurez :
 - **CORS** configuré pour la production
 - **Tokens JWT** avec expiration
 - **Authentification 2FA** optionnelle
+- **🔐 NOUVEAU : Chiffrement automatique des fichiers .env** avec Security Helper
+- **🛡️ Variables chiffrées** : Protection des credentials OAuth et secrets
+- **🚀 Déchiffrement automatique** au démarrage (mode production et développement)
 - **Secrets externalisés** : Aucun secret hardcodé
 - **Audit de sécurité** : Documentation complète (voir SECURITY.md)
 

@@ -39,7 +39,31 @@
 - **Ne jamais** committer le fichier `.env` sur Git (déjà dans .gitignore)
 - **OBLIGATOIRE** : Utiliser un mot de passe d'APPLICATION Gmail pour SMTP (JAMAIS le mot de passe email principal)
 - **Générer** des clés secrètes aléatoires longues (32+ caractères)
+- **🛡️ NOUVEAU** : Utiliser le Security Helper pour la protection automatique
 - **Consulter** `SECURITY.md` pour les bonnes pratiques complètes de gestion des secrets
+
+### 🛡️ Security Helper - Gestion Sécurisée des Environnements
+
+**NOUVEAU** : SUPRSS intègre maintenant un système de sécurité avancé pour protéger vos credentials.
+
+#### Variables Additionnelles pour Environnements Chiffrés
+| Variable | Description | Usage |
+|----------|-------------|-------|
+| `SUPRSS_MASTER_PASSWORD` | Mot de passe maître pour déchiffrement | Mode production Docker |
+
+#### Outils de Sécurité Intégrés
+```bash
+python security_helper.py setup-security     # Configuration complète automatique
+python security_helper.py encrypt-env        # Chiffrement du .env
+python security_helper.py generate-keys      # Génération de clés sécurisées
+python security_helper.py check-security     # Audit de sécurité
+```
+
+#### Architecture de Chiffrement
+- **Algorithme** : AES-256 via Fernet (cryptographie library)
+- **Dérivation clé** : PBKDF2-HMAC-SHA256, 100,000 itérations
+- **Déchiffrement** : Automatique au démarrage via `env_loader.py`
+- **Modes** : Interactif (prompt password) ou production (env var)
 
 #### Guide détaillé pour obtenir les clés OAuth :
 

@@ -103,7 +103,42 @@ cd suprss
    SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
    ```
 
-💡 **Sécurité Avancée (Optionnel)** : Pour chiffrer votre fichier .env et renforcer la sécurité, consultez le guide `SECURITY_HELPER_GUIDE.md` - Outil simple pour protéger vos crédentiels avec un mot de passe maître.
+## 🛡️ Sécurité Avancée avec Security Helper (RECOMMANDÉ)
+
+**NOUVEAU !** SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vos credentials :
+
+### Configuration Automatique Sécurisée
+```bash
+# Installation et configuration complète en une commande
+python security_helper.py setup-security
+```
+
+**Cet outil fait automatiquement :**
+- ✅ **Génère des clés sécurisées** (SECRET_KEY, JWT_REFRESH_SECRET, etc.)
+- ✅ **Configure les permissions fichiers** (.env en mode 600)
+- ✅ **Met à jour .gitignore** pour exclure les fichiers sensibles
+- ✅ **Propose le chiffrement** de votre .env avec un mot de passe maître
+- ✅ **Effectue un audit sécurisé** de votre configuration
+
+### Chiffrement Automatique
+```bash
+# Chiffrer votre .env avec un mot de passe
+python security_helper.py encrypt-env
+
+# L'application déchiffrera automatiquement au démarrage !
+# 🔹 Mode développement : Demande le mot de passe
+# 🔹 Mode production : Utilise SUPRSS_MASTER_PASSWORD
+```
+
+### Support Docker avec Environnements Chiffrés
+```bash
+# Pour Docker avec environnement chiffré
+set SUPRSS_MASTER_PASSWORD=votre-mot-de-passe-maitre
+docker-compose up -d
+```
+
+📖 **Guide complet** : `SECURITY_HELPER_GUIDE.md`
+🐳 **Guide Docker avec chiffrement** : `DOCKER_ENCRYPTED_ENV_GUIDE.md`
 
 ## 🔐 Configuration OAuth (OPTIONNEL - Connexion Google/GitHub)
 
