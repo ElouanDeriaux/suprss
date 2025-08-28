@@ -3,8 +3,14 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-brightgreen.svg)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
+![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)
+![PowerShell](https://img.shields.io/badge/shell-PowerShell-blue.svg)
 
-**SUPRSS** est une application web moderne de gestion de flux RSS, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes.
+**SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes.
+
+> 🪟 **Plateforme supportée** : Windows uniquement avec PowerShell
+> 
+> Cette application est spécifiquement conçue et testée pour l'environnement Windows. Toutes les instructions utilisent PowerShell comme shell par défaut.
 
 ## ✨ Fonctionnalités
 
@@ -93,10 +99,14 @@ simple-frontend/
 
 ## 🚀 Installation et Déploiement
 
-### Prérequis
-- [Docker](https://www.docker.com/) et Docker Compose
-- [Git](https://git-scm.com/) pour le clonage
-- Ports 3000 (frontend) et 8000 (backend) disponibles
+### 🖥️ Prérequis Windows
+- **Windows 10/11** (version recommandée)
+- **PowerShell 5.1+** (installé par défaut sur Windows)
+- **[Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)** et Docker Compose
+- **[Git pour Windows](https://git-scm.com/download/win)** pour le clonage (optionnel)
+- **Ports disponibles** : 3000 (frontend) et 8000 (backend)
+
+> ⚠️ **Note importante** : Cette application est optimisée pour Windows uniquement. Les instructions utilisent PowerShell comme environnement shell par défaut.
 
 ### Démarrage Rapide
 
@@ -137,13 +147,19 @@ start.bat
 
 ### Méthode 2 : Avec Git (Pour développeurs)
 
-**Installation de Git (si nécessaire) :**
+**Installation de Git pour Windows (si nécessaire) :**
 
 ```powershell
-# Installer Git avec winget
+# Méthode 1 : Installer Git avec winget (Windows Package Manager)
 winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
 ```
+
+**Alternative si winget n'est pas disponible :**
+1. Télécharger depuis https://git-scm.com/download/win
+2. Exécuter l'installateur .exe
+3. Suivre les étapes d'installation par défaut
+4. Redémarrer PowerShell
 
 **Clonage du projet :**
 ```powershell

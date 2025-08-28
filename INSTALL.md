@@ -1,7 +1,11 @@
-# 🚀 Installation Rapide - SUPRSS
+# 🚀 Installation Rapide - SUPRSS (Windows)
 
-## 📋 Ce dont vous avez besoin
-1. **Docker Desktop** installé et démarré
+> 🪟 **Plateforme Windows uniquement** - Ce guide est spécifiquement conçu pour Windows avec PowerShell
+
+## 📋 Prérequis Windows
+1. **Windows 10/11** (version supportée)
+2. **PowerShell 5.1+** (inclus dans Windows)
+3. **Docker Desktop pour Windows** installé et démarré
    - [Télécharger Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)
 
 ## 📥 Télécharger SUPRSS
