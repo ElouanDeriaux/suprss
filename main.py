@@ -39,7 +39,7 @@ import feedparser
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 import bleach
-from sqlalchemy import or_
+from sqlalchemy import or_, and_, func
 
 load_dotenv()
 
