@@ -126,6 +126,8 @@ cd suprss
 
 ### Déploiement avec Docker (Recommandé)
 
+⚙️ **Gestion simplifiée avec Docker Compose** : Le projet peut être entièrement géré avec les commandes `docker-compose up` et `docker-compose down` pour le démarrage et l'arrêt.
+
 1. **Configuration des variables d'environnement**
 
 **Étape 1 : Copier le fichier de configuration**
@@ -247,8 +249,9 @@ DISABLE_2FA="true"  # Désactive complètement la 2FA
 ./start.sh      # Linux/Mac
 start.bat       # Windows
 
-# Ou manuellement
-docker-compose up --build -d
+# Ou directement avec Docker Compose
+docker-compose up -d            # Démarrage normal
+docker-compose up --build -d    # Avec reconstruction des images
 ```
 
 4. **Vérification**
@@ -286,8 +289,13 @@ python -m http.server 3000
 
 ### Arrêt des services
 ```bash
+# Scripts automatiques
 ./stop.sh               # Linux/Mac
-docker-compose down     # Manuel
+stop.bat                # Windows
+
+# Commandes Docker Compose directes
+docker-compose down     # Arrêt normal
+docker-compose down -v  # Arrêt avec suppression des volumes
 ```
 
 ---

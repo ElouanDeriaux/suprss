@@ -190,6 +190,7 @@ Après redémarrage, vous devriez voir les boutons "Se connecter avec Google/Git
 3. **Lancer l'application :**
    - **Windows** : Double-cliquer sur `start.bat`
    - **Mac/Linux** : `./start.sh`
+   - **Ou directement avec Docker Compose** : `docker-compose up -d`
 
 4. **Attendre que ça démarre** (30 secondes environ)
 
@@ -208,6 +209,11 @@ Vous devriez voir la page de connexion SUPRSS.
 ## 🛑 Arrêter SUPRSS
 
 ```bash
+# Arrêt avec les scripts fournis
+./stop.sh       # Linux/Mac
+stop.bat        # Windows
+
+# Ou directement avec Docker Compose
 docker-compose down
 ```
 
