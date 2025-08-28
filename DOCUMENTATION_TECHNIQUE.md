@@ -329,7 +329,7 @@ Pour vider toutes les données de la base tout en conservant la structure des ta
 
 ```bash
 # Vider toutes les tables
-docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
+docker exec suprss_db psql -U suprss_user -d suprss_db -c 'TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;'
 ```
 
 ⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible. Utilisez-la uniquement pour :
@@ -344,7 +344,7 @@ docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE articl
 docker exec suprss_db psql -U suprss_user -d suprss_db -c "\dt"
 
 # Voir le nombre d'enregistrements par table
-docker exec suprss_db psql -U suprss_user -d suprss_db -c "SELECT 'users' as table_name, COUNT(*) as count FROM \"user\" UNION ALL SELECT 'articles', COUNT(*) FROM article UNION ALL SELECT 'feeds', COUNT(*) FROM feed UNION ALL SELECT 'collections', COUNT(*) FROM collection;"
+docker exec suprss_db psql -U suprss_user -d suprss_db -c 'SELECT '\''users'\'' as table_name, COUNT(*) as count FROM "user" UNION ALL SELECT '\''articles'\'', COUNT(*) FROM article UNION ALL SELECT '\''feeds'\'', COUNT(*) FROM feed UNION ALL SELECT '\''collections'\'', COUNT(*) FROM collection;'
 
 # Sauvegarder la base de données
 docker exec suprss_db pg_dump -U suprss_user suprss_db > backup_$(date +%Y%m%d_%H%M%S).sql
