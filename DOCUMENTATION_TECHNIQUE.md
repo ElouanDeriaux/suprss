@@ -193,7 +193,7 @@ Add-Type -AssemblyName System.Web
 [System.Web.Security.Membership]::GeneratePassword(32, 10)
 
 # Ou génération hexadécimale
--join ((1..32) | ForEach {'{0:X2}' -f (Get-Random -Max 256)})
+-join ((1..64) | ForEach {'{0:X}' -f (Get-Random -Max 16)})
 ```
 
 **💡 Exemple de fichier .env complet (RECOMMANDÉ) :**
