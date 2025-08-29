@@ -52,13 +52,24 @@ pip3 install cryptography
 ```powershell
 python security_helper.py setup-security
 ```
-Cette commande fait tout automatiquement :
+
+**📋 Questions/Réponses attendues durant l'exécution :**
+1. **"Mettre à jour automatiquement .env ? (y/N):"** → Répondez **"y"** (oui)
+2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** (recommandé)
+3. **"Entrez un mot de passe maître pour chiffrer .env:"** → Choisissez un mot de passe fort
+4. **"Confirmez le mot de passe:"** → Retapez le même mot de passe
+5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"N"** (pour développement)
+
+**✅ Cette commande fait tout automatiquement :**
 - Génère de nouvelles clés sécurisées
 - Configure les permissions fichiers
 - Met à jour .gitignore
 - Propose le chiffrement du .env
+- Effectue un audit de sécurité
 
-### 2. Commandes Individuelles
+**💡 IMPORTANT : Si vous utilisez `setup-security`, vous n'avez PAS besoin des commandes individuelles ci-dessous !**
+
+### 2. Commandes Individuelles (Inutiles si setup-security utilisé)
 
 **Générer de nouvelles clés :**
 ```powershell

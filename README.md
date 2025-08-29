@@ -182,6 +182,13 @@ python security_helper.py setup-security
 # ✅ Propose le chiffrement du .env
 # ✅ Audit de sécurité automatique
 
+# 📋 Questions/Réponses attendues durant l'exécution :
+# 1. "Mettre à jour automatiquement .env ? (y/N):" → Répondez "y" (oui)
+# 2. "Voulez-vous chiffrer le fichier .env ? (y/N):" → Répondez "y" (recommandé)
+# 3. "Entrez un mot de passe maître pour chiffrer .env:" → Choisissez un mot de passe fort
+# 4. "Confirmez le mot de passe:" → Retapez le même mot de passe
+# 5. "Supprimer le fichier .env original ? (y/N):" → Répondez "N" (pour développement)
+
 # ALTERNATIVE : Configuration manuelle
 # SECRET_KEY="votre-cle-generee"
 # SMTP_SERVER="smtp.gmail.com"
@@ -239,9 +246,10 @@ python -m pip install cryptography
 
 # Configuration sécurisée complète en une commande
 python security_helper.py setup-security
+# FAIT DÉJÀ TOUT ! Génération, permissions, gitignore, chiffrement, audit
 
-# Chiffrer votre fichier .env
-python security_helper.py encrypt-env
+# ⚠️ INUTILE si vous avez utilisé setup-security ci-dessus :
+# python security_helper.py encrypt-env
 
 # L'application déchiffre automatiquement au démarrage !
 # Mode développement : Demande le mot de passe interactivement  

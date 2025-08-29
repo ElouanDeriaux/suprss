@@ -177,14 +177,27 @@ python -m pip install cryptography
 python security_helper.py setup-security
 ```
 
-**Cet outil fait automatiquement :**
+**📋 Questions/Réponses attendues durant l'exécution :**
+1. **"Mettre à jour automatiquement .env ? (y/N):"** → Répondez **"y"** (oui)
+2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** (recommandé)
+3. **"Entrez un mot de passe maître pour chiffrer .env:"** → Choisissez un mot de passe fort
+4. **"Confirmez le mot de passe:"** → Retapez le même mot de passe
+5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"N"** (pour développement)
+
+**✅ Cet outil fait automatiquement :**
 - ✅ **Génère des clés sécurisées** (SECRET_KEY, JWT_REFRESH_SECRET, etc.)
 - ✅ **Configure les permissions fichiers** (.env en mode 600)
 - ✅ **Met à jour .gitignore** pour exclure les fichiers sensibles
 - ✅ **Propose le chiffrement** de votre .env avec un mot de passe maître
 - ✅ **Effectue un audit sécurisé** de votre configuration
 
-### Chiffrement Automatique
+**💡 IMPORTANT : La "Configuration Automatique Sécurisée" ci-dessus fait déjà tout le travail !**  
+**✅ Si vous utilisez `setup-security`, vous n'avez PAS besoin de la section "Chiffrement Automatique" ci-dessous.**
+
+### ~~Chiffrement Automatique~~ (Inutile si vous avez utilisé setup-security)
+
+<details>
+<summary>📁 Chiffrement Manuel (seulement si vous n'avez PAS utilisé setup-security)</summary>
 
 **Prérequis** : Assurez-vous d'avoir installé cryptography (voir étape 1 ci-dessus)
 
@@ -196,6 +209,8 @@ python security_helper.py encrypt-env
 # 🔹 Mode développement : Demande le mot de passe
 # 🔹 Mode production : Utilise SUPRSS_MASTER_PASSWORD
 ```
+
+</details>
 
 ### Support Docker avec Environnements Chiffrés
 ```powershell
