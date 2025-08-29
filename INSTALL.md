@@ -259,11 +259,15 @@ Après redémarrage, vous devriez avoir les boutons "Se connecter avec Google/Gi
    - **Recommandé** : Double-cliquer sur `start.bat` (gère automatiquement le chiffrement)
    - **Ou avec Docker + mot de passe** :
      ```powershell
-     # Windows PowerShell
-     $env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
-     docker-compose up -d
+     # Windows PowerShell - UNE SEULE commande (avec le ; entre les deux)
+     $env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"; docker-compose up -d
+     
+     # OU alternative Windows CMD
+     set SUPRSS_MASTER_PASSWORD=votre-mot-de-passe-maitre && docker-compose up -d
      ```
-   - ⚠️ **IMPORTANT** : `docker-compose up -d` **SEUL** ne fonctionnera PAS avec un .env chiffré !
+   - ⚠️ **IMPORTANT** : 
+     - `docker-compose up -d` **SEUL** ne fonctionnera PAS avec un .env chiffré !
+     - Il faut **UNE SEULE LIGNE** avec la variable ET docker-compose (connectés par `;` ou `&&`)
 
 4. **Attendre que ça démarre** (30 secondes environ)
 
