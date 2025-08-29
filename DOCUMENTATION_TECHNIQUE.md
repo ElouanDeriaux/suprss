@@ -290,11 +290,22 @@ docker-compose down -v  # Arrêt avec suppression des volumes
 Pour supprimer toutes les données de la base tout en conservant la structure des tables :
 
 ```powershell
-# Supprimer toutes les données
-docker exec suprss_db psql -U suprss_user -d suprss_db -c "TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, \"user\" CASCADE;"
+# Supprimer toutes les données (PowerShell)
+docker exec suprss_db psql -U suprss_user -d suprss_db -c 'TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;'
+
+# Alternative si la commande ci-dessus pose problème :
+docker exec -it suprss_db psql -U suprss_user -d suprss_db
+# Puis dans psql, exécuter :
+# TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;
+# \q pour quitter
 ```
 
 ⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible.
+
+**💡 Résolution de problèmes courants :**
+- Si la commande échoue avec une erreur de guillemets, utilisez la méthode interactive (docker exec -it)
+- Assurez-vous que le conteneur suprss_db est bien démarré : `docker-compose ps`
+- Si le conteneur n'existe pas, lancez d'abord : `docker-compose up -d`
 
 ---
 
