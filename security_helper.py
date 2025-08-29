@@ -158,10 +158,13 @@ class SUPRSSSecurityHelper:
         
         # Propose de mettre à jour .env
         if self.env_file.exists():
-            response = input("\nMettre à jour automatiquement .env ? (y/N): ")
-            if response.lower() == 'y':
-                self.update_env_file(keys)
-                print("✅ Fichier .env mis à jour avec les nouvelles clés.")
+            try:
+                response = input("\nMettre à jour automatiquement .env ? (y/N): ")
+                if response.lower() == 'y':
+                    self.update_env_file(keys)
+                    print("✅ Fichier .env mis à jour avec les nouvelles clés.")
+            except (EOFError, KeyboardInterrupt):
+                print("\n⚠️  Mode non-interactif détecté. Fichier .env non modifié.")
                 
         return keys
     
@@ -322,10 +325,13 @@ class SUPRSSSecurityHelper:
         
         # Supprime le .env original si il existe
         if self.env_file.exists():
-            response = input("Supprimer .env original pour la production ? (y/N): ")
-            if response.lower() == 'y':
-                self.env_file.unlink()
-                print("🗑️  Fichier .env supprimé pour la sécurité")
+            try:
+                response = input("Supprimer .env original pour la production ? (y/N): ")
+                if response.lower() == 'y':
+                    self.env_file.unlink()
+                    print("🗑️  Fichier .env supprimé pour la sécurité")
+            except (EOFError, KeyboardInterrupt):
+                print("\n⚠️  Mode non-interactif détecté. Fichier .env conservé.")
         
         # Instructions pour la production
         print("\n📋 Instructions pour le mode production :")
