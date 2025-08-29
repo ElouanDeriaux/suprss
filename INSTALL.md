@@ -171,12 +171,6 @@ SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vo
 python -m pip install cryptography python-dotenv
 ```
 
-⚠️ **Si vous avez une erreur "No module named dotenv" plus tard :**
-```powershell
-# Installer python-dotenv si pas déjà fait
-python -m pip install python-dotenv
-```
-
 **Étape 2 : Lancer la configuration sécurisée**
 ```powershell
 # Installation et configuration complète en une commande
