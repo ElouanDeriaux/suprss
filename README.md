@@ -191,24 +191,6 @@ L'application sera accessible sur :
 - **API** : http://localhost:8000
 - **API Documentation** : http://localhost:8000/docs
 
-### Lancement Manuelle (Développement)
-
-```powershell
-# Backend
-pip install fastapi sqlmodel uvicorn bcrypt python-jose[cryptography] feedparser requests apscheduler bleach python-dotenv authlib httpx
-
-# Base de données
-# SQLite (par défaut) : Aucune configuration requise
-# PostgreSQL : Décommentez la section dans docker-compose.yml
-
-# Lancement backend
-uvicorn main:app --reload --port 8000
-
-# Frontend (terminal séparé)
-cd simple-frontend
-python -m http.server 3000
-```
-
 ## 🔧 Configuration
 
 ### Variables d'Environnement
