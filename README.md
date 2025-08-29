@@ -172,29 +172,11 @@ cd suprss
 copy .env.example .env
 # Éditez .env avec vos vraies credentials, puis :
 
-# ÉTAPE OBLIGATOIRE : Installer cryptography
-python -m pip install cryptography
+# ÉTAPE OBLIGATOIRE : Installer les dépendances
+python -m pip install cryptography python-dotenv
 
 # Configuration automatique sécurisée
 python security_helper.py setup-security
-# ✅ Génère des clés sécurisées automatiquement
-# ✅ Configure les permissions fichiers
-# ✅ Propose le chiffrement du .env
-# ✅ Audit de sécurité automatique
-
-# 📋 Questions/Réponses attendues durant l'exécution :
-# 1. "Mettre à jour automatiquement .env ? (y/N):" → Répondez "y" (oui)
-# 2. "Voulez-vous chiffrer le fichier .env ? (y/N):" → Répondez "y" (recommandé)
-# 3. "Entrez un mot de passe maître pour chiffrer .env:" → Choisissez un mot de passe fort
-# 4. "Confirmez le mot de passe:" → Retapez le même mot de passe  
-# 5. "Supprimer le fichier .env original ? (y/N):" → Répondez "y" (SÉCURITÉ RÉELLE !)
-
-# ALTERNATIVE : Configuration manuelle
-# SECRET_KEY="votre-cle-generee"
-# SMTP_SERVER="smtp.gmail.com"
-# SMTP_PORT="587" 
-# SMTP_USERNAME="suprss.monnom@gmail.com"
-# SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION (16 caractères COLLÉS)
 
 # 3. Lancement avec Docker
 start.bat
@@ -202,6 +184,13 @@ start.bat
 # Ou manuellement
 docker-compose up --build -d
 ```
+
+**📋 Questions/Réponses pour setup-security :**
+1. **"Mettre à jour automatiquement .env ? (y/N):"** → Répondez **"y"**
+2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** 
+3. **"Entrez un mot de passe maître :"** → Choisissez un mot de passe fort
+4. **"Confirmez le mot de passe :"** → Retapez le même mot de passe
+5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"y"** (sécurité réelle)
 
 L'application sera accessible sur :
 - **Frontend** : http://localhost:3000
@@ -241,21 +230,18 @@ Copiez `.env.example` vers `.env` et configurez :
 SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
 ```powershell
-# Installer les dépendances requises pour les outils de sécurité
+# Installer les dépendances requises
 python -m pip install cryptography python-dotenv
 
 # Configuration sécurisée complète en une commande
 python security_helper.py setup-security
-# FAIT DÉJÀ TOUT ! Génération, permissions, gitignore, chiffrement, audit
-# ⚠️ IMPORTANT: Répondez "y" à la suppression de .env pour vraie sécurité !
-
-# ⚠️ INUTILE si vous avez utilisé setup-security ci-dessus :
-# python security_helper.py encrypt-env
-
-# L'application déchiffre automatiquement au démarrage !
-# Mode développement : Demande le mot de passe interactivement  
-# Mode production : Utilise SUPRSS_MASTER_PASSWORD
 ```
+
+⚠️ **Important** : Répondez "y" à toutes les questions pour une sécurité optimale, notamment pour la suppression du fichier .env original.
+
+L'application déchiffre automatiquement le fichier .env.encrypted au démarrage :
+- **Mode développement** : Demande le mot de passe interactivement  
+- **Mode production** : Utilise la variable `SUPRSS_MASTER_PASSWORD`
 
 **Fonctionnalités :**
 - ✅ **Chiffrement automatique** de vos fichiers .env
