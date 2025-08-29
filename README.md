@@ -219,7 +219,6 @@ Copiez `.env.example` vers `.env` et configurez :
 **📖 Guides de configuration :**
 - **📖 `OAUTH_SETUP_GUIDE.md`** - Configuration OAuth Google et GitHub (optionnel)
 - **🛡️ `SECURITY_HELPER_GUIDE.md`** - Chiffrement automatique des credentials
-- **🐳 `DOCKER_ENCRYPTED_ENV_GUIDE.md`** - Docker avec environnements chiffrés
 
 **🔧 Documentation technique :**
 - **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
@@ -240,8 +239,8 @@ python security_helper.py setup-security
 ⚠️ **Important** : Répondez "y" à toutes les questions pour une sécurité optimale, notamment pour la suppression du fichier .env original.
 
 L'application déchiffre automatiquement le fichier .env.encrypted au démarrage :
-- **Mode développement** : Demande le mot de passe interactivement  
-- **Mode production** : Utilise la variable `SUPRSS_MASTER_PASSWORD`
+- **Avec start.bat** : Demande le mot de passe interactivement  
+- **Avec Docker** : Nécessite la variable `SUPRSS_MASTER_PASSWORD` ou déchiffrement manuel
 
 **Fonctionnalités :**
 - ✅ **Chiffrement automatique** de vos fichiers .env

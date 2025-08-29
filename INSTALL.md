@@ -220,15 +220,7 @@ python security_helper.py decrypt-env
 # Puis relancer l'application
 ```
 
-### Support Docker avec Environnements Chiffrés
-```powershell
-# Pour Docker avec environnement chiffré
-$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
-docker-compose up -d
-```
-
 📖 **Guide complet** : `SECURITY_HELPER_GUIDE.md`
-🐳 **Guide Docker avec chiffrement** : `DOCKER_ENCRYPTED_ENV_GUIDE.md`
 
 ### ✅ Vérification OAuth
 Après redémarrage, vous devriez avoir les boutons "Se connecter avec Google/GitHub" sur la page de connexion fonctionnels.

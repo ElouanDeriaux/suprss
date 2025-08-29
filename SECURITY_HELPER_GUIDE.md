@@ -130,8 +130,8 @@ python main.py
 # Configuration pour la production
 python security_helper.py production-mode
 
-# Docker avec mot de passe automatique
-docker run -e SUPRSS_MASTER_PASSWORD="votre-mot-de-passe" ...
+# Docker Compose avec mot de passe automatique
+$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe"; docker-compose up -d
 ```
 
 ### Ancien Workflow (Manuel) :
