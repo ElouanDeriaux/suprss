@@ -290,6 +290,13 @@ Vous devriez voir la page de connexion SUPRSS.
   - ✅ **Solution 2** : Définissez `SUPRSS_MASTER_PASSWORD` avant `docker-compose up`
   - ✅ **Solution 3** : Déchiffrez temporairement avec `python security_helper.py decrypt-env`
 - **Le conteneur redémarre en boucle** : Même cause que ci-dessus
+- **OAuth Google/GitHub "invalid_client" ou "client not found"** :
+  - 🔧 **Cause** : Docker utilise une image cachée sans les bonnes clés OAuth
+  - ✅ **Solution** : Rebuilder l'image après déchiffrement :
+    ```powershell
+    python security_helper.py decrypt-env
+    docker-compose up --build -d
+    ```
 
 ## 🛑 Arrêter SUPRSS
 
