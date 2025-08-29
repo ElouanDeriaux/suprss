@@ -110,6 +110,8 @@ simple-frontend/
 
 ### Démarrage Rapide
 
+Pour avoir le guide détaillé pour installer le projet : 🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
+
 ### Méthode 1 : Téléchargement ZIP (Sans Git - Recommandé)
 
 1. **Télécharger le projet**
