@@ -164,6 +164,14 @@ GITHUB_CLIENT_SECRET="votre-client-secret-github"
 SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vos credentials :
 
 ### Configuration Automatique Sécurisée
+
+**Étape 1 : Installer la dépendance requise**
+```powershell
+# OBLIGATOIRE : Installer cryptography avant d'utiliser Security Helper
+python -m pip install cryptography
+```
+
+**Étape 2 : Lancer la configuration sécurisée**
 ```powershell
 # Installation et configuration complète en une commande
 python security_helper.py setup-security
@@ -177,6 +185,9 @@ python security_helper.py setup-security
 - ✅ **Effectue un audit sécurisé** de votre configuration
 
 ### Chiffrement Automatique
+
+**Prérequis** : Assurez-vous d'avoir installé cryptography (voir étape 1 ci-dessus)
+
 ```powershell
 # Chiffrer votre .env avec un mot de passe
 python security_helper.py encrypt-env

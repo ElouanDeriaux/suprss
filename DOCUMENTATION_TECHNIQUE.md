@@ -54,6 +54,13 @@ SUPRSS intègre maintenant un système de sécurité avancé pour protéger vos 
 | `SUPRSS_MASTER_PASSWORD` | Mot de passe maître pour déchiffrement | Mode production Docker |
 
 #### Outils de Sécurité Intégrés
+
+**⚠️ PRÉREQUIS** : Installer cryptography avant d'utiliser ces outils :
+```bash
+python -m pip install cryptography
+```
+
+**Commandes disponibles** :
 ```bash
 python security_helper.py setup-security     # Configuration complète automatique
 python security_helper.py encrypt-env        # Chiffrement du .env

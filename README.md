@@ -171,6 +171,11 @@ cd suprss
 # 2. Configuration sécurisée avec Security Helper (RECOMMANDÉ)
 copy .env.example .env
 # Éditez .env avec vos vraies credentials, puis :
+
+# ÉTAPE OBLIGATOIRE : Installer cryptography
+python -m pip install cryptography
+
+# Configuration automatique sécurisée
 python security_helper.py setup-security
 # ✅ Génère des clés sécurisées automatiquement
 # ✅ Configure les permissions fichiers
@@ -229,6 +234,9 @@ Copiez `.env.example` vers `.env` et configurez :
 SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
 ```powershell
+# Installer la dépendance requise pour les outils de sécurité
+python -m pip install cryptography
+
 # Configuration sécurisée complète en une commande
 python security_helper.py setup-security
 

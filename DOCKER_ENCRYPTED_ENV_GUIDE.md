@@ -86,6 +86,13 @@ Invoke-WebRequest http://localhost:8000/health
 ```
 
 ### Gestion des Environnements
+
+**⚠️ PRÉREQUIS** : Installer cryptography pour utiliser security_helper :
+```powershell
+python -m pip install cryptography
+```
+
+**Commandes de gestion** :
 ```powershell
 # Chiffrer votre .env actuel
 python security_helper.py encrypt-env
