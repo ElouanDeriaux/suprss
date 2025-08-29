@@ -76,6 +76,7 @@ Ce guide vous explique **étape par étape** comment configurer l'authentificati
 ### Étape 7 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
 ```powershell
+# Variables d'environnement PowerShell
 $env:GOOGLE_CLIENT_ID="votre-client-id-google"
 $env:GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 ```
@@ -117,6 +118,7 @@ $env:GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 ### Étape 6 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
 ```powershell
+# Variables d'environnement PowerShell
 $env:GITHUB_CLIENT_ID="votre-client-id-github"
 $env:GITHUB_CLIENT_SECRET="votre-client-secret-github"
 ```
@@ -127,23 +129,23 @@ $env:GITHUB_CLIENT_SECRET="votre-client-secret-github"
 
 Votre fichier `.env` devrait ressembler à :
 
-```powershell
+```env
 # Clé secrète (OBLIGATOIRE)
-$env:SECRET_KEY="votre-cle-secrete-32-caracteres"
+SECRET_KEY="votre-cle-secrete-64-caracteres-minimum"
 
-# OAuth Google (OPTIONNEL)
-$env:GOOGLE_CLIENT_ID="123456789-abcdef.apps.googleusercontent.com"
-$env:GOOGLE_CLIENT_SECRET="GOCSPX-votre-secret-google"
+# SMTP pour authentification (OBLIGATOIRE)
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="votre-email-suprss@gmail.com"
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
 
-# OAuth GitHub (OPTIONNEL)
-$env:GITHUB_CLIENT_ID="votre-client-id-github"
-$env:GITHUB_CLIENT_SECRET="votre-secret-github"
+# OAuth Google (OPTIONNEL - améliore l'expérience utilisateur)
+GOOGLE_CLIENT_ID="123456789-abcdef.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="GOCSPX-votre-secret-google"
 
-# SMTP pour 2FA (OPTIONNEL)
-$env:SMTP_SERVER="smtp.gmail.com"
-$env:SMTP_PORT="587"
-$env:SMTP_USERNAME="votre-email@gmail.com"
-$env:SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
+# OAuth GitHub (OPTIONNEL - améliore l'expérience utilisateur)
+GITHUB_CLIENT_ID="votre-client-id-github"
+GITHUB_CLIENT_SECRET="votre-secret-github"
 ```
 
 ---
@@ -218,5 +220,4 @@ Si vous déployez SUPRSS sur un serveur :
 - **Limitez** l'accès aux applications OAuth aux domaines nécessaires
 
 ---
-
-*Ce guide vous permet de configurer complètement l'authentification OAuth pour SUPRSS. En cas de problème, consultez les logs Docker ou créez une issue sur le projet GitHub.*
+*Dernière modification : 29 août 2025*

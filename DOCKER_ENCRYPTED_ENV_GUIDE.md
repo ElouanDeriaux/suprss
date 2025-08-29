@@ -130,5 +130,4 @@ docker-compose up -d
 ```
 
 ---
-
-**🎉 Félicitations ! Votre setup Docker avec environnement chiffré fonctionne parfaitement !**
+*Dernière modification : 29 août 2025*

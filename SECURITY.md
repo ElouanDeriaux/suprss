@@ -26,22 +26,33 @@
 
 **CRITIQUE** : Ces variables ne doivent JAMAIS être committées dans le code !
 
+**Exemple .env :**
+```env
+# OBLIGATOIRE : Clé secrète JWT (utilisez la génération PowerShell ci-dessus)
+SECRET_KEY="votre-cle-generee-64-caracteres"
+
+# OBLIGATOIRE : SMTP pour authentification
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="votre-email-suprss@gmail.com"
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères)
+
+# OPTIONNEL : OAuth (améliore l'expérience utilisateur)
+GOOGLE_CLIENT_ID="votre-id-google"
+GOOGLE_CLIENT_SECRET="votre-secret-google"
+GITHUB_CLIENT_ID="votre-id-github"
+GITHUB_CLIENT_SECRET="votre-secret-github"
+```
+
+**Génération PowerShell des clés :**
 ```powershell
 # Génération d'une clé secrète sécurisée
 $SECRET_KEY = [System.Web.Security.Membership]::GeneratePassword(64, 10)
+Write-Host "SECRET_KEY générée : $SECRET_KEY"
 
-# OAuth (optionnel mais recommandé)
-$GOOGLE_CLIENT_ID="votre-id-google"
-$GOOGLE_CLIENT_SECRET="votre-secret-google"
-$GITHUB_CLIENT_ID="votre-id-github"
-$GITHUB_CLIENT_SECRET="votre-secret-github"
-
-# SMTP pour 2FA (optionnel)
-$SMTP_USERNAME="votre-email@domain.com"
-$SMTP_PASSWORD="mot-de-passe-application"
-
-# PostgreSQL (optionnel)
+# PostgreSQL (si nécessaire)
 $POSTGRES_PASSWORD = [System.Web.Security.Membership]::GeneratePassword(32, 8)
+Write-Host "POSTGRES_PASSWORD : $POSTGRES_PASSWORD"
 ```
 
 ## ⚠️ Consignes de sécurité
@@ -68,14 +79,14 @@ $POSTGRES_PASSWORD = [System.Web.Security.Membership]::GeneratePassword(32, 8)
 
 ## 🛡️ Audit de sécurité
 
-### Dernière vérification : 2024-08-27
+### Dernière vérification
 - ✅ Aucun secret hardcodé dans le code
 - ✅ Tous les mots de passe hachés 
 - ✅ Variables d'environnement externalisées
 - ✅ .gitignore renforcé contre les fuites
 - ✅ Code de débogage nettoyé
 
-### Prochaine révision : 2024-09-27
+### Prochaines révisions programmées
 - [ ] Audit des dépendances
 - [ ] Test de pénétration
 - [ ] Révision des permissions
@@ -90,4 +101,4 @@ Si vous découvrez une faille de sécurité :
 4. **Attendre** la correction avant divulgation
 
 ---
-*Ce document est mis à jour à chaque correction de sécurité*
+*Dernière modification : 29 août 2025*

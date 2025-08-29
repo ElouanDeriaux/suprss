@@ -118,9 +118,9 @@ simple-frontend/
    - Extraire le fichier `suprss-main.zip` dans un dossier
    - Renommer le dossier `suprss-main` en `suprss`
 
-2. **Configuration des emails 2FA (IMPORTANT)**
+2. **Configuration SMTP (OBLIGATOIRE)**
 
-⚠️ **OBLIGATOIRE pour la 2FA** : Pour que l'authentification 2 facteurs fonctionne :
+⚠️ **CONFIGURATION SMTP OBLIGATOIRE** : SUPRSS nécessite un serveur email configuré pour fonctionner :
 
 - **Créer un email dédié** pour SUPRSS (ex: `suprss.monnom@gmail.com`)
 - **Activer la 2FA** sur ce compte Gmail et générer un **mot de passe d'application** (16 caractères)
@@ -150,16 +150,12 @@ start.bat
 **Installation de Git pour Windows (si nécessaire) :**
 
 ```powershell
-# Méthode 1 : Installer Git avec winget (Windows Package Manager)
+# Méthode recommandée avec winget
 winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
-```
 
-**Alternative si winget n'est pas disponible :**
-1. Télécharger depuis https://git-scm.com/download/win
-2. Exécuter l'installateur .exe
-3. Suivre les étapes d'installation par défaut
-4. Redémarrer PowerShell
+# Alternative : Téléchargement manuel depuis https://git-scm.com/download/win
+```
 
 **Clonage du projet :**
 ```powershell
@@ -213,7 +209,7 @@ cd simple-frontend
 python -m http.server 3000
 ```
 
-## ⚙️ Configuration
+## 🔧 Configuration
 
 ### Variables d'Environnement
 Copiez `.env.example` vers `.env` et configurez :
@@ -221,22 +217,29 @@ Copiez `.env.example` vers `.env` et configurez :
 | Variable | Description | Comment l'obtenir | Obligatoire |
 |----------|-------------|-------------------|-------------|
 | `SECRET_KEY` | Clé secrète pour JWT | `openssl rand -hex 32` | ✅ |
-| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Google Cloud Console | ⚪ |
-| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Google Cloud Console | ⚪ |
-| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Developer Settings | ⚪ |
-| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ |
-| `SMTP_*` | Configuration email pour 2FA | Fournisseur email (Gmail, etc.) | ⚪ |
+| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Google Cloud Console | ⚪ Optionnel - Améliore l'expérience utilisateur |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Google Cloud Console | ⚪ Optionnel - Améliore l'expérience utilisateur |
+| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
+| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
+| `SMTP_*` | Configuration email pour authentification | Fournisseur email (Gmail, etc.) | ✅ |
 
-**Guides détaillés :** 
-- 📖 `OAUTH_SETUP_GUIDE.md` - Guide complet pas-à-pas pour configurer Google et GitHub OAuth
-- 🛡️ `SECURITY_HELPER_GUIDE.md` - **NOUVEAU !** Outil de chiffrement automatique pour sécuriser vos crédentiels
-- 🐳 `DOCKER_ENCRYPTED_ENV_GUIDE.md` - **NOUVEAU !** Guide Docker avec environnements chiffrés
-- 📋 `DOCUMENTATION_TECHNIQUE.md` - Documentation technique complète
-- 🔐 `SECURITY.md` - Bonnes pratiques de sécurité et gestion des secrets
+**📚 Documentation complète :** 
+1. **🪟 `WINDOWS_COMPATIBILITY.md`** - Pourquoi Windows uniquement (à lire en premier)
+2. **🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
+3. **👥 `MANUEL_UTILISATEUR.md`** - Guide complet pour les utilisateurs finaux
+
+**📖 Guides de configuration :**
+- **📖 `OAUTH_SETUP_GUIDE.md`** - Configuration OAuth Google et GitHub (optionnel)
+- **🛡️ `SECURITY_HELPER_GUIDE.md`** - Chiffrement automatique des credentials
+- **🐳 `DOCKER_ENCRYPTED_ENV_GUIDE.md`** - Docker avec environnements chiffrés
+
+**🔧 Documentation technique :**
+- **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
+- **🔐 `SECURITY.md`** - Bonnes pratiques sécurité
 
 ### 🛡️ Security Helper - Sécurisation Avancée
 
-**NOUVEAU !** SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
+SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
 ```powershell
 # Configuration sécurisée complète en une commande
@@ -278,9 +281,9 @@ Voir le guide complet : `SECURITY_HELPER_GUIDE.md`
 - **CORS** configuré pour la production
 - **Tokens JWT** avec expiration
 - **Authentification 2FA** optionnelle
-- **🔐 NOUVEAU : Chiffrement automatique des fichiers .env** avec Security Helper
-- **🛡️ Variables chiffrées** : Protection des credentials OAuth et secrets
-- **🚀 Déchiffrement automatique** au démarrage (mode production et développement)
+- **Chiffrement automatique des fichiers .env** avec Security Helper
+- **Variables chiffrées** : Protection des credentials OAuth et secrets
+- **Déchiffrement automatique** au démarrage (mode production et développement)
 - **Secrets externalisés** : Aucun secret hardcodé
 - **Audit de sécurité** : Documentation complète (voir SECURITY.md)
 
@@ -299,7 +302,7 @@ Voir le guide complet : `SECURITY_HELPER_GUIDE.md`
 - **Import/Export** : Migrez depuis/vers d'autres lecteurs RSS
 - **Messagerie** : Discutez des articles en équipe
 
-## 🛠️ Développement
+## 🔧 Développement
 
 ### Stack Technologique
 - **Backend** : FastAPI, SQLModel, Pydantic
@@ -331,5 +334,4 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 - Email: elouanderiaux@gmail.com
 
 ---
-
-*Développé avec ❤️ pour une meilleure expérience de lecture RSS*
+*Dernière modification : 29 août 2025*

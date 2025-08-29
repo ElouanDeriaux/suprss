@@ -2,6 +2,16 @@
 
 > 🪟 **Plateforme Windows uniquement** - Ce guide est spécifiquement conçu pour Windows avec PowerShell
 
+## 📋 Table des matières
+1. [Prérequis Windows](#-prérequis-windows)
+2. [Télécharger SUPRSS](#-télécharger-suprss)
+3. [Configuration des emails 2FA](#️-configuration-des-emails-2fa-obligatoire)
+4. [Configuration OAuth](#-configuration-oauth-optionnel---connexion-googleGitHub)
+5. [Sécurité Avancée avec Security Helper](#️-sécurité-avancée-avec-security-helper-recommandé)
+6. [Lancer SUPRSS](#️-lancer-suprss)
+7. [Résolution de problèmes](#-problème)
+8. [Arrêter SUPRSS](#-arrêter-suprss)
+
 ## 📋 Prérequis Windows
 1. **Windows 10/11** (version supportée)
 2. **PowerShell 5.1+** (inclus dans Windows)
@@ -41,9 +51,9 @@ git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
 
-## ⚙️ Configuration des emails 2FA (IMPORTANT)
+## 🔧 Configuration des emails 2FA (OBLIGATOIRE)
 
-⚠️ **OBLIGATOIRE pour la 2FA** : Pour que l'authentification 2 facteurs fonctionne, configurez un email dédié :
+⚠️ **CONFIGURATION SMTP REQUISE** : La configuration SMTP est **obligatoire** pour que SUPRSS fonctionne correctement. La 2FA nécessite un serveur email configuré :
 
 1. **Créer un email spécifique** pour votre application SUPRSS (ex: `suprss.monnom@gmail.com`)
 2. **Activer la 2FA** sur ce compte Gmail
@@ -70,7 +80,7 @@ cd suprss
    ```
 
 6. **Ajouter dans .env** :
-   ```bash
+   ```env
    SECRET_KEY="votre-cle-generee-64-caracteres"  # Utilisez la clé générée ci-dessus
    SMTP_SERVER="smtp.gmail.com"
    SMTP_PORT="587"
@@ -78,46 +88,9 @@ cd suprss
    SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
    ```
 
-## 🛡️ Sécurité Avancée avec Security Helper (RECOMMANDÉ)
-
-**NOUVEAU !** SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vos credentials :
-
-### Configuration Automatique Sécurisée
-```powershell
-# Installation et configuration complète en une commande
-python security_helper.py setup-security
-```
-
-**Cet outil fait automatiquement :**
-- ✅ **Génère des clés sécurisées** (SECRET_KEY, JWT_REFRESH_SECRET, etc.)
-- ✅ **Configure les permissions fichiers** (.env en mode 600)
-- ✅ **Met à jour .gitignore** pour exclure les fichiers sensibles
-- ✅ **Propose le chiffrement** de votre .env avec un mot de passe maître
-- ✅ **Effectue un audit sécurisé** de votre configuration
-
-### Chiffrement Automatique
-```powershell
-# Chiffrer votre .env avec un mot de passe
-python security_helper.py encrypt-env
-
-# L'application déchiffrera automatiquement au démarrage !
-# 🔹 Mode développement : Demande le mot de passe
-# 🔹 Mode production : Utilise SUPRSS_MASTER_PASSWORD
-```
-
-### Support Docker avec Environnements Chiffrés
-```powershell
-# Pour Docker avec environnement chiffré
-$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
-docker-compose up -d
-```
-
-📖 **Guide complet** : `SECURITY_HELPER_GUIDE.md`
-🐳 **Guide Docker avec chiffrement** : `DOCKER_ENCRYPTED_ENV_GUIDE.md`
-
 ## 🔐 Configuration OAuth (OPTIONNEL - Connexion Google/GitHub)
 
-⚠️ **Cette section est OPTIONNELLE** - SUPRSS fonctionne parfaitement sans OAuth. Configurez OAuth seulement si vous voulez que vos utilisateurs puissent se connecter avec Google ou GitHub.
+⚠️ **Cette section est OPTIONNELLE** - SUPRSS fonctionne avec OAuth désactivé, mais **SMTP reste obligatoire** pour la 2FA. Configurez OAuth seulement si vous voulez que vos utilisateurs puissent se connecter avec Google ou GitHub pour une expérience utilisateur optimale.
 
 ### 🌟 Configuration Google OAuth
 
@@ -172,20 +145,61 @@ Remplissez :
 ### 📝 Ajouter les Clés dans .env
 
 Ajoutez ces lignes dans votre fichier `.env` :
-```bash
-# OAuth Google (OPTIONNEL)
+```env
+# OAuth Google (OPTIONNEL - améliore l'expérience utilisateur)
 GOOGLE_CLIENT_ID="votre-client-id-google"
 GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 
-# OAuth GitHub (OPTIONNEL)
+# OAuth GitHub (OPTIONNEL - améliore l'expérience utilisateur)
 GITHUB_CLIENT_ID="votre-client-id-github"
 GITHUB_CLIENT_SECRET="votre-client-secret-github"
 ```
 
-### ✅ Vérification OAuth
-Après redémarrage, vous devriez voir les boutons "Se connecter avec Google/GitHub" sur la page de connexion.
+## 🛡️ Sécurité Avancée avec Security Helper (RECOMMANDÉ)
 
-📖 **Guide détaillé avec captures d'écran** : Consultez `OAUTH_SETUP_GUIDE.md` pour plus de détails.
+SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vos credentials :
+
+### Configuration Automatique Sécurisée
+```powershell
+# Installation et configuration complète en une commande
+python security_helper.py setup-security
+```
+
+**Cet outil fait automatiquement :**
+- ✅ **Génère des clés sécurisées** (SECRET_KEY, JWT_REFRESH_SECRET, etc.)
+- ✅ **Configure les permissions fichiers** (.env en mode 600)
+- ✅ **Met à jour .gitignore** pour exclure les fichiers sensibles
+- ✅ **Propose le chiffrement** de votre .env avec un mot de passe maître
+- ✅ **Effectue un audit sécurisé** de votre configuration
+
+### Chiffrement Automatique
+```powershell
+# Chiffrer votre .env avec un mot de passe
+python security_helper.py encrypt-env
+
+# L'application déchiffrera automatiquement au démarrage !
+# 🔹 Mode développement : Demande le mot de passe
+# 🔹 Mode production : Utilise SUPRSS_MASTER_PASSWORD
+```
+
+### Support Docker avec Environnements Chiffrés
+```powershell
+# Pour Docker avec environnement chiffré
+$env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
+docker-compose up -d
+```
+
+📖 **Guide complet** : `SECURITY_HELPER_GUIDE.md`
+🐳 **Guide Docker avec chiffrement** : `DOCKER_ENCRYPTED_ENV_GUIDE.md`
+
+### ✅ Vérification OAuth
+Après redémarrage, vous devriez avoir les boutons "Se connecter avec Google/GitHub" sur la page de connexion fonctionnels.
+
+### 📚 Guides de référence
+- 📖 **Configuration OAuth complète** : `OAUTH_SETUP_GUIDE.md` (avec captures d'écran)
+- 🛡️ **Sécurisation avancée** : `SECURITY_HELPER_GUIDE.md` 
+- 👥 **Guide utilisateur** : `MANUEL_UTILISATEUR.md`
+- 📚 **Documentation technique** : `DOCUMENTATION_TECHNIQUE.md`
 
 ---
 
@@ -226,4 +240,4 @@ docker-compose down
 ```
 
 ---
-*Installation complète en moins de 5 minutes !*
+*Dernière modification : 29 août 2025*

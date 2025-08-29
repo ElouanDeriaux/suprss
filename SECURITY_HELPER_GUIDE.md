@@ -1,6 +1,16 @@
 # 🛡️ Guide Security Helper - SUPRSS
 
-## ✨ Nouveauté : Chiffrement Automatique
+## 📋 Table des matières
+1. [Qu'est-ce que Security Helper ?](#-quest-ce-que-security-helper-)
+2. [Installation](#-installation)
+3. [Utilisation Simple](#-utilisation-simple)
+4. [Chiffrement du .env](#-chiffrement-du-env)
+5. [Génération de Clés](#-génération-de-clés)
+6. [Audit de Sécurité](#-audit-de-sécurité)
+7. [Points Importants](#️-important)
+8. [Résolution de problèmes](#-en-cas-de-problème)
+
+## ✨ Chiffrement Automatique
 
 L'application SUPRSS peut maintenant **automatiquement** déchiffrer votre fichier `.env.encrypted` au démarrage ! Plus besoin de déchiffrer manuellement.
 
@@ -81,7 +91,7 @@ python security_helper.py production-mode
 3. Sauvegarde dans `.env.encrypted`
 4. **L'application déchiffre automatiquement au démarrage !**
 
-### Nouveau Workflow (Automatique) :
+### Workflow Automatique :
 ```powershell
 # 1. Chiffrez votre .env une fois
 python security_helper.py encrypt-env
@@ -154,5 +164,4 @@ python security_helper.py generate-keys
 ```
 
 ---
-
-*Simple, efficace, sans complications.*
+*Dernière modification : 29 août 2025*

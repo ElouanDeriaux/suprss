@@ -29,14 +29,13 @@
    - Extraire le fichier ZIP téléchargé
    - Renommer le dossier `suprss-main` en `suprss`
 
-2. **Prérequis : Installer Docker Desktop**
-   - Windows : https://docs.docker.com/desktop/windows/install/
-   - Mac : https://docs.docker.com/desktop/mac/install/
-   - Démarrer Docker Desktop
+2. **Prérequis : Installer Docker Desktop pour Windows**
+   - Télécharger : https://docs.docker.com/desktop/windows/install/
+   - Installer et démarrer Docker Desktop
 
-3. **⚠️ Configuration 2FA SMTP (OBLIGATOIRE)**
+3. **⚠️ Configuration SMTP (OBLIGATOIRE)**
    
-   **IMPORTANT** : Pour que l'authentification 2 facteurs fonctionne, vous devez configurer un email dédié :
+   **IMPORTANT** : SUPRSS nécessite un serveur email configuré pour fonctionner. Vous devez configurer un email dédié :
    
    - **Créer un email spécifique** pour SUPRSS (exemple : `suprss.monnom@gmail.com`)
    - **Activer la 2FA** sur ce compte Gmail
@@ -54,7 +53,7 @@
      SMTP_SERVER="smtp.gmail.com"
      SMTP_PORT="587"
      SMTP_USERNAME="votre-email-suprss@gmail.com"
-     SMTP_PASSWORD="xxxx yyyy zzzz wwww"  # Mot de passe d'application 16 caractères
+     SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'application 16 caractères COLLÉS
      ```
 
 4. **Lancer SUPRSS**
@@ -70,11 +69,12 @@
 
 **Installation de Git (si nécessaire) :**
 
-Sur **PowerShell Windows** :
 ```powershell
-# Installer Git avec winget
+# Méthode recommandée avec winget
 winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
+
+# Alternative : Téléchargement manuel depuis https://git-scm.com/download/win
 ```
 
 
@@ -83,12 +83,14 @@ winget install --id Git.Git -e --source winget
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 
-# IMPORTANT : Configurer 2FA SMTP avant le lancement
+# IMPORTANT : Configurer SMTP avant le lancement
 copy .env.example .env
 # Éditer .env avec un email dédié pour SUPRSS :
 # SECRET_KEY="votre-cle-generee"
+# SMTP_SERVER="smtp.gmail.com"
+# SMTP_PORT="587"
 # SMTP_USERNAME="votre-email-suprss@gmail.com"
-# SMTP_PASSWORD="mot-de-passe-application-gmail"
+# SMTP_PASSWORD="xxxxyyyyzzzzwwww"
 ```
 
 **Lancement :**
@@ -395,6 +397,4 @@ Quand quelqu'un vous invite :
 - **GitHub** : @ElouanDeriaux
 
 ---
-
-*Guide utilisateur SUPRSS - Version 1.0*
-*Dernière mise à jour : 2024*
+*Dernière modification : 29 août 2025*

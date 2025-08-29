@@ -14,8 +14,6 @@
 ### Prérequis système
 - **Docker Desktop** installé et démarré
   - Windows : https://docs.docker.com/desktop/windows/install/
-  - Mac : https://docs.docker.com/desktop/mac/install/
-  - Linux : https://docs.docker.com/desktop/linux/install/
 - **Docker** >= 20.10.0 et Docker Compose >= 2.0.0 (inclus dans Docker Desktop)
 - **Ports libres** : 3000 (frontend), 8000 (backend), 5432 (base de données)
 - **RAM minimum** : 512 Mo
@@ -26,25 +24,25 @@
 | Variable | Description | Comment l'obtenir | Obligatoire |
 |----------|-------------|-------------------|-------------|
 | `SECRET_KEY` | Clé secrète JWT (32+ caractères) | Générer avec `openssl rand -hex 32` ou tout générateur de clés | ✅ |
-| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Console Google Cloud → APIs & Services → Credentials | ❌ |
-| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Console Google Cloud → APIs & Services → Credentials | ❌ |
-| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ❌ |
-| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ❌ |
-| `SMTP_SERVER` | Serveur SMTP | smtp.gmail.com ou serveur de votre fournisseur email | ❌ |
-| `SMTP_PORT` | Port SMTP | 587 (TLS) ou 465 (SSL) selon le serveur | ❌ |
-| `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ❌ |
-| `SMTP_PASSWORD` | Mot de passe SMTP | **Mot de passe d'APPLICATION** Gmail (PAS le mot de passe email) | ❌ |
+| `GOOGLE_CLIENT_ID` | ID client OAuth Google | Console Google Cloud → APIs & Services → Credentials | ⚪ Optionnel - Améliore l'UX |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google | Console Google Cloud → APIs & Services → Credentials | ⚪ Optionnel - Améliore l'UX |
+| `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ⚪ Optionnel - Améliore l'UX |
+| `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Settings → Developer settings → OAuth Apps | ⚪ Optionnel - Améliore l'UX |
+| `SMTP_SERVER` | Serveur SMTP | smtp.gmail.com ou serveur de votre fournisseur email | ✅ |
+| `SMTP_PORT` | Port SMTP | 587 (TLS) ou 465 (SSL) selon le serveur | ✅ |
+| `SMTP_USERNAME` | Utilisateur SMTP | Votre email pour l'envoi (ex: votremail@gmail.com) | ✅ |
+| `SMTP_PASSWORD` | Mot de passe SMTP | **Mot de passe d'APPLICATION** Gmail (PAS le mot de passe email) | ✅ |
 
 ⚠️ **IMPORTANT SÉCURITÉ** : 
 - **Ne jamais** committer le fichier `.env` sur Git (déjà dans .gitignore)
 - **OBLIGATOIRE** : Utiliser un mot de passe d'APPLICATION Gmail pour SMTP (JAMAIS le mot de passe email principal)
 - **Générer** des clés secrètes aléatoires longues (32+ caractères)
-- **🛡️ NOUVEAU** : Utiliser le Security Helper pour la protection automatique
+- **Utiliser le Security Helper pour la protection automatique
 - **Consulter** `SECURITY.md` pour les bonnes pratiques complètes de gestion des secrets
 
 ### 🛡️ Security Helper - Gestion Sécurisée des Environnements
 
-**NOUVEAU** : SUPRSS intègre maintenant un système de sécurité avancé pour protéger vos credentials.
+SUPRSS intègre maintenant un système de sécurité avancé pour protéger vos credentials.
 
 #### Variables Additionnelles pour Environnements Chiffrés
 | Variable | Description | Usage |
@@ -85,7 +83,7 @@ python security_helper.py check-security     # Audit de sécurité
    - Homepage URL: http://localhost:3000
    - Authorization callback URL: http://localhost:8000/auth/github/callback
 
-**Configuration SMTP Gmail (OBLIGATOIRE pour 2FA) :**
+**Configuration SMTP Gmail (OBLIGATOIRE pour SUPRSS) :**
 
 ⚠️ **RECOMMANDATION SÉCURISÉE** : Créez un **email dédié spécifiquement pour SUPRSS** (ex: `suprss.monnom@gmail.com`) au lieu d'utiliser votre email principal.
 
@@ -111,7 +109,7 @@ python security_helper.py check-security     # Audit de sécurité
 2. Cliquer **"Code"** → **"Download ZIP"**
 3. Extraire et renommer le dossier `suprss-main` en `suprss`
 
-⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un email dédié pour la 2FA SMTP (voir section Configuration ci-dessous).
+⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un serveur SMTP pour que SUPRSS fonctionne (voir section Configuration ci-dessous).
 
 #### Option 2 : Git Clone (Pour développeurs)
 
@@ -137,7 +135,7 @@ git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
 
-⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un email dédié pour la 2FA SMTP (voir section Configuration ci-dessous).
+⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un serveur SMTP pour que SUPRSS fonctionne (voir section Configuration ci-dessous).
 
 ### Déploiement avec Docker (Recommandé)
 
@@ -164,9 +162,15 @@ code .env
 
 Modifiez les lignes suivantes dans le fichier `.env` :
 
-```bash
+```env
 # OBLIGATOIRE : Clé secrète pour JWT (générez une clé sécurisée)
-SECRET_KEY="votre-cle-secrete-32-caracteres-minimum"
+SECRET_KEY="votre-cle-secrete-64-caracteres-minimum"
+
+# OBLIGATOIRE : SMTP pour le système d'authentification
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="votre-email-suprss@gmail.com"
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'application Gmail
 
 # OPTIONNEL : OAuth Google (pour connexion Google)
 GOOGLE_CLIENT_ID="votre-google-client-id"
@@ -175,12 +179,6 @@ GOOGLE_CLIENT_SECRET="votre-google-client-secret"
 # OPTIONNEL : OAuth GitHub (pour connexion GitHub)
 GITHUB_CLIENT_ID="votre-github-client-id"
 GITHUB_CLIENT_SECRET="votre-github-client-secret"
-
-# OPTIONNEL : SMTP pour emails 2FA
-SMTP_SERVER="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USERNAME="votre-email@gmail.com"
-SMTP_PASSWORD="votre-mot-de-passe-application"
 ```
 
 **🔑 Génération de la clé secrète :**
@@ -198,31 +196,36 @@ Add-Type -AssemblyName System.Web
 -join ((1..32) | ForEach {'{0:X2}' -f (Get-Random -Max 256)})
 ```
 
-**💡 Exemple de fichier .env avec 2FA SMTP (RECOMMANDÉ) :**
-```bash
-# Configuration recommandée pour SUPRSS avec 2FA
+**💡 Exemple de fichier .env complet (RECOMMANDÉ) :**
+```env
+# Configuration complète pour SUPRSS
 SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
 
-# SMTP pour 2FA (OBLIGATOIRE si vous voulez utiliser la 2FA)
+# SMTP pour le système d'authentification (OBLIGATOIRE)
 SMTP_SERVER="smtp.gmail.com"
 SMTP_PORT="587"
 SMTP_USERNAME="votre-email-suprss@gmail.com"  # Email dédié pour SUPRSS
 SMTP_PASSWORD="xxxxyyyyzzzzwwww"       # Mot de passe d'application Gmail (16 caractères COLLÉS)
 
-# OAuth optionnel
+# OAuth optionnel pour connexion Google/GitHub
 # GOOGLE_CLIENT_ID=""
 # GOOGLE_CLIENT_SECRET=""
 # GITHUB_CLIENT_ID=""
 # GITHUB_CLIENT_SECRET=""
 ```
 
-**💡 Exemple de fichier .env minimal (sans 2FA) :**
-```bash
-# Configuration minimale pour démarrer SUPRSS (2FA désactivée)
+**💡 Exemple de fichier .env minimal (si aucun OAuth) :**
+```env
+# Configuration minimale pour SUPRSS
 SECRET_KEY="a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456"
-DISABLE_2FA="true"  # Désactive complètement la 2FA
 
-# Les autres variables restent commentées si non utilisées
+# SMTP pour le système d'authentification (TOUJOURS OBLIGATOIRE)
+SMTP_SERVER="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USERNAME="votre-email-suprss@gmail.com"
+SMTP_PASSWORD="xxxxyyyyzzzzwwww"
+
+# OAuth laissé vide si non utilisé
 # GOOGLE_CLIENT_ID=""
 # GOOGLE_CLIENT_SECRET=""
 # GITHUB_CLIENT_ID=""
@@ -492,3 +495,6 @@ CREATE INDEX idx_collection_messages_collection ON collection_messages(collectio
 - **JWT** : Expiration configurée, algorithme HS256
 - **Mots de passe** : Hachage bcrypt avec salt
 - **Variables d'environnement** : Secrets externalisés
+
+---
+*Dernière modification : 29 août 2025*
