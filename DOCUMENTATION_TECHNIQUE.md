@@ -12,6 +12,10 @@
 ## Informations générales
 
 ### Prérequis système
+- **Python 3.11+** pour la génération de clés et les outils de sécurité
+  - Téléchargement : https://www.python.org/downloads/windows/
+  - Installation rapide avec winget : `winget install Python.Python.3.12`
+  - Vérifier l'installation : `python --version`
 - **Docker Desktop** installé et démarré
   - Windows : https://docs.docker.com/desktop/windows/install/
 - **Docker** >= 20.10.0 et Docker Compose >= 2.0.0 (inclus dans Docker Desktop)
@@ -185,12 +189,11 @@ GITHUB_CLIENT_SECRET="votre-github-client-secret"
 
 **Génération de clé sécurisée :**
 ```powershell
-# Méthode recommandée avec Python
+# Méthode recommandée avec Python (installé en prérequis)
 python -c "import secrets; print(secrets.token_hex(32))"
 
-# Ou avec PowerShell natif
-Add-Type -AssemblyName System.Web
-[System.Web.Security.Membership]::GeneratePassword(32, 10)
+# Alternatives PowerShell si problème avec Python
+Add-Type -AssemblyName System.Web; [System.Web.Security.Membership]::GeneratePassword(32, 10)
 
 # Ou génération hexadécimale
 -join ((1..64) | ForEach {'{0:X}' -f (Get-Random -Max 16)})

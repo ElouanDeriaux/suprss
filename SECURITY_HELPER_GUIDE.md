@@ -25,17 +25,24 @@ L'application SUPRSS peut maintenant **automatiquement** déchiffrer votre fichi
 
 ## 🚀 Installation
 
+### Prérequis
+**Python 3.11+ requis** pour Security Helper :
+```powershell
+# Installer Python si nécessaire
+winget install Python.Python.3.12
+
+# Vérifier l'installation
+python --version
+```
+
+### Installation des dépendances
 **Windows (PowerShell) :**
 ```powershell
-# Option 1 - pip3 si disponible
-pip3 install cryptography
-
-# Option 2 - python -m pip (recommandé)
+# Installation recommandée
 python -m pip install cryptography
 
-# Option 3 - Si Python/pip non trouvé, installer Python d'abord :
-# winget install Python.Python.3.11
-# Puis redémarrer PowerShell et utiliser python -m pip install cryptography
+# Alternative si pip3 disponible
+pip3 install cryptography
 ```
 
 

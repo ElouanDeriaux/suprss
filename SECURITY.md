@@ -45,8 +45,11 @@ GITHUB_CLIENT_SECRET="votre-secret-github"
 ```
 
 **Génération des clés :**
+
+⚠️ **Prérequis** : Python 3.11+ requis (voir les guides d'installation INSTALL.md ou README.md)
+
 ```powershell
-# Méthode recommandée avec Python (universelle)
+# Méthode recommandée avec Python (installé en prérequis)
 python -c "import secrets; print('SECRET_KEY=' + secrets.token_hex(32))"
 
 # Alternative PowerShell native (si System.Web disponible)

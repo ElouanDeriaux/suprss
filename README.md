@@ -102,6 +102,9 @@ simple-frontend/
 ### 🖥️ Prérequis Windows
 - **Windows 10/11** (version recommandée)
 - **PowerShell 5.1+** (installé par défaut sur Windows)
+- **[Python 3.11+](https://www.python.org/downloads/windows/)** pour la génération de clés et les outils de sécurité
+  - **Installation rapide avec winget** : `winget install Python.Python.3.12`
+  - **Vérifier l'installation** : `python --version`
 - **[Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)** et Docker Compose
 - **[Git pour Windows](https://git-scm.com/download/win)** pour le clonage (optionnel)
 - **Ports disponibles** : 3000 (frontend) et 8000 (backend)

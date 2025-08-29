@@ -15,7 +15,11 @@
 ## 📋 Prérequis Windows
 1. **Windows 10/11** (version supportée)
 2. **PowerShell 5.1+** (inclus dans Windows)
-3. **Docker Desktop pour Windows** installé et démarré
+3. **Python 3.11+** pour la génération de clés et les outils de sécurité
+   - [Télécharger Python pour Windows](https://www.python.org/downloads/windows/)
+   - **Installation rapide avec winget** : `winget install Python.Python.3.12`
+   - **Vérifier l'installation** : `python --version`
+4. **Docker Desktop pour Windows** installé et démarré
    - [Télécharger Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)
 
 ## 📥 Télécharger SUPRSS
@@ -69,14 +73,14 @@ cd suprss
 5. **Générer une clé secrète sécurisée :**
    
    ```powershell
-   # Option 1 - Avec Python (si installé)
+   # Méthode recommandée avec Python (installé en prérequis)
    python -c "import secrets; print(secrets.token_hex(32))"
    
-   # Option 2 - Si Python n'est pas trouvé, utiliser PowerShell :
+   # Alternative PowerShell si problème avec Python :
    -join ((1..64) | ForEach {'{0:X}' -f (Get-Random -Max 16)})
    
-   # Option 3 - Génération simple PowerShell :
-   [System.Web.Security.Membership]::GeneratePassword(64, 20); Add-Type -AssemblyName System.Web
+   # Autre option PowerShell :
+   Add-Type -AssemblyName System.Web; [System.Web.Security.Membership]::GeneratePassword(64, 20)
    ```
 
 6. **Ajouter dans .env** :
