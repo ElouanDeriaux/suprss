@@ -250,8 +250,20 @@ Après redémarrage, vous devriez avoir les boutons "Se connecter avec Google/Gi
    ```
 
 3. **Lancer l'application :**
+   
+   ### 📁 **Si vous N'AVEZ PAS chiffré votre .env :**
    - Double-cliquer sur `start.bat`
    - **Ou directement avec Docker Compose** : `docker-compose up -d`
+   
+   ### 🔐 **Si vous AVEZ chiffré votre .env (après setup-security) :**
+   - **Recommandé** : Double-cliquer sur `start.bat` (gère automatiquement le chiffrement)
+   - **Ou avec Docker + mot de passe** :
+     ```powershell
+     # Windows PowerShell
+     $env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"
+     docker-compose up -d
+     ```
+   - ⚠️ **IMPORTANT** : `docker-compose up -d` **SEUL** ne fonctionnera PAS avec un .env chiffré !
 
 4. **Attendre que ça démarre** (30 secondes environ)
 
@@ -263,9 +275,17 @@ Vous devriez voir la page de connexion SUPRSS.
 
 ## ❓ Problème ?
 
+### Problèmes courants :
 - **Docker pas démarré** : Ouvrez Docker Desktop
 - **Port occupé** : Quelque chose utilise déjà le port 3000
 - **Permission refusée** : Exécutez en tant qu'administrateur
+
+### 🔐 Problèmes avec fichier .env chiffré :
+- **Erreur "Fichier .env chiffré détecté mais pas de mot de passe"** : 
+  - ✅ **Solution 1** : Utilisez `start.bat` (recommandé)
+  - ✅ **Solution 2** : Définissez `SUPRSS_MASTER_PASSWORD` avant `docker-compose up`
+  - ✅ **Solution 3** : Déchiffrez temporairement avec `python security_helper.py decrypt-env`
+- **Le conteneur redémarre en boucle** : Même cause que ci-dessus
 
 ## 🛑 Arrêter SUPRSS
 
