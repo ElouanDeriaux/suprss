@@ -191,7 +191,7 @@ L'application sera accessible sur :
 - **API** : http://localhost:8000
 - **API Documentation** : http://localhost:8000/docs
 
-### Installation Manuelle (Développement)
+### Lancement Manuelle (Développement)
 
 ```powershell
 # Backend
