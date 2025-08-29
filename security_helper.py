@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-🛡️ SUPRSS Security Helper
+SUPRSS Security Helper
 Utilitaire pour améliorer la sécurité des crédentiels et de l'application.
 
 Usage:
@@ -12,8 +13,15 @@ Usage:
     python security_helper.py production-mode    # Configure pour la production
 """
 
-import os
 import sys
+import io
+
+# Fix encoding issues on Windows
+if sys.platform.startswith('win'):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+import os
 import json
 import base64
 import hashlib

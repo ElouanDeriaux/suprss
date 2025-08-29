@@ -44,15 +44,13 @@ GITHUB_CLIENT_ID="votre-id-github"
 GITHUB_CLIENT_SECRET="votre-secret-github"
 ```
 
-**Génération PowerShell des clés :**
+**Génération des clés :**
 ```powershell
-# Génération d'une clé secrète sécurisée
-$SECRET_KEY = [System.Web.Security.Membership]::GeneratePassword(64, 10)
-Write-Host "SECRET_KEY générée : $SECRET_KEY"
+# Méthode recommandée avec Python (universelle)
+python -c "import secrets; print('SECRET_KEY=' + secrets.token_hex(32))"
 
-# PostgreSQL (si nécessaire)
-$POSTGRES_PASSWORD = [System.Web.Security.Membership]::GeneratePassword(32, 8)
-Write-Host "POSTGRES_PASSWORD : $POSTGRES_PASSWORD"
+# Alternative PowerShell native (si System.Web disponible)
+# $SECRET_KEY = [System.Web.Security.Membership]::GeneratePassword(64, 10)
 ```
 
 ## ⚠️ Consignes de sécurité
@@ -72,9 +70,11 @@ Write-Host "POSTGRES_PASSWORD : $POSTGRES_PASSWORD"
 
 ### Gestion des secrets
 ```powershell
-# Génération de clés sécurisées
-[System.Web.Security.Membership]::GeneratePassword(64, 10)  # SECRET_KEY
-[System.Web.Security.Membership]::GeneratePassword(32, 8)   # Mots de passe DB
+# Méthode recommandée - Python (fonctionne partout)
+python -c "import secrets; print(secrets.token_hex(32))"  # SECRET_KEY
+
+# Méthode alternative - PowerShell (si System.Web disponible)  
+# [System.Web.Security.Membership]::GeneratePassword(64, 10)
 ```
 
 ## 🛡️ Audit de sécurité
