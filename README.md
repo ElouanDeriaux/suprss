@@ -186,8 +186,8 @@ python security_helper.py setup-security
 # 1. "Mettre à jour automatiquement .env ? (y/N):" → Répondez "y" (oui)
 # 2. "Voulez-vous chiffrer le fichier .env ? (y/N):" → Répondez "y" (recommandé)
 # 3. "Entrez un mot de passe maître pour chiffrer .env:" → Choisissez un mot de passe fort
-# 4. "Confirmez le mot de passe:" → Retapez le même mot de passe
-# 5. "Supprimer le fichier .env original ? (y/N):" → Répondez "N" (pour développement)
+# 4. "Confirmez le mot de passe:" → Retapez le même mot de passe  
+# 5. "Supprimer le fichier .env original ? (y/N):" → Répondez "y" (SÉCURITÉ RÉELLE !)
 
 # ALTERNATIVE : Configuration manuelle
 # SECRET_KEY="votre-cle-generee"
@@ -241,12 +241,13 @@ Copiez `.env.example` vers `.env` et configurez :
 SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
 ```powershell
-# Installer la dépendance requise pour les outils de sécurité
-python -m pip install cryptography
+# Installer les dépendances requises pour les outils de sécurité
+python -m pip install cryptography python-dotenv
 
 # Configuration sécurisée complète en une commande
 python security_helper.py setup-security
 # FAIT DÉJÀ TOUT ! Génération, permissions, gitignore, chiffrement, audit
+# ⚠️ IMPORTANT: Répondez "y" à la suppression de .env pour vraie sécurité !
 
 # ⚠️ INUTILE si vous avez utilisé setup-security ci-dessus :
 # python security_helper.py encrypt-env

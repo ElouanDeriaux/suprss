@@ -165,10 +165,16 @@ SUPRSS inclut un outil de sécurité intégré pour protéger automatiquement vo
 
 ### Configuration Automatique Sécurisée
 
-**Étape 1 : Installer la dépendance requise**
+**Étape 1 : Installer les dépendances requises**
 ```powershell
-# OBLIGATOIRE : Installer cryptography avant d'utiliser Security Helper
-python -m pip install cryptography
+# OBLIGATOIRE : Installer les dépendances pour Security Helper
+python -m pip install cryptography python-dotenv
+```
+
+⚠️ **Si vous avez une erreur "No module named dotenv" plus tard :**
+```powershell
+# Installer python-dotenv si pas déjà fait
+python -m pip install python-dotenv
 ```
 
 **Étape 2 : Lancer la configuration sécurisée**
@@ -179,10 +185,10 @@ python security_helper.py setup-security
 
 **📋 Questions/Réponses attendues durant l'exécution :**
 1. **"Mettre à jour automatiquement .env ? (y/N):"** → Répondez **"y"** (oui)
-2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** (recommandé)
+2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** (recommandé pour sécurité)
 3. **"Entrez un mot de passe maître pour chiffrer .env:"** → Choisissez un mot de passe fort
 4. **"Confirmez le mot de passe:"** → Retapez le même mot de passe
-5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"N"** (pour développement)
+5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"y"** (⚠️ IMPORTANT pour sécurité réelle !)
 
 **✅ Cet outil fait automatiquement :**
 - ✅ **Génère des clés sécurisées** (SECRET_KEY, JWT_REFRESH_SECRET, etc.)
@@ -191,26 +197,34 @@ python security_helper.py setup-security
 - ✅ **Propose le chiffrement** de votre .env avec un mot de passe maître
 - ✅ **Effectue un audit sécurisé** de votre configuration
 
-**💡 IMPORTANT : La "Configuration Automatique Sécurisée" ci-dessus fait déjà tout le travail !**  
-**✅ Si vous utilisez `setup-security`, vous n'avez PAS besoin de la section "Chiffrement Automatique" ci-dessous.**
+**🛡️ SÉCURITÉ RÉELLE : Votre fichier .env sera chiffré et le fichier original supprimé !**  
+**L'application déchiffrera automatiquement au démarrage en demandant votre mot de passe maître.**
 
-### ~~Chiffrement Automatique~~ (Inutile si vous avez utilisé setup-security)
-
-<details>
-<summary>📁 Chiffrement Manuel (seulement si vous n'avez PAS utilisé setup-security)</summary>
-
-**Prérequis** : Assurez-vous d'avoir installé cryptography (voir étape 1 ci-dessus)
-
+**💡 En cas de problème de démarrage après chiffrement :**
 ```powershell
-# Chiffrer votre .env avec un mot de passe
-python security_helper.py encrypt-env
+# Si l'application ne démarre pas avec .env.encrypted, installez les dépendances :
+python -m pip install python-dotenv cryptography
 
-# L'application déchiffrera automatiquement au démarrage !
-# 🔹 Mode développement : Demande le mot de passe
-# 🔹 Mode production : Utilise SUPRSS_MASTER_PASSWORD
+# Ou lancez manuellement le démarrage avec Docker :
+docker-compose up -d
 ```
 
-</details>
+### 🔧 Dépannage si l'application ne démarre pas avec .env chiffré
+
+Si après avoir supprimé .env l'application ne démarre pas, voici les solutions :
+
+**Option 1 : Vérifier les dépendances Docker**
+```powershell
+# Les dépendances sont automatiquement installées dans le conteneur Docker
+docker-compose up --build -d
+```
+
+**Option 2 : Mode de secours - restaurer temporairement .env**
+```powershell
+# Déchiffrer temporairement pour tester
+python security_helper.py decrypt-env
+# Puis relancer l'application
+```
 
 ### Support Docker avec Environnements Chiffrés
 ```powershell

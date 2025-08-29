@@ -38,12 +38,14 @@ python --version
 ### Installation des dépendances
 **Windows (PowerShell) :**
 ```powershell
-# Installation recommandée
-python -m pip install cryptography
+# Installation complète recommandée
+python -m pip install cryptography python-dotenv
 
 # Alternative si pip3 disponible
-pip3 install cryptography
+pip3 install cryptography python-dotenv
 ```
+
+⚠️ **Important** : `python-dotenv` est requis pour le déchiffrement automatique au démarrage de l'application.
 
 
 ## 💡 Utilisation Simple
@@ -58,7 +60,7 @@ python security_helper.py setup-security
 2. **"Voulez-vous chiffrer le fichier .env ? (y/N):"** → Répondez **"y"** (recommandé)
 3. **"Entrez un mot de passe maître pour chiffrer .env:"** → Choisissez un mot de passe fort
 4. **"Confirmez le mot de passe:"** → Retapez le même mot de passe
-5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"N"** (pour développement)
+5. **"Supprimer le fichier .env original ? (y/N):"** → Répondez **"y"** (⚠️ ESSENTIEL pour sécurité !)
 
 **✅ Cette commande fait tout automatiquement :**
 - Génère de nouvelles clés sécurisées

@@ -55,10 +55,12 @@ SUPRSS intègre maintenant un système de sécurité avancé pour protéger vos 
 
 #### Outils de Sécurité Intégrés
 
-**⚠️ PRÉREQUIS** : Installer cryptography avant d'utiliser ces outils :
+**⚠️ PRÉREQUIS** : Installer les dépendances avant d'utiliser ces outils :
 ```bash
-python -m pip install cryptography
+python -m pip install cryptography python-dotenv
 ```
+
+⚠️ **Note importante** : `python-dotenv` est essentiel pour le déchiffrement automatique des fichiers .env.encrypted au démarrage de l'application.
 
 **Commandes disponibles** :
 ```bash
