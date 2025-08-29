@@ -10,14 +10,6 @@
 - **Docker** : Docker Desktop pour Windows
 - **Git** : Git pour Windows (optionnel)
 
-## 🚫 Plateformes Non Supportées
-
-Cette application **ne supporte pas** :
-- ❌ Linux (Ubuntu, Debian, CentOS, etc.)
-- ❌ macOS
-- ❌ WSL (Windows Subsystem for Linux)
-- ❌ Bash/Zsh/Fish shells
-
 ## 🔧 Pourquoi Windows Uniquement ?
 
 Cette décision de design permet :
