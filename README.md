@@ -197,6 +197,33 @@ L'application sera accessible sur :
 - **API** : http://localhost:8000
 - **API Documentation** : http://localhost:8000/docs
 
+## 🛑 Arrêt et Gestion de l'Application
+
+### Arrêter SUPRSS
+```powershell
+# Arrêt avec le script fourni
+stop.bat
+
+# Ou directement avec Docker Compose
+docker-compose down
+docker-compose down -v  # Arrêt avec suppression des volumes
+```
+
+### Administration de la Base de Données
+
+#### Suppression complète de la base de données
+Pour supprimer toutes les données de la base tout en conservant la structure des tables :
+
+```powershell
+# Supprimer toutes les données (PowerShell)
+docker exec -it suprss_db psql -U suprss_user -d suprss_db
+# Puis dans psql, exécuter :
+TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;
+# \q pour quitter
+```
+
+⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible.
+
 ## 🔧 Configuration
 
 ### Variables d'Environnement
