@@ -311,11 +311,6 @@ TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection
 
 ⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible.
 
-**💡 Résolution de problèmes courants :**
-- Si la commande échoue avec une erreur de guillemets, utilisez la méthode interactive (docker exec -it)
-- Assurez-vous que le conteneur suprss_db est bien démarré : `docker-compose ps`
-- Si le conteneur n'existe pas, lancez d'abord : `docker-compose up -d`
-
 ---
 
 ## Justification des choix techniques
