@@ -298,7 +298,23 @@ stop.bat
 
 # Ou directement avec Docker Compose
 docker-compose down
+docker-compose down -v  # Arrêt avec suppression des volumes
 ```
 
+## 🗄️ Administration de la Base de Données
+
+### Suppression complète de la base de données
+Pour supprimer toutes les données de la base tout en conservant la structure des tables :
+
+```powershell
+# Supprimer toutes les données (PowerShell)
+docker exec -it suprss_db psql -U suprss_user -d suprss_db
+# Puis dans psql, exécuter :
+TRUNCATE TABLE article, articlearchive, articlereadflag, articlestar, collection, collectionmember, collectionmessage, emailverificationcode, feed, messagereadflag, "user" CASCADE;
+# \q pour quitter
+```
+
+⚠️ **ATTENTION** : Cette commande supprime **toutes les données** de manière irréversible.
+
 ---
-*Dernière modification : 29 août 2025*
+*Dernière modification : 30 août 2025*
