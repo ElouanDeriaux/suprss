@@ -61,6 +61,55 @@ if defined final_check (
 
 echo ✅ Aucune instance en conflit détectée
 
+REM Vérifier la configuration .env
+echo 🔍 Vérification de la configuration...
+
+REM Vérifier si .env existe
+if not exist ".env" (
+    if exist ".env.encrypted" (
+        echo 🔐 Fichier .env chiffré détecté, déchiffrement nécessaire...
+        
+        REM Vérifier si Python est disponible
+        python --version >nul 2>&1
+        if errorlevel 1 (
+            echo ❌ Python n'est pas installé ou n'est pas dans le PATH
+            echo Python est requis pour déchiffrer le fichier .env
+            pause
+            exit /b 1
+        )
+        
+        REM Vérifier si security_helper.py existe
+        if not exist "security_helper.py" (
+            echo ❌ security_helper.py introuvable
+            echo Ce fichier est requis pour déchiffrer .env.encrypted
+            pause
+            exit /b 1
+        )
+        
+        echo 🔑 Déchiffrement du fichier .env...
+        echo Vous devez entrer votre mot de passe maître:
+        python security_helper.py decrypt-env
+        
+        REM Vérifier si le déchiffrement a réussi
+        if not exist ".env" (
+            echo ❌ Échec du déchiffrement ou annulation par l'utilisateur
+            echo Le fichier .env n'a pas été créé
+            pause
+            exit /b 1
+        )
+        
+        echo ✅ Fichier .env déchiffré avec succès
+    ) else (
+        echo ❌ Aucun fichier de configuration trouvé
+        echo Vous devez avoir soit un fichier .env soit un fichier .env.encrypted
+        echo Consultez le guide d'installation: install.md
+        pause
+        exit /b 1
+    )
+) else (
+    echo ✅ Fichier .env trouvé
+)
+
 REM Construire et lancer les nouveaux conteneurs
 echo 🔨 Construction et lancement des conteneurs...
 docker-compose up --build -d
@@ -86,6 +135,20 @@ for /f %%i in ('docker ps --filter "name=suprss" --filter "health=unhealthy" -q 
 if defined unhealthy (
     echo ⚠️  Certains conteneurs sont en mauvaise santé:
     docker ps --filter "name=suprss" --filter "health=unhealthy"
+)
+
+REM Nettoyage sécurisé : supprimer le fichier .env déchiffré
+if exist ".env" (
+    if exist ".env.encrypted" (
+        echo 🧹 Nettoyage sécurisé : suppression du fichier .env déchiffré...
+        del ".env"
+        if exist ".env" (
+            echo ⚠️  Attention : Impossible de supprimer le fichier .env
+            echo Pour des raisons de sécurité, supprimez-le manuellement après l'arrêt
+        ) else (
+            echo ✅ Fichier .env supprimé avec succès pour la sécurité
+        )
+    )
 )
 
 echo.
