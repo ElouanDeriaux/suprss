@@ -73,3 +73,7 @@ Captures*/
 *TODO*
 *temp*
 .env.encrypted
+
+# Fichiers personnels de sécurité et backups
+.suprss_security.json
+backup_*.sql
