@@ -75,10 +75,10 @@ Ce guide vous explique **étape par étape** comment configurer l'authentificati
 
 ### Étape 7 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
-```powershell
-# Variables d'environnement PowerShell
-$env:GOOGLE_CLIENT_ID="votre-client-id-google"
-$env:GOOGLE_CLIENT_SECRET="votre-client-secret-google"
+```env
+# Configuration OAuth Google
+GOOGLE_CLIENT_ID="votre-client-id-google"
+GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 ```
 
 ---
@@ -117,10 +117,10 @@ $env:GOOGLE_CLIENT_SECRET="votre-client-secret-google"
 
 ### Étape 6 : Configurer le .env
 Ajoutez dans votre fichier `.env` :
-```powershell
-# Variables d'environnement PowerShell
-$env:GITHUB_CLIENT_ID="votre-client-id-github"
-$env:GITHUB_CLIENT_SECRET="votre-client-secret-github"
+```env
+# Configuration OAuth GitHub
+GITHUB_CLIENT_ID="votre-client-id-github"
+GITHUB_CLIENT_SECRET="votre-client-secret-github"
 ```
 
 ---
@@ -155,10 +155,10 @@ GITHUB_CLIENT_SECRET="votre-secret-github"
 ### 1. Redémarrer SUPRSS
 ```powershell
 # Arrêter
-docker-compose down
+stop.bat
 
-# Relancer
-docker-compose up --build -d
+# Relancer avec reconstruction
+start.bat
 ```
 
 ### 2. Vérifier les Boutons OAuth
@@ -166,7 +166,7 @@ docker-compose up --build -d
 2. Vous devriez voir les boutons "Se connecter avec Google" et "Se connecter avec GitHub"
 3. Si les boutons n'apparaissent pas, vérifiez les logs :
 ```powershell
-docker-compose logs backend
+docker logs suprss_backend
 ```
 
 ### 3. Tester la Connexion

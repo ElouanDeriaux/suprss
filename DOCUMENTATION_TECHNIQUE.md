@@ -152,7 +152,7 @@ cd suprss
 
 ### Déploiement avec Docker (Recommandé)
 
-⚙️ **Gestion simplifiée avec Docker Compose** : Le projet peut être entièrement géré avec les commandes `docker-compose up` et `docker-compose down` pour le démarrage et l'arrêt.
+⚙️ **Gestion simplifiée avec scripts** : Le projet est géré avec les scripts `start.bat` et `stop.bat` pour un démarrage et arrêt sécurisés.
 
 1. **Configuration des variables d'environnement**
 
@@ -250,8 +250,8 @@ SMTP_PASSWORD="xxxxyyyyzzzzwwww"
 start.bat
 
 # Ou directement avec Docker Compose
-docker-compose up -d            # Démarrage normal
-docker-compose up --build -d    # Avec reconstruction des images
+start.bat                       # Démarrage sécurisé automatique
+stop.bat                        # Arrêt propre
 ```
 
 4. **Vérification**

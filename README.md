@@ -178,11 +178,8 @@ python -m pip install cryptography python-dotenv
 # Configuration automatique sécurisée
 python security_helper.py setup-security
 
-# 3. Lancement avec Docker
+# 3. Lancement sécurisé
 start.bat
-
-# Ou manuellement
-docker-compose up --build -d
 ```
 
 **📋 Questions/Réponses pour setup-security :**

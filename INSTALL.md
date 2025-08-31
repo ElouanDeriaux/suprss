@@ -196,21 +196,20 @@ python security_helper.py setup-security
 
 **💡 En cas de problème de démarrage après chiffrement :**
 ```powershell
-# Si l'application ne démarre pas avec .env.encrypted, installez les dépendances :
+# Si l'application ne démarre pas avec .env.encrypted, vérifiez les dépendances :
 python -m pip install python-dotenv cryptography
 
-# Ou lancez manuellement le démarrage avec Docker :
-docker-compose up -d
+# Puis utilisez toujours start.bat pour démarrer avec un .env chiffré
 ```
 
 ### 🔧 Dépannage si l'application ne démarre pas avec .env chiffré
 
 Si après avoir supprimé .env l'application ne démarre pas, voici les solutions :
 
-**Option 1 : Vérifier les dépendances Docker**
+**Option 1 : Redémarrer proprement avec start.bat**
 ```powershell
-# Les dépendances sont automatiquement installées dans le conteneur Docker
-docker-compose up --build -d
+# Utiliser le script de démarrage sécurisé
+start.bat
 ```
 
 **Option 2 : Mode de secours - restaurer temporairement .env**
@@ -244,22 +243,11 @@ Après redémarrage, vous devriez avoir les boutons "Se connecter avec Google/Gi
 3. **Lancer l'application :**
    
    ### 📁 **Si vous N'AVEZ PAS chiffré votre .env :**
-   - Double-cliquer sur `start.bat`
-   - **Ou directement avec Docker Compose** : `docker-compose up -d`
+   - **Recommandé** : Double-cliquer sur `start.bat`
    
    ### 🔐 **Si vous AVEZ chiffré votre .env (après setup-security) :**
-   - **Recommandé** : Double-cliquer sur `start.bat` (gère automatiquement le chiffrement)
-   - **Ou avec Docker + mot de passe** :
-     ```powershell
-     # Windows PowerShell - UNE SEULE commande (avec le ; entre les deux)
-     $env:SUPRSS_MASTER_PASSWORD="votre-mot-de-passe-maitre"; docker-compose up -d
-     
-     # OU alternative Windows CMD
-     set SUPRSS_MASTER_PASSWORD=votre-mot-de-passe-maitre && docker-compose up -d
-     ```
-   - ⚠️ **IMPORTANT** : 
-     - `docker-compose up -d` **SEUL** ne fonctionnera PAS avec un .env chiffré !
-     - Il faut **UNE SEULE LIGNE** avec la variable ET docker-compose (connectés par `;` ou `&&`)
+   - **OBLIGATOIRE** : Double-cliquer sur `start.bat` (gère automatiquement le déchiffrement et la sécurité)
+   - ⚠️ **IMPORTANT** : Avec un .env chiffré, seul `start.bat` fonctionnera !
 
 4. **Attendre que ça démarre** (30 secondes environ)
 
@@ -278,16 +266,15 @@ Vous devriez voir la page de connexion SUPRSS.
 
 ### 🔐 Problèmes avec fichier .env chiffré :
 - **Erreur "Fichier .env chiffré détecté mais pas de mot de passe"** : 
-  - ✅ **Solution 1** : Utilisez `start.bat` (recommandé)
-  - ✅ **Solution 2** : Définissez `SUPRSS_MASTER_PASSWORD` avant `docker-compose up`
-  - ✅ **Solution 3** : Déchiffrez temporairement avec `python security_helper.py decrypt-env`
+  - ✅ **Solution** : Utilisez `start.bat` (obligatoire avec .env chiffré)
+  - 🔄 **Alternative temporaire** : Déchiffrez avec `python security_helper.py decrypt-env` puis relancez
 - **Le conteneur redémarre en boucle** : Même cause que ci-dessus
 - **OAuth Google/GitHub "invalid_client" ou "client not found"** :
   - 🔧 **Cause** : Docker utilise une image cachée sans les bonnes clés OAuth
-  - ✅ **Solution** : Rebuilder l'image après déchiffrement :
+  - ✅ **Solution** : Rebuilder l'image avec start.bat :
     ```powershell
     python security_helper.py decrypt-env
-    docker-compose up --build -d
+    start.bat
     ```
 
 ## 🛑 Arrêter SUPRSS
