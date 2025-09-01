@@ -8,6 +8,18 @@
 
 **SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes.
 
+> ⚠️ **IMPORTANT - Usage Local Uniquement**
+> 
+> **SUPRSS est actuellement destiné à un usage local très restreint (localhost uniquement).**
+> Cette version ne doit PAS être exposée sur Internet ou utilisée en production sans modifications importantes.
+> 
+> **Limitations de sécurité actuelles :**
+> - ❌ **Pas de HTTPS** - Communication non chiffrée (HTTP uniquement)
+> - ❌ **Configuration par défaut** - Non adaptée pour un environnement de production
+> - ❌ **Pas de protection avancée** contre les attaques externes
+> 
+> **🔒 Prochaine amélioration majeure** : Implémentation complète du HTTPS et sécurisation pour usage en production.
+
 > 🪟 **Plateforme supportée** : Windows uniquement avec PowerShell
 > 
 > Cette application est spécifiquement conçue et testée pour l'environnement Windows. Toutes les instructions utilisent PowerShell comme shell par défaut.

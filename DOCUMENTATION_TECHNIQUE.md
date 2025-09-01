@@ -1,5 +1,18 @@
 # Documentation Technique - SUPRSS
 
+> ⚠️ **IMPORTANT - Limitations de Sécurité Actuelles**
+> 
+> **Cette version de SUPRSS est destinée à un usage local très restreint uniquement.**
+> 
+> **Limitations critiques :**
+> - ❌ **Pas de HTTPS** - Communications non chiffrées (HTTP uniquement)
+> - ❌ **Configuration par défaut** - Non sécurisée pour un environnement de production
+> - ❌ **Pas de protection avancée** contre les menaces externes
+> 
+> **🔒 Prochaine amélioration majeure** : Implémentation complète du HTTPS et sécurisation pour déploiement en production.
+> 
+> **Usage recommandé** : localhost uniquement, pas d'exposition sur Internet.
+
 ## Table des matières
 1. [Informations générales](#informations-générales)
 2. [Guide de déploiement](#guide-de-déploiement)

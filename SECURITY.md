@@ -1,5 +1,18 @@
 # Sécurité - SUPRSS
 
+> ⚠️ **IMPORTANT - Limitations de Sécurité Actuelles**
+> 
+> **SUPRSS est actuellement destiné à un usage local très restreint uniquement (localhost).**
+> 
+> **Limitations critiques pour un déploiement Internet :**
+> - ❌ **Pas de HTTPS** - Toutes les communications sont en HTTP non chiffré
+> - ❌ **Configuration par défaut** - Non optimisée pour la sécurité en production
+> - ❌ **Pas de protection avancée** contre les attaques externes (DDoS, etc.)
+> 
+> **🚫 NE PAS exposer cette version sur Internet sans modifications importantes**
+> 
+> **🔒 Prochaine amélioration majeure** : Implémentation complète du HTTPS et durcissement sécuritaire pour usage en production.
+
 ## 🔒 Mesures de sécurité implémentées
 
 ### Authentification
@@ -65,11 +78,20 @@ python -c "import secrets; print('SECRET_KEY=' + secrets.token_hex(32))"
 4. **Régénérer** les secrets avant déploiement
 
 ### Production
+⚠️ **IMPORTANT** : Cette version n'est pas prête pour la production Internet !
+
+**Pour un usage localhost uniquement :**
 1. **Changer** toutes les clés par défaut
-2. **Utiliser** HTTPS obligatoirement  
-3. **Configurer** un firewall approprié
-4. **Monitorer** les logs de sécurité
-5. **Sauvegarder** régulièrement la base de données
+2. **Sauvegarder** régulièrement la base de données
+3. **Surveiller** les accès locaux
+
+**Pour un futur déploiement Internet (nécessite des développements supplémentaires) :**
+1. **Implémenter HTTPS** avec certificats SSL/TLS valides
+2. **Configurer** un reverse proxy sécurisé (nginx/Apache)
+3. **Durcir** la configuration Docker pour la production
+4. **Ajouter** des protections DDoS et rate limiting
+5. **Mettre en place** un firewall approprié
+6. **Monitorer** les logs de sécurité
 
 ### Gestion des secrets
 ```powershell
