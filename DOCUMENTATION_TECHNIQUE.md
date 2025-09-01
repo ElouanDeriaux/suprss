@@ -1,5 +1,16 @@
 # Documentation Technique - SUPRSS
 
+## Table des matières
+1. [Informations générales](#informations-générales)
+2. [Guide de déploiement](#guide-de-déploiement)
+3. [Justification des choix techniques](#justification-des-choix-techniques)
+4. [Diagrammes UML](#diagrammes-uml)
+5. [Schéma de base de données](#schéma-de-base-de-données)
+
+---
+
+## Informations générales
+
 > ⚠️ **IMPORTANT - Limitations de Sécurité Actuelles**
 > 
 > **Cette version de SUPRSS est destinée à un usage local très restreint uniquement.**
@@ -13,16 +24,6 @@
 > 
 > **Usage recommandé** : localhost uniquement, pas d'exposition sur Internet.
 
-## Table des matières
-1. [Informations générales](#informations-générales)
-2. [Guide de déploiement](#guide-de-déploiement)
-3. [Justification des choix techniques](#justification-des-choix-techniques)
-4. [Diagrammes UML](#diagrammes-uml)
-5. [Schéma de base de données](#schéma-de-base-de-données)
-
----
-
-## Informations générales
 
 ### Prérequis système
 - **Python 3.11+** pour la génération de clés et les outils de sécurité
