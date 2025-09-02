@@ -42,12 +42,12 @@ function getRoleLabel(role) {
 
 function getRoleBadgeClass(role) {
   const classes = {
-    owner: "bg-purple-100 text-purple-800",
-    admin: "bg-red-100 text-red-800",
-    editor: "bg-blue-100 text-blue-800", 
-    viewer: "bg-gray-100 text-gray-800"
+    owner: "bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200",
+    admin: "bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200",
+    editor: "bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200", 
+    viewer: "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
   };
-  return classes[role] || "bg-gray-100 text-gray-800";
+  return classes[role] || "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200";
 }
 
 // Charger les informations de la collection et ses membres
@@ -107,14 +107,14 @@ async function renderMembers() {
   const currentUserId = await getCurrentUserId();
   
   membersList.innerHTML = currentMembers.map(member => `
-    <div class="p-4 border-b last:border-b-0 flex items-center justify-between">
+    <div class="p-4 border-b dark:border-gray-700 last:border-b-0 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-          <span class="text-blue-600 font-semibold">${member.username.charAt(0).toUpperCase()}</span>
+        <div class="w-10 h-10 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center">
+          <span class="text-blue-600 dark:text-blue-200 font-semibold">${member.username.charAt(0).toUpperCase()}</span>
         </div>
         <div>
-          <div class="font-medium">${escapeHtml(member.username)}</div>
-          <div class="text-sm text-gray-500">${escapeHtml(member.email)}</div>
+          <div class="font-medium text-gray-900 dark:text-gray-100">${escapeHtml(member.username)}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(member.email)}</div>
         </div>
       </div>
       
@@ -126,13 +126,13 @@ async function renderMembers() {
         ${isOwner && !member.is_owner ? `
           <div class="flex gap-2">
             <select onchange="changeRole(${member.id}, this.value)" 
-                    class="text-sm border rounded px-2 py-1">
+                    class="text-sm border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
               <option value="viewer" ${member.role === 'viewer' ? 'selected' : ''}>Lecteur</option>
               <option value="editor" ${member.role === 'editor' ? 'selected' : ''}>Éditeur</option>
               <option value="admin" ${member.role === 'admin' ? 'selected' : ''}>Admin</option>
             </select>
             <button onclick="removeMember(${member.id}, '${escapeHtml(member.username)}')"
-                    class="text-red-600 hover:text-red-800 text-sm font-medium">
+                    class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm font-medium">
               Retirer
             </button>
           </div>
@@ -140,7 +140,7 @@ async function renderMembers() {
         
         ${!isOwner && !member.is_owner && member.id === currentUserId ? `
           <button onclick="leaveMember(${member.id})"
-                  class="text-red-600 hover:text-red-800 text-sm font-medium">
+                  class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm font-medium">
             Quitter
           </button>
         ` : ''}
@@ -197,7 +197,7 @@ inviteForm.addEventListener("submit", async (e) => {
 });
 
 function showFeedback(message, type) {
-  inviteFeedback.className = `mt-3 text-sm ${type === 'error' ? 'text-red-600' : 'text-green-600'}`;
+  inviteFeedback.className = `mt-3 text-sm ${type === 'error' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`;
   inviteFeedback.textContent = message;
   setTimeout(() => {
     inviteFeedback.textContent = "";

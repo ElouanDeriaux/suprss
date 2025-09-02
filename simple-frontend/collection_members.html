@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <title>Gestion des membres - SUPRSS</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
   <link rel="icon" href="favicon.ico" />
+  <script src="theme-minimal.js"></script>
   <script defer src="collection_members.js"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors">
   <script>
     (function () {
       const url = new URL(window.location.href);
@@ -24,36 +30,36 @@
   </script>
 
   <!-- Header -->
-  <div class="bg-white shadow mb-6">
+  <div class="bg-white dark:bg-gray-800 shadow mb-6 transition-colors">
     <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <a href="dashboard.html" class="text-blue-600 hover:text-blue-800">← Retour au tableau de bord</a>
-        <h1 class="text-2xl font-bold">Gestion des membres</h1>
+        <a href="dashboard.html" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">← Retour au tableau de bord</a>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Gestion des membres</h1>
       </div>
-      <div id="collection-info" class="text-gray-600"></div>
+      <div id="collection-info" class="text-gray-600 dark:text-gray-300"></div>
     </div>
   </div>
 
   <main class="max-w-4xl mx-auto px-4">
     
     <!-- Section d'invitation -->
-    <section class="bg-white rounded-lg shadow p-6 mb-6">
-      <h2 class="text-lg font-semibold mb-4">Inviter un nouveau membre</h2>
+    <section class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6 transition-colors">
+      <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Inviter un nouveau membre</h2>
       <form id="invite-form" class="flex gap-4 items-end">
         <div class="flex-1">
-          <label for="invite-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <label for="invite-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
           <input id="invite-email" type="email" placeholder="email@exemple.com" 
-                 class="border rounded px-3 py-2 w-full" required />
+                 class="border dark:border-gray-600 rounded px-3 py-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400" required />
         </div>
         <div class="w-40">
-          <label for="invite-role" class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
-          <select id="invite-role" class="border rounded px-3 py-2 w-full">
+          <label for="invite-role" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rôle</label>
+          <select id="invite-role" class="border dark:border-gray-600 rounded px-3 py-2 w-full bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
             <option value="viewer">Lecteur</option>
             <option value="editor">Éditeur</option>
             <option value="admin">Administrateur</option>
           </select>
         </div>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button type="submit" class="bg-blue-600 dark:bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
           Inviter
         </button>
       </form>
@@ -61,12 +67,12 @@
     </section>
 
     <!-- Liste des membres -->
-    <section class="bg-white rounded-lg shadow">
-      <div class="p-6 border-b">
-        <h2 class="text-lg font-semibold">Membres de la collection</h2>
+    <section class="bg-white dark:bg-gray-800 rounded-lg shadow transition-colors">
+      <div class="p-6 border-b dark:border-gray-700">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Membres de la collection</h2>
       </div>
       
-      <div id="members-loading" class="p-6 text-center text-gray-500">
+      <div id="members-loading" class="p-6 text-center text-gray-500 dark:text-gray-400">
         Chargement des membres...
       </div>
       
@@ -74,7 +80,7 @@
         <!-- Les membres seront ajoutés ici dynamiquement -->
       </div>
       
-      <div id="members-empty" class="p-6 text-center text-gray-500 hidden">
+      <div id="members-empty" class="p-6 text-center text-gray-500 dark:text-gray-400 hidden">
         Aucun membre dans cette collection.
       </div>
     </section>
@@ -82,12 +88,12 @@
 
   <!-- Modal de confirmation -->
   <div id="confirm-modal" class="fixed inset-0 bg-black/40 flex items-center justify-center hidden z-50">
-    <div class="bg-white p-6 rounded shadow w-full max-w-md">
-      <h3 class="text-lg font-semibold mb-4" id="confirm-title">Confirmer l'action</h3>
-      <p class="text-gray-600 mb-6" id="confirm-message"></p>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded shadow w-full max-w-md transition-colors">
+      <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100" id="confirm-title">Confirmer l'action</h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-6" id="confirm-message"></p>
       <div class="flex justify-end gap-2">
-        <button onclick="closeConfirmModal()" class="text-gray-600 hover:underline">Annuler</button>
-        <button id="confirm-button" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+        <button onclick="closeConfirmModal()" class="text-gray-600 dark:text-gray-300 hover:underline">Annuler</button>
+        <button id="confirm-button" class="bg-red-600 dark:bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 dark:hover:bg-red-600 transition-colors">
           Confirmer
         </button>
       </div>
