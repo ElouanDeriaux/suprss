@@ -6,7 +6,7 @@
 ![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)
 ![PowerShell](https://img.shields.io/badge/shell-PowerShell-blue.svg)
 
-**SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes. Vous pouvez consulter le dépôt GitHub à l’adresse suivante pour une expérience optimisée. : https://github.com/ElouanDeriaux/suprss
+**SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes. Vous pouvez consulter le dépôt GitHub à l’adresse suivante pour une expérience optimisée : https://github.com/ElouanDeriaux/suprss
 
 > ⚠️ **IMPORTANT - Usage Local Uniquement**
 > 
