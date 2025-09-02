@@ -21,8 +21,6 @@
 - **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
 - **🔐 `SECURITY.md`** - Bonnes pratiques sécurité
 
-### 🛡️ Security Helper - Sécurisation Avancée
-
 > ⚠️ **IMPORTANT - Usage Local Uniquement**
 > 
 > **SUPRSS est actuellement destiné à un usage local très restreint (localhost uniquement).**
@@ -261,6 +259,8 @@ Copiez `.env.example` vers `.env` et configurez :
 | `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
 | `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
 | `SMTP_*` | Configuration email pour authentification | Fournisseur email (Gmail, etc.) | ✅ |
+
+### 🛡️ Security Helper - Sécurisation Avancée
 
 SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
