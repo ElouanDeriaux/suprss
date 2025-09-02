@@ -8,6 +8,21 @@
 
 **SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes. Vous pouvez consulter le dépôt GitHub à l’adresse suivante pour une expérience optimisée : https://github.com/ElouanDeriaux/suprss
 
+**📚 Documentation complète :** 
+1. **🪟 `WINDOWS_COMPATIBILITY.md`** - Pourquoi Windows uniquement (à lire en premier)
+2. **🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
+3. **👥 `MANUEL_UTILISATEUR.md`** - Guide complet pour les utilisateurs finaux
+
+**📖 Guides de configuration :**
+- **📖 `OAUTH_SETUP_GUIDE.md`** - Configuration OAuth Google et GitHub (optionnel)
+- **🛡️ `SECURITY_HELPER_GUIDE.md`** - Chiffrement automatique des credentials
+
+**🔧 Documentation technique :**
+- **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
+- **🔐 `SECURITY.md`** - Bonnes pratiques sécurité
+
+### 🛡️ Security Helper - Sécurisation Avancée
+
 > ⚠️ **IMPORTANT - Usage Local Uniquement**
 > 
 > **SUPRSS est actuellement destiné à un usage local très restreint (localhost uniquement).**
@@ -246,21 +261,6 @@ Copiez `.env.example` vers `.env` et configurez :
 | `GITHUB_CLIENT_ID` | ID client OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
 | `GITHUB_CLIENT_SECRET` | Secret OAuth GitHub | GitHub Developer Settings | ⚪ Optionnel - Améliore l'expérience utilisateur |
 | `SMTP_*` | Configuration email pour authentification | Fournisseur email (Gmail, etc.) | ✅ |
-
-**📚 Documentation complète :** 
-1. **🪟 `WINDOWS_COMPATIBILITY.md`** - Pourquoi Windows uniquement (à lire en premier)
-2. **🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
-3. **👥 `MANUEL_UTILISATEUR.md`** - Guide complet pour les utilisateurs finaux
-
-**📖 Guides de configuration :**
-- **📖 `OAUTH_SETUP_GUIDE.md`** - Configuration OAuth Google et GitHub (optionnel)
-- **🛡️ `SECURITY_HELPER_GUIDE.md`** - Chiffrement automatique des credentials
-
-**🔧 Documentation technique :**
-- **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
-- **🔐 `SECURITY.md`** - Bonnes pratiques sécurité
-
-### 🛡️ Security Helper - Sécurisation Avancée
 
 SUPRSS inclut maintenant un outil de sécurité intégré pour protéger vos credentials :
 
