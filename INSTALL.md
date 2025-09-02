@@ -263,6 +263,7 @@ Vous devriez voir la page de connexion SUPRSS.
 - **Docker pas démarré** : Ouvrez Docker Desktop
 - **Port occupé** : Quelque chose utilise déjà le port 3000
 - **Permission refusée** : Exécutez en tant qu'administrateur
+- **Bug de création de collection** : ctrl + F5 la page
 
 ### 🔐 Problèmes avec fichier .env chiffré :
 - **Erreur "Fichier .env chiffré détecté mais pas de mot de passe"** : 
