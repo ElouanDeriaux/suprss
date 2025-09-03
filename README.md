@@ -20,14 +20,14 @@ Les fichiers téléchargés en ZIP peuvent causer des problèmes d'encodage avec
 **📚 Documentation complète :** 
 1. **🪟 `WINDOWS_COMPATIBILITY.md`** - Pourquoi Windows uniquement (à lire en premier)
 2. **🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
-3. **👥 `MANUEL_UTILISATEUR.md`** - Guide complet pour les utilisateurs finaux
+3. **👥 `MANUEL_UTILISATEUR.md`** - Guide complet pour les utilisateurs finaux et pour l'évaluation SUPINFO
 
 **📖 Guides de configuration :**
 - **📖 `OAUTH_SETUP_GUIDE.md`** - Configuration OAuth Google et GitHub (optionnel)
 - **🛡️ `SECURITY_HELPER_GUIDE.md`** - Chiffrement automatique des credentials
 
 **🔧 Documentation technique :**
-- **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs
+- **📚 `DOCUMENTATION_TECHNIQUE.md`** - Documentation développeurs et pour l'évaluation SUPINFO
 - **🔐 `SECURITY.md`** - Bonnes pratiques sécurité
 
 > ⚠️ **IMPORTANT - Usage Local Uniquement**
