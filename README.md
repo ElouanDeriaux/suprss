@@ -11,6 +11,8 @@
 **Ce projet doit obligatoirement être récupéré via git clone depuis le dépôt GitHub officiel :**  
 **https://github.com/ElouanDeriaux/suprss**
 
+**Pour bien appréhender le projet, il convient de consulter sa documentation (documentation technique, tutoriel d’installation, etc.). Pour le déployer correctement, il est indispensable de se référer au dépôt indiqué ci-dessus.**  
+
 Les fichiers téléchargés en ZIP peuvent causer des problèmes d'encodage avec les emojis sur Windows. Utilisez uniquement la méthode git clone pour garantir un fonctionnement optimal.
 
 ---
