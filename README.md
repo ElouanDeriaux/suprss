@@ -6,7 +6,16 @@
 ![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)
 ![PowerShell](https://img.shields.io/badge/shell-PowerShell-blue.svg)
 
-**SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes. Vous pouvez consulter le dépôt GitHub à l’adresse suivante pour une expérience optimisée : https://github.com/ElouanDeriaux/suprss
+🚨 **IMPORTANT - Récupérer le projet depuis GitHub** 🚨  
+
+**Ce projet doit obligatoirement être récupéré via git clone depuis le dépôt GitHub officiel :**  
+**https://github.com/ElouanDeriaux/suprss**
+
+Les fichiers téléchargés en ZIP peuvent causer des problèmes d'encodage avec les emojis sur Windows. Utilisez uniquement la méthode git clone pour garantir un fonctionnement optimal.
+
+---
+
+**SUPRSS** est une application web moderne de gestion de flux RSS, **optimisée pour Windows et PowerShell**, conçue pour offrir une expérience utilisateur intuitive et des fonctionnalités avancées de collaboration. Développée avec FastAPI et une interface vanilla JavaScript optimisée, elle propose une alternative complète aux solutions existantes.
 
 **📚 Documentation complète :** 
 1. **🪟 `WINDOWS_COMPATIBILITY.md`** - Pourquoi Windows uniquement (à lire en premier)
@@ -140,42 +149,7 @@ simple-frontend/
 
 Pour avoir le guide détaillé pour installer le projet : 🚀 `INSTALL.md`** - Installation détaillée Windows avec PowerShell
 
-### Méthode 1 : Téléchargement ZIP (Sans Git - Recommandé)
-
-1. **Télécharger le projet**
-   - Aller sur : https://github.com/ElouanDeriaux/suprss
-   - Cliquer sur le bouton vert **"Code"** puis **"Download ZIP"**
-   - Extraire le fichier `suprss-main.zip` dans un dossier
-   - Renommer le dossier `suprss-main` en `suprss`
-
-2. **Configuration SMTP (OBLIGATOIRE)**
-
-⚠️ **CONFIGURATION SMTP OBLIGATOIRE** : SUPRSS nécessite un serveur email configuré pour fonctionner :
-
-- **Créer un email dédié** pour SUPRSS (ex: `suprss.monnom@gmail.com`)
-- **Activer la 2FA** sur ce compte Gmail et générer un **mot de passe d'application** (16 caractères)
-- **Configurer le fichier .env** :
-
-```powershell
-cd suprss
-# Copier le fichier de configuration
-copy .env.example .env
-
-# Éditer .env et ajouter :
-SECRET_KEY="votre-cle-generee"
-SMTP_SERVER="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USERNAME="votre-email-suprss@gmail.com"
-SMTP_PASSWORD="xxxxyyyyzzzzwwww"  # Mot de passe d'APPLICATION Gmail (16 caractères COLLÉS, sans espaces!)
-```
-
-3. **Lancement**
-```powershell
-# Lancer l'application
-start.bat
-```
-
-### Méthode 2 : Avec Git (Pour développeurs)
+### Installation avec Git (Méthode Recommandée)
 
 **Installation de Git pour Windows (si nécessaire) :**
 

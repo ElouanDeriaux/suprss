@@ -2,9 +2,11 @@
 
 > 🪟 **Plateforme Windows uniquement** - Ce guide est spécifiquement conçu pour Windows avec PowerShell
 
+🚨 **IMPORTANT** : Ce projet doit être récupéré uniquement via git clone depuis GitHub pour éviter les problèmes d'encodage des emojis lors du téléchargement ZIP.
+
 ## 📋 Table des matières
 1. [Prérequis Windows](#-prérequis-windows)
-2. [Télécharger SUPRSS](#-télécharger-suprss)
+2. [Cloner SUPRSS avec Git](#-cloner-suprss-avec-git)
 3. [Configuration des emails 2FA](#️-configuration-des-emails-2fa-obligatoire)
 4. [Configuration OAuth](#-configuration-oauth-optionnel---connexion-googleGitHub)
 5. [Sécurité Avancée avec Security Helper](#️-sécurité-avancée-avec-security-helper-recommandé)
@@ -21,22 +23,17 @@
    - **Vérifier l'installation** : `python --version`
 4. **Docker Desktop pour Windows** installé et démarré
    - [Télécharger Docker Desktop pour Windows](https://docs.docker.com/desktop/windows/install/)
+5. **Git pour Windows** (obligatoire)
+   - [Télécharger Git pour Windows](https://git-scm.com/download/win)
 
-## 📥 Télécharger SUPRSS
+## 📥 Cloner SUPRSS avec Git
 
-### Option 1: ZIP (Pas besoin de Git)
-1. Aller sur : https://github.com/ElouanDeriaux/suprss
-2. Cliquer sur **"Code"** (bouton vert)
-3. Cliquer sur **"Download ZIP"**
-4. Extraire le fichier
-5. Renommer le dossier `suprss-main` en `suprss`
+⚠️ **Git est maintenant OBLIGATOIRE** pour récupérer SUPRSS (plus de téléchargement ZIP).
 
-### Option 2: Avec Git
-
-**Installation de Git (si nécessaire) :**
+**Installation de Git :**
 
 ```powershell
-# Installer Git avec winget
+# Installer Git avec winget (recommandé)
 winget install --id Git.Git -e --source winget
 # Redémarrer PowerShell après installation
 ```
@@ -49,11 +46,15 @@ winget install --id Git.Git -e --source winget
    - Exécuter l'installateur et suivre les étapes par défaut
    - Redémarrer PowerShell
 
-**Cloner le projet et déplacement dans le bon dossier :**
+**Cloner le projet SUPRSS :**
 ```powershell
+# Cloner depuis GitHub (SEULE méthode supportée)
 git clone https://github.com/ElouanDeriaux/suprss.git
 cd suprss
 ```
+
+🔍 **Pourquoi Git uniquement ?**  
+Le téléchargement ZIP peut corrompre les caractères emojis dans les fichiers, causant des dysfonctionnements de l'application sur Windows. Git clone préserve parfaitement l'encodage des fichiers.
 
 ## 🔧 Configuration des emails 2FA (OBLIGATOIRE)
 

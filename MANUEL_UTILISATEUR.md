@@ -20,16 +20,21 @@
 
 ## Installation rapide
 
-### Si vous n'avez PAS Git installé (Méthode recommandée)
+🚨 **IMPORTANT** : SUPRSS doit maintenant être récupéré uniquement via git clone depuis GitHub pour éviter les problèmes d'encodage des emojis sur Windows.
 
-1. **Télécharger SUPRSS**
-   - Aller sur : https://github.com/ElouanDeriaux/suprss
-   - Cliquer sur le bouton vert **"Code"** 
-   - Cliquer sur **"Download ZIP"**
-   - Extraire le fichier ZIP téléchargé
-   - Renommer le dossier `suprss-main` en `suprss`
+### Installation avec Git (Seule méthode supportée)
 
-2. **Prérequis : Installer Docker Desktop pour Windows**
+1. **Installer Git pour Windows** (si pas déjà fait)
+   - Télécharger : https://git-scm.com/download/win
+   - Ou avec winget : `winget install --id Git.Git -e --source winget`
+
+2. **Cloner SUPRSS**
+   ```powershell
+   git clone https://github.com/ElouanDeriaux/suprss.git
+   cd suprss
+   ```
+
+3. **Prérequis : Installer Docker Desktop pour Windows**
    - Télécharger : https://docs.docker.com/desktop/windows/install/
    - Installer et démarrer Docker Desktop
 
@@ -65,33 +70,6 @@
    - Ouvrir un navigateur
    - Aller sur : http://localhost:3000
 
-### Si vous avez Git installé
-
-**Installation de Git (si nécessaire) :**
-
-```powershell
-# Méthode recommandée avec winget
-winget install --id Git.Git -e --source winget
-# Redémarrer PowerShell après installation
-
-# Alternative : Téléchargement manuel depuis https://git-scm.com/download/win
-```
-
-
-**Clonage et configuration :**
-```powershell
-git clone https://github.com/ElouanDeriaux/suprss.git
-cd suprss
-
-# IMPORTANT : Configurer SMTP avant le lancement
-copy .env.example .env
-# Éditer .env avec un email dédié pour SUPRSS :
-# SECRET_KEY="votre-cle-generee"
-# SMTP_SERVER="smtp.gmail.com"
-# SMTP_PORT="587"
-# SMTP_USERNAME="votre-email-suprss@gmail.com"
-# SMTP_PASSWORD="xxxxyyyyzzzzwwww"
-```
 
 **Lancement :**
 ```powershell

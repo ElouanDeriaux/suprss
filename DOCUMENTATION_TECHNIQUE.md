@@ -36,7 +36,7 @@
 - **Ports libres** : 3000 (frontend), 8000 (backend), 5432 (base de données)
 - **RAM minimum** : 512 Mo
 - **Espace disque** : 1 Go minimum
-- **Git** (optionnel - alternative ZIP disponible)
+- **Git** (OBLIGATOIRE - seule méthode supportée pour éviter les problèmes d'encodage des emojis)
 
 ### Variables d'environnement nécessaires
 | Variable | Description | Comment l'obtenir | Obligatoire |
@@ -131,14 +131,9 @@ python security_helper.py check-security     # Audit de sécurité
 
 ### Téléchargement du projet
 
-#### Option 1 : ZIP (Sans Git - Pour utilisateurs finaux)
-1. Aller sur https://github.com/ElouanDeriaux/suprss
-2. Cliquer **"Code"** → **"Download ZIP"**
-3. Extraire et renommer le dossier `suprss-main` en `suprss`
+🚨 **IMPORTANT** : Le téléchargement ZIP n'est plus supporté car il cause des problèmes d'encodage des emojis sur Windows.
 
-⚠️ **IMPORTANT** : Vous devez **obligatoirement** configurer un serveur SMTP pour que SUPRSS fonctionne (voir section Configuration ci-dessous).
-
-#### Option 2 : Git Clone (Pour développeurs)
+#### Clonage Git (Seule méthode supportée)
 
 **Installation de Git (si nécessaire) :**
 
